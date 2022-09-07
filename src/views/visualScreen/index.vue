@@ -1,9 +1,10 @@
-<template>
-  <router-view/>
-</template>
-
 <script setup lang="ts">
 </script>
+
+
+<template>
+  <div>home</div>
+</template>
 
 <style scoped>
 .logo {
