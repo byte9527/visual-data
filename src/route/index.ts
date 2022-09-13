@@ -9,26 +9,8 @@ const navRoutes: Array<RouteRecordRaw> = [
       {
         path: 'project',
         name: 'MyProject',
-        component: () => import('@/views/my-project/index.vue'),
-        meta: { title: '我的可视化' },
-      },
-      {
-        path: 'data',
-        name: 'MyData',
-        component: () => import('@/views/my-data/index.vue'),
-        meta: { title: '我的数据' },
-      },
-      {
-        path: 'com',
-        name: 'MyCom',
-        component: () => import('@/views/my-com/index.vue'),
-        meta: { title: '我的组件' },
-      },
-      {
-        path: 'case',
-        name: 'MyCase',
-        component: () => import('@/views/my-case/index.vue'),
-        meta: { title: '教程' },
+        component: () => import('@/views/configFormDemo/index.vue'),
+        meta: { title: '配置面板demo' },
       },
     ],
   },
