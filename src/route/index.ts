@@ -1,35 +1,52 @@
 import { createRouter, createWebHashHistory, RouteRecordRaw } from 'vue-router'
-const navRoutes: Array<RouteRecordRaw> = [
+const routes: Array<RouteRecordRaw> = [
   {
     path: '/',
     name: 'Home',
-    redirect: '/project',
     component: () => import('@/views/home/index.vue'),
-    children: [
-      {
-        path: 'project',
-        name: 'MyProject',
-        component: () => import('@/views/configFormDemo/index.vue'),
-        meta: { title: '配置面板demo' },
-      },
-    ],
+  },
+  {
+    path: '/configForm',
+    name: '配置面板',
+    component: () => import('@/views/configFormDemo/index.vue'),
+    meta: { title: '配置面板demo' },
+  },
+  {
+    path: '/visualScreen',
+    name: '大屏编辑器',
+    component: () => import('@/views/configFormDemo/index.vue'),
+    meta: { title: '大屏编辑器' },
+  },
+  {
+    path: '/visualPage',
+    name: '页面编辑器',
+    component: () => import('@/views/configFormDemo/index.vue'),
+    meta: { title: '页面编辑器' },
+  },
+  {
+    path: '/onlineExcel',
+    name: '在线excel',
+    component: () => import('@/views/configFormDemo/index.vue'),
+    meta: { title: '在线excel' },
   },
 ]
 
-const routes: Array<RouteRecordRaw> = [
-  {
-    path: '/login',
-    name: 'Login',
-    component: () => import('@/views/login/index.vue'),
-    meta: { title: '登录' },
-  }
-]
+
 
 const router = createRouter({
   history: createWebHashHistory(),
   routes,
 })
 
-
+router.beforeEach(async (to, from, next) => {
+  // set page title
+  const defaultTitle = '可视化'
+  if (to.meta && to.meta.title) {
+    document.title = `${defaultTitle} | ${to.meta.title}`
+  } else {
+    document.title = defaultTitle
+  }
+  next()
+})
 
 export default router

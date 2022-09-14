@@ -5,5 +5,5 @@
 <script setup lang="ts">
 </script>
 
-<style scoped>
+<style  scoped>
 </style>
