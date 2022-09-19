@@ -1,36 +1,48 @@
+import mitt, { Emitter } from 'mitt'
 
-import Vue from 'vue'
+let instance: SearchManager;
 
-export interface SearchManager {
-  searchKey: string;
+interface searchManagerProps {
+  key?: string;
 }
 
-export default class SearchManager extends Vue {
-  
+type Events = {
+    [propName: string]: any;
+}
+export class SearchManager {
   searchKey: string;
-  constructor(props: object) {
-    super(props)
-    this.searchKey = ''
+  emitter: Emitter<Events>;
+  constructor(props: searchManagerProps) {
+    this.searchKey = props.key || ''
+    this.emitter = mitt()
+  }
+
+  static getSingleton = function () {
+    if (!instance) {
+      instance = new SearchManager({})
+    }
+    return instance
   }
 
   setSearchKey(key: string) {
     this.searchKey = key
-    this.$emit('startSearch')
+    this.$emit('startSearch', key)
   }
+
+  $on(...args: [string, any]) {
+    this.emitter.on(...args)
+  }
+  $off(...args: [string, any]) {
+    this.emitter.off(...args)
+  }
+  $emit(...args: [string, any]) {
+    this.emitter.emit(...args)
+  }
+
 
   finishProgress() {
     this.searchKey = ''
   }
-}
-
-let instance: SearchManager;
-SearchManager.getSingleton = function() {
-  if (!instance) {
-    instance = new SearchManager()
-    // window.searchSingleton = instance
-    // window.searchSingleton.setSearchKey('')
-  }
-  return instance
 }
 
 export const searchSingleton = SearchManager.getSingleton()

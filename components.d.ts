@@ -7,7 +7,14 @@ export {}
 
 declare module '@vue/runtime-core' {
   export interface GlobalComponents {
+    2: typeof import('./src/components/ConfigForm/controls/CSuite copy 2.vue')['default']
+    CGroup: typeof import('./src/components/ConfigForm/controls/CGroup.vue')['default']
+    CList: typeof import('./src/components/ConfigForm/controls/CList.vue')['default']
+    CMenu: typeof import('./src/components/ConfigForm/controls/CMenu.vue')['default']
     ConfigForm: typeof import('./src/components/ConfigForm/index.vue')['default']
+    ControlWrapper: typeof import('./src/components/ConfigForm/core/ControlWrapper.vue')['default']
+    copy: typeof import('./src/components/ConfigForm/controls/CSuite copy.vue')['default']
+    CSuite: typeof import('./src/components/ConfigForm/controls/CSuite.vue')['default']
     HelloWorld: typeof import('./src/components/HelloWorld.vue')['default']
     RouterLink: typeof import('vue-router')['RouterLink']
     RouterView: typeof import('vue-router')['RouterView']
