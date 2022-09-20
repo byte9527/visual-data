@@ -14,10 +14,10 @@
       <ControlWrapper class="control-item__control-wrap">
         <component
           :is="getComponentName(item.type)"
-          :value="getValueByPath(formValue, item.valuePath, key)"
+          :value="getValueByPath(formValue, item.valuePath, `${key}`)"
           class="control-item__control"
           :key-path="`${keyPath ? keyPath + '.' + key : key}`"
-          :value-path="getValuePath(item.valuePath, '', key)"
+          :value-path="getValuePath(item.valuePath, '', `${key}`)"
           :config-data="item"
         />
       </ControlWrapper>
@@ -26,15 +26,30 @@
 </template>
 
 <script lang="ts">
-import { set, get, isEqual } from "lodash";
+import { defineComponent } from "vue";
+import type { PropType } from 'vue'
+import { set, get, isEqual, merge } from "lodash";
 import ControlWrapper from "./core/ControlWrapper.vue";
 
 import { SearchManager, searchSingleton } from "./core/SearchManager";
 import { getComponentName, showLabelByType } from "./core/controlManager";
 import { configHandle, getRootValueKeys } from "./core/configHandle";
-import defaultOption from "./utils/panelOption";
+import defaultOption from "./utils/option";
 
-export default {
+interface FormSetting {
+  util: object;
+  controls: object
+}
+
+interface anyKeyObject {
+  [propName: string]: any;
+}
+
+interface config {
+  deps: Array<string>;
+}
+
+export default defineComponent({
   components: {
     ControlWrapper,
   },
@@ -71,7 +86,7 @@ export default {
     searchManager: {
       type: SearchManager,
       default() {
-        return null;
+        return searchSingleton;
       },
     },
     updateDeps: {
@@ -91,7 +106,7 @@ export default {
       },
     },
     formSetting: {
-      type: Object,
+      type: Object as PropType<FormSetting>,
       default() {
         return {};
       },
@@ -104,20 +119,20 @@ export default {
       renderData: result.config,
     };
   },
-  provide() {
+  provide()  {
     return {
       formSetting: merge(defaultOption, this.formSetting),
     };
   },
   computed: {
-    mergeUpdateDeps() {
+    mergeUpdateDeps(): Array<string> {
       return Array.from(
         new Set([...this.updateDeps, ...this.computedUpdateDeps])
       );
     },
     formValue() {
       const styleValue = this.value;
-      const filterValue = {};
+      const filterValue:anyKeyObject = {};
       const rootKeys = getRootValueKeys(this.configData);
       rootKeys.forEach((key) => {
         if (styleValue[key]) {
@@ -155,10 +170,11 @@ export default {
     };
   },
   mounted() {
-    this.$on("valueChange", this.setFieldValue);
-    this.$on("message", this.getControlMsg);
+    // this.$on("valueChange", this.setFieldValue);
+    // this.$on("message", this.getControlMsg);
     this.stateValue = this.value;
     this.addWatchers();
+    this.formSetting;
   },
   destroyed() {
     this.$off("valueChange", this.setFieldValue);
@@ -171,22 +187,22 @@ export default {
      * @param {*} payload { type: '', params: {} }
      * @return {*}
      */
-    getControlMsg(payload) {
+    getControlMsg(payload: object) {
       this.$emit("messageDispatch", payload);
     },
-    getValueByPath(value, valuePath = true, key) {
-      if (valuePath.length) {
-        return value[valuePath];
-      } else if (valuePath === false) {
+    getValueByPath(value: any, valuePath: string | true, key: string) {
+      if ((valuePath as string).length) {
+        return value[valuePath as string];
+      } else if (valuePath as boolean === false) {
         return value;
       } else {
         return value[key];
       }
     },
-    getValuePath(valuePath = "", parentPath, key) {
-      if (valuePath.length) {
+    getValuePath(valuePath: string | boolean, parentPath: string, key: string) {
+      if ((valuePath as string).length) {
         return valuePath;
-      } else if (valuePath === false) {
+      } else if (valuePath as boolean === false) {
         return parentPath;
       } else {
         return `${parentPath ? parentPath + "." + key : key}`;
@@ -205,7 +221,7 @@ export default {
       deps.forEach((dep) => {
         this.$watch(
           dep,
-          (newVal, val) => {
+          (newVal: any, val: any) => {
             if (!isEqual(newVal, val)) {
               this.configLinkage();
               this.triggerHook("contextChange", dep, newVal);
@@ -238,12 +254,12 @@ export default {
       watchers.forEach((unwatch) => unwatch());
       this.watchers = [];
     },
-    setMultipleFieldValue(params) {
+    setMultipleFieldValue(params: anyKeyObject) {
       Object.keys(params).forEach((key) => {
         this.setFieldValue(params[key], key);
       });
     },
-    getFieldValue(path) {
+    getFieldValue(path: string) {
       return get(this.stateValue, path);
     },
     setFieldValue(value, valuePath) {
@@ -263,7 +279,7 @@ export default {
     getFormValue() {
       return this.stateValue;
     },
-    checkMatchDeps(str) {
+    checkMatchDeps(str: string) {
       // this.mergeUpdateDeps.includes()
       return this.mergeUpdateDeps.some((item) => {
         const reg = new RegExp(item);
@@ -293,18 +309,18 @@ export default {
         },
         this.util,
         {
-          asyncOperateCallback: (keyPath, data) => {
+          asyncOperateCallback: (keyPath:string, data: object) => {
             set(this.renderData, keyPath, data);
           },
         }
       );
       return newData;
     },
-    showLabel(type) {
+    showLabel(type:string) {
       return showLabelByType(type);
     },
   },
-};
+});
 </script>
 
 <style lang="scss" scoped>

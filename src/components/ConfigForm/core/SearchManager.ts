@@ -7,7 +7,7 @@ interface searchManagerProps {
 }
 
 type Events = {
-    [propName: string]: any;
+  [propName: string]: any
 }
 export class SearchManager {
   searchKey: string;

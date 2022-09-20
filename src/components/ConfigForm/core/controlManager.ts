@@ -9,7 +9,12 @@ export function injectCommonMixin(component) {
   // component.mixins.push(controlMixin)
 }
 
-export const componentDict = {
+type componentDictType = {
+    [propName: string]: Array<string>;
+}
+
+
+export const componentDict:componentDictType = {
   // PanelTree: ['tree'],
 }
 
@@ -30,7 +35,7 @@ export function getComponentName(keyword: string): string {
   }
   keyword = keyword.toLowerCase()
   let componentRealName
-  for (const [key: string, value:Array<string>] of Object.entries(componentDict)) {
+  for (const [key, value] of Object.entries(componentDict)) {
     const lowerValue = value.map((item) => item.toLowerCase())
     if (lowerValue.includes(keyword) || key.toLowerCase() === keyword) {
       componentRealName = key
