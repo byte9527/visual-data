@@ -113,7 +113,7 @@ export default defineComponent({
     },
   },
   data() {
-    const result = this.handleConfig();
+    const result = (this as any).handleConfig();
     return {
       computedUpdateDeps: result.deps,
       renderData: result.config,
@@ -146,7 +146,7 @@ export default defineComponent({
     activeId() {
       // 切换组件后重新加入观察
       this.addWatchers();
-      // this.stateValue = this.value
+      this.stateValue = this.value
     },
     value: {
       handler(newVal) {
@@ -177,8 +177,8 @@ export default defineComponent({
     this.formSetting;
   },
   destroyed() {
-    this.$off("valueChange", this.setFieldValue);
-    this.$off("message", this.getControlMsg);
+    // this.$off("valueChange", this.setFieldValue);
+    // this.$off("message", this.getControlMsg);
   },
   methods: {
     getComponentName,
