@@ -8,6 +8,7 @@ export {}
 declare module '@vue/runtime-core' {
   export interface GlobalComponents {
     2: typeof import('./src/components/ConfigForm/controls/CSuite copy 2.vue')['default']
+    CDefault: typeof import('./src/components/ConfigForm/controls/CDefault.vue')['default']
     CGroup: typeof import('./src/components/ConfigForm/controls/CGroup.vue')['default']
     CList: typeof import('./src/components/ConfigForm/controls/CList.vue')['default']
     CMenu: typeof import('./src/components/ConfigForm/controls/CMenu.vue')['default']

@@ -1,24 +1,38 @@
+import CMenu from '../controls/CMenu.vue'
+import CGroup from '../controls/CGroup.vue'
+import CSuite from '../controls/CSuite.vue'
+import CList from '../controls/CList.vue'
+import CDefault from '../controls/CDefault.vue'
 
-// import PanelSuite from '../PanelSuite'
-
-export const controls = {
-}
-
-export function injectCommonMixin(component) {
-  // component.mixins = component.mixins || []
-  // component.mixins.push(controlMixin)
+export const components = {
+  CMenu,
+  CGroup,
+  CSuite,
+  CList,
+  CDefault
 }
 
 type componentDictType = {
-    [propName: string]: Array<string>;
+  [propName: string]: Array<string>;
 }
 
-
-export const componentDict:componentDictType = {
-  // PanelTree: ['tree'],
+export const componentDict: componentDictType = {
+  CMenu: ['menu'],
+  CGroup: ['group'],
+  CSuite: ['suite'],
+  CList: ['list'],
+  ElInput: ['input'],
+  ElInputNumber: ['input'],
+  ElRadioGroup: ['radio'],
+  ElSelect: ['select'],
+  ElSlider: ['slider'],
+  ElSwitch: ['switch'],
+  ElColorPicker: ['color'],
+  ElCheckbox: ['checkbox'],
+  CDefault: ['default'],
 }
 
-export function showLabelByType(type:string) {
+export function showLabelByType(type: string) {
   const arr = ['group', 'menu', 'tabs']
   return !arr.includes(type)
 }
@@ -28,7 +42,7 @@ export function showLabelByType(type:string) {
  * @param {*} keyword
  * @return {*}
  */
-export function getComponentName(keyword: string): string {
+export function getComponentTag(keyword: string): string {
   if (!keyword) {
     console.trace()
     return 'PanelDefault'
@@ -41,5 +55,5 @@ export function getComponentName(keyword: string): string {
       componentRealName = key
     }
   }
-  return componentRealName || 'PanelDefault'
+  return componentRealName || 'CDefault'
 }

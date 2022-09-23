@@ -7,7 +7,7 @@
 import { defineComponent } from 'vue'
 
 export default defineComponent({
-  name: 'ConfigFormDemo',
+  name: 'CSuite',
   props: {
   },
   setup(props) {

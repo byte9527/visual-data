@@ -1,12 +1,15 @@
 <template>
   <div>
-    <ConfigForm />
+    <ConfigForm 
+      :config-data="config"
+    />
   </div>
 </template>
 
-<script lang="ts">
+<script lang="js">
 import { defineComponent } from 'vue'
 import ConfigForm from '@/components/ConfigForm/index.vue'
+import config from './config'
 
 export default defineComponent({
   name: 'ConfigFormDemo',
@@ -14,6 +17,11 @@ export default defineComponent({
     ConfigForm
   },  
   props: {
+  },
+  data() {
+    return {
+      config: config.option
+    }
   },
   setup(props) {
   },

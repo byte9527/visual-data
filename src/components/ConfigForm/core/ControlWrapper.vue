@@ -1,46 +1,45 @@
 <template>
-  <div>
-    <slot/>
-  </div>
+  <component
+    :is="componentType"
+    v-bind="componentProps"
+    :value="state.value"
+    @change="valueChange"
+  ></component>
 </template>
 
-<script lang="ts">
-import { defineComponent } from 'vue'
+<script lang="ts" setup>
+import { reactive, computed } from "vue";
+import { getComponentTag } from "../core/controlManager";
 
+const props = defineProps({
+  valuePath: {
+    type: String,
+    default: "",
+  },
+  configData: {
+    type: Object,
+    default() {
+      return {};
+    },
+  },
+});
 
-export default defineComponent({
-  name: 'ControlWrapper',
-  props: {
-    configData: {
-      type: Object,
-      default() {
-        return {}
-      }
-    },
-    value: {},
-    keyPath: {
-      type: String,
-      default: ''
-    },
-    valuePath: {
-      type: String,
-      default: ''
-    }
-  },
-  inject: ['eventBus', 'searchInstance'],
-  mounted() {
-  },
-  destroyed() {
-  },
-  methods: {
-    initSearcher() {
-      
-    },
-    responseSearch() {
-     
-    },
-  }
+const componentType = getComponentTag(props.configData.type);
+
+const componentProps = computed(() => {
+  const { showInPanel, type, ...rest } = props.configData;
+  return rest;
+});
+
+const state = reactive({
+  value: ''
 })
+
+const valueChange = () => {};
+
+const initSearcher = () => {};
+
+const responseSearch = () => {};
 
 </script>
 

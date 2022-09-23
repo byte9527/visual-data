@@ -1,7 +1,7 @@
 <template>
   <div class="panel-group panel-group--noHeader config-form">
     <div
-      v-for="(item, key) in renderData"
+      v-for="item in renderData"
       v-show="item.showInPanel !== false"
       :key="item.id"
       class="control-item"
@@ -11,42 +11,29 @@
         class="control-item__label"
         >{{ item.name }}</label
       >
-      <ControlWrapper class="control-item__control-wrap">
-        <component
-          :is="getComponentName(item.type)"
-          :value="getValueByPath(formValue, item.valuePath, `${key}`)"
-          class="control-item__control"
-          :key-path="`${keyPath ? keyPath + '.' + key : key}`"
-          :value-path="getValuePath(item.valuePath, '', `${key}`)"
-          :config-data="item"
-        />
-      </ControlWrapper>
+      <ControlWrapper :configData="item"> </ControlWrapper>
     </div>
   </div>
 </template>
 
 <script lang="ts">
 import { defineComponent } from "vue";
-import type { PropType } from 'vue'
+import type { PropType } from "vue";
 import { set, get, isEqual, merge } from "lodash";
 import ControlWrapper from "./core/ControlWrapper.vue";
 
 import { SearchManager, searchSingleton } from "./core/SearchManager";
-import { getComponentName, showLabelByType } from "./core/controlManager";
+import { getComponentTag, showLabelByType } from "./core/controlManager";
 import { configHandle, getRootValueKeys } from "./core/configHandle";
 import defaultOption from "./utils/option";
 
 interface FormSetting {
   util: object;
-  controls: object
+  controls: object;
 }
 
 interface anyKeyObject {
   [propName: string]: any;
-}
-
-interface config {
-  deps: Array<string>;
 }
 
 export default defineComponent({
@@ -56,7 +43,7 @@ export default defineComponent({
   mixins: [],
   props: {
     configData: {
-      type: Object,
+      type: Object as PropType<anyKeyObject>,
       default() {
         return {};
       },
@@ -119,7 +106,7 @@ export default defineComponent({
       renderData: result.config,
     };
   },
-  provide()  {
+  provide() {
     return {
       formSetting: merge(defaultOption, this.formSetting),
     };
@@ -132,7 +119,7 @@ export default defineComponent({
     },
     formValue() {
       const styleValue = this.value;
-      const filterValue:anyKeyObject = {};
+      const filterValue: anyKeyObject = {};
       const rootKeys = getRootValueKeys(this.configData);
       rootKeys.forEach((key) => {
         if (styleValue[key]) {
@@ -146,11 +133,11 @@ export default defineComponent({
     activeId() {
       // 切换组件后重新加入观察
       this.addWatchers();
-      this.stateValue = this.value
+      (this as any).stateValue = this.value;
     },
     value: {
       handler(newVal) {
-        this.stateValue = JSON.parse(JSON.stringify(newVal));
+        (this as any).stateValue = JSON.parse(JSON.stringify(newVal));
       },
       deep: true,
     },
@@ -172,7 +159,7 @@ export default defineComponent({
   mounted() {
     // this.$on("valueChange", this.setFieldValue);
     // this.$on("message", this.getControlMsg);
-    this.stateValue = this.value;
+    (this as any).stateValue = this.value;
     this.addWatchers();
     this.formSetting;
   },
@@ -181,7 +168,7 @@ export default defineComponent({
     // this.$off("message", this.getControlMsg);
   },
   methods: {
-    getComponentName,
+    getComponentTag,
     /**
      * @description: 获取来自控件发送的消息，并透传给外部
      * @param {*} payload { type: '', params: {} }
@@ -193,7 +180,7 @@ export default defineComponent({
     getValueByPath(value: any, valuePath: string | true, key: string) {
       if ((valuePath as string).length) {
         return value[valuePath as string];
-      } else if (valuePath as boolean === false) {
+      } else if ((valuePath as boolean) === false) {
         return value;
       } else {
         return value[key];
@@ -202,7 +189,7 @@ export default defineComponent({
     getValuePath(valuePath: string | boolean, parentPath: string, key: string) {
       if ((valuePath as string).length) {
         return valuePath;
-      } else if (valuePath as boolean === false) {
+      } else if ((valuePath as boolean) === false) {
         return parentPath;
       } else {
         return `${parentPath ? parentPath + "." + key : key}`;
@@ -231,7 +218,7 @@ export default defineComponent({
         );
       });
     },
-    triggerHook(...args) {
+    triggerHook(...args: any[]) {
       const [name, ...params] = args;
       const cb = this.hooks[name];
       if (cb) {
@@ -251,8 +238,8 @@ export default defineComponent({
     },
     deleteWatchers() {
       const watchers = this.watchers || [];
-      watchers.forEach((unwatch) => unwatch());
-      this.watchers = [];
+      (watchers as Array<any>).forEach((unwatch) => unwatch());
+      (this as any).watchers = [];
     },
     setMultipleFieldValue(params: anyKeyObject) {
       Object.keys(params).forEach((key) => {
@@ -305,18 +292,18 @@ export default defineComponent({
         this.configData,
         {
           form: data,
-          ...this.context,
+          ...(this as any).context,
         },
         this.util,
         {
-          asyncOperateCallback: (keyPath:string, data: object) => {
+          asyncOperateCallback: (keyPath: string, data: object) => {
             set(this.renderData, keyPath, data);
           },
         }
       );
       return newData;
     },
-    showLabel(type:string) {
+    showLabel(type: string) {
       return showLabelByType(type);
     },
   },
