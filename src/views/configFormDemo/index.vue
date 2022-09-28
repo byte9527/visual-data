@@ -1,7 +1,8 @@
 <template>
   <div>
     <ConfigForm 
-      :config-data="config"
+      :config-data="config.dataConfig"
+      :hooks="config.hooks"
     />
   </div>
 </template>
@@ -20,7 +21,7 @@ export default defineComponent({
   },
   data() {
     return {
-      config: config.option
+      config: config
     }
   },
   setup(props) {

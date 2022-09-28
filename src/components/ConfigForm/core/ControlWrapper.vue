@@ -1,10 +1,17 @@
 <template>
-  <component
-    :is="componentType"
-    v-bind="componentProps"
-    :value="state.value"
-    @change="valueChange"
-  ></component>
+  <div class="control-wrapper">
+    <span class="control-title" v-show="configData.showInPanel !== false">
+      {{ configData.name }}
+    </span>
+    <div class="control-content">
+      <component
+      :is="componentType"
+      v-bind="componentProps"
+      :value="state.value"
+      @change="valueChange"
+    ></component>
+    </div>
+  </div>
 </template>
 
 <script lang="ts" setup>
@@ -32,15 +39,14 @@ const componentProps = computed(() => {
 });
 
 const state = reactive({
-  value: ''
-})
+  value: "",
+});
 
 const valueChange = () => {};
 
 const initSearcher = () => {};
 
 const responseSearch = () => {};
-
 </script>
 
 <style lang='scss' scoped>

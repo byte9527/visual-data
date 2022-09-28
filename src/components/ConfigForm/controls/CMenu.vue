@@ -20,9 +20,9 @@
         class="c-menu__indicator"
         :style="{
           transition: 'transform 0.2s ease-in-out',
-          transform: indicatorTranslate
+          transform: indicatorTranslate,
         }"
-      >
+      ></div>
     </div>
 
     <div class="c-menu__content">
@@ -57,8 +57,8 @@ const props = defineProps({
 });
 
 const state = reactive({
-  activeKey: ''
-})
+  activeKey: "",
+});
 
 const adjustChildren = computed(() => {
   const cloneConfig = cloneDeep(props.children);
@@ -75,13 +75,12 @@ const adjustChildren = computed(() => {
 });
 
 const menuClasses = computed(() => {
-  return []
-})
+  return [];
+});
 
 const indicatorTranslate = computed(() => {
-  return ''
-})
-
+  return "";
+});
 </script>
 
 <style lang='scss' scoped>

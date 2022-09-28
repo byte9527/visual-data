@@ -1,23 +1,15 @@
 <template>
-  <div class="panel-group panel-group--noHeader config-form">
-    <div
-      v-for="item in renderData"
-      v-show="item.showInPanel !== false"
-      :key="item.id"
-      class="control-item"
-    >
-      <label
-        v-show="item.name && showLabel(item.type)"
-        class="control-item__label"
-        >{{ item.name }}</label
-      >
-      <ControlWrapper :configData="item"> </ControlWrapper>
-    </div>
+  <div class="config-form">
+    <ControlWrapper
+      v-for="(item, key) in renderData"
+      :key="key"
+      :config-data="item"
+    />
   </div>
 </template>
 
 <script lang="ts">
-import { defineComponent } from "vue";
+import { defineComponent, toRaw } from "vue";
 import type { PropType } from "vue";
 import { set, get, isEqual, merge } from "lodash";
 import ControlWrapper from "./core/ControlWrapper.vue";
@@ -32,8 +24,17 @@ interface FormSetting {
   controls: object;
 }
 
-interface anyKeyObject {
+interface AnyKeyObject {
   [propName: string]: any;
+}
+
+interface ControlNode {
+  type: string;
+  props?: AnyKeyObject;
+  name?: string;
+  children: {
+    [propName: string]: ControlNode;
+  };
 }
 
 export default defineComponent({
@@ -43,7 +44,7 @@ export default defineComponent({
   mixins: [],
   props: {
     configData: {
-      type: Object as PropType<anyKeyObject>,
+      type: Object as PropType<ControlNode>,
       default() {
         return {};
       },
@@ -119,7 +120,7 @@ export default defineComponent({
     },
     formValue() {
       const styleValue = this.value;
-      const filterValue: anyKeyObject = {};
+      const filterValue: AnyKeyObject = {};
       const rootKeys = getRootValueKeys(this.configData);
       rootKeys.forEach((key) => {
         if (styleValue[key]) {
@@ -241,7 +242,7 @@ export default defineComponent({
       (watchers as Array<any>).forEach((unwatch) => unwatch());
       (this as any).watchers = [];
     },
-    setMultipleFieldValue(params: anyKeyObject) {
+    setMultipleFieldValue(params: AnyKeyObject) {
       Object.keys(params).forEach((key) => {
         this.setFieldValue(params[key], key);
       });
@@ -288,8 +289,9 @@ export default defineComponent({
     },
     handleConfig() {
       const data = this.stateValue || this.value;
+
       const newData = configHandle(
-        this.configData,
+        toRaw(this.configData),
         {
           form: data,
           ...(this as any).context,
