@@ -15,6 +15,7 @@ declare module '@vue/runtime-core' {
     ConfigForm: typeof import('./src/components/ConfigForm/index.vue')['default']
     ControlWrapper: typeof import('./src/components/ConfigForm/core/ControlWrapper.vue')['default']
     copy: typeof import('./src/components/ConfigForm/controls/CSuite copy.vue')['default']
+    CSelect: typeof import('./src/components/ConfigForm/controls/CSelect.vue')['default']
     CSuite: typeof import('./src/components/ConfigForm/controls/CSuite.vue')['default']
     HelloWorld: typeof import('./src/components/HelloWorld.vue')['default']
     RouterLink: typeof import('vue-router')['RouterLink']

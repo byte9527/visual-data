@@ -5,7 +5,7 @@
     </span>
     <div class="control-content">
       <component
-      :is="componentType"
+      :is="componentDefine"
       v-bind="componentProps"
       :value="state.value"
       @change="valueChange"
@@ -16,7 +16,7 @@
 
 <script lang="ts" setup>
 import { reactive, computed } from "vue";
-import { getComponentTag } from "../core/controlManager";
+import { getComponent } from "../core/controlManager";
 
 const props = defineProps({
   valuePath: {
@@ -31,7 +31,7 @@ const props = defineProps({
   },
 });
 
-const componentType = getComponentTag(props.configData.type);
+const componentDefine = getComponent(props.configData.type);
 
 const componentProps = computed(() => {
   const { showInPanel, type, ...rest } = props.configData;

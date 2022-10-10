@@ -12,22 +12,19 @@
             }"
             @click="state.activeKey = key"
           >
-            <p class="header-item-name">{{ item._tabName }}</p>
+            <p class="header-item-name">{{ item.name }}</p>
           </div>
         </div>
       </div>
-      <div
-        class="c-menu__indicator"
-        :style="{
-          transition: 'transform 0.2s ease-in-out',
-          transform: indicatorTranslate,
-        }"
-      ></div>
     </div>
 
     <div class="c-menu__content">
       <keep-alive>
-        <ControlWrapper class="control-wrap"> </ControlWrapper>
+        <ControlWrapper
+          v-for="(item, key) in activeComponents"
+          class="control-wrap"
+          :key="key"
+        ></ControlWrapper>
       </keep-alive>
     </div>
   </div>
@@ -52,7 +49,7 @@ const props = defineProps({
   },
   layout: {
     type: String,
-    default: "horizontal",
+    default: "vertical",
   },
 });
 
@@ -69,21 +66,51 @@ const adjustChildren = computed(() => {
         hideHeader: true,
       };
     }
-    value._tabName = value.name || value.props?.title || "";
   });
   return cloneConfig;
 });
 
-const menuClasses = computed(() => {
-  return [];
+const activeComponents = computed(() => {
+  const r = adjustChildren.value[state.activeKey];
+  return r;
 });
 
-const indicatorTranslate = computed(() => {
-  return "";
+const menuClasses = computed(() => {
+  return [
+    "c-menu",
+    props.layout === "vertical" ? "c-menu--vertical" : "c-menu--horizontal",
+  ];
+});
+
+const contentChild = computed(() => {
+  return state.activeKey;
 });
 </script>
 
 <style lang='scss' scoped>
+$textColor: #fff;
+$activeBg: #0046ff;
 .c-menu {
+  display: flex;
+  color: $textColor;
+
+  &--horizontal {
+    flex-direction: column;
+  }
+
+  &--vertical {
+    flex-direction: row;
+    .header-item {
+      padding: 16px 0;
+
+      &--active {
+        background: $activeBg;
+      }
+    }
+
+    .header-item-name {
+      writing-mode: tb;
+    }
+  }
 }
 </style>

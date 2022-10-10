@@ -22,7 +22,7 @@ export const componentDict: componentDictType = {
   CSuite: ['suite'],
   CList: ['list'],
   ElInput: ['input'],
-  ElInputNumber: ['input'],
+  ElInputNumber: ['number'],
   ElRadioGroup: ['radio'],
   ElSelect: ['select'],
   ElSlider: ['slider'],
@@ -42,18 +42,18 @@ export function showLabelByType(type: string) {
  * @param {*} keyword
  * @return {*}
  */
-export function getComponentTag(keyword: string): string {
+export function getComponent(keyword: string) {
   if (!keyword) {
-    console.trace()
-    return 'PanelDefault'
+    return CDefault;
   }
   keyword = keyword.toLowerCase()
-  let componentRealName
+  let component;
   for (const [key, value] of Object.entries(componentDict)) {
     const lowerValue = value.map((item) => item.toLowerCase())
     if (lowerValue.includes(keyword) || key.toLowerCase() === keyword) {
-      componentRealName = key
+      component = components[key]
     }
   }
-  return componentRealName || 'CDefault'
+  return component || CDefault
 }
+

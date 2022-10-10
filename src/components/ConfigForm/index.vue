@@ -15,7 +15,7 @@ import { set, get, isEqual, merge } from "lodash";
 import ControlWrapper from "./core/ControlWrapper.vue";
 
 import { SearchManager, searchSingleton } from "./core/SearchManager";
-import { getComponentTag, showLabelByType } from "./core/controlManager";
+import {  showLabelByType } from "./core/controlManager";
 import { configHandle, getRootValueKeys } from "./core/configHandle";
 import defaultOption from "./utils/option";
 
@@ -151,8 +151,7 @@ export default defineComponent({
   },
   provide() {
     return {
-      eventBus: this,
-      getContext: () => {
+      root: () => {
         return this.context;
       },
     };
@@ -169,7 +168,6 @@ export default defineComponent({
     // this.$off("message", this.getControlMsg);
   },
   methods: {
-    getComponentTag,
     /**
      * @description: 获取来自控件发送的消息，并透传给外部
      * @param {*} payload { type: '', params: {} }
@@ -314,7 +312,6 @@ export default defineComponent({
 
 <style lang="scss" scoped>
 $bg_color: #151a25;
-$focus_border_color: #409eff;
 
 .config-form {
   background: #1f2839;
