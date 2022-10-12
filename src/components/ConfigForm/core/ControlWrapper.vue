@@ -25,6 +25,7 @@ const props = defineProps({
   },
   configData: {
     type: Object,
+    required: true,
     default() {
       return {};
     },

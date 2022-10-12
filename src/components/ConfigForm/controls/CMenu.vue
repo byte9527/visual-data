@@ -23,6 +23,7 @@
         <ControlWrapper
           v-for="(item, key) in activeComponents"
           class="control-wrap"
+          :config-data="item"
           :key="key"
         ></ControlWrapper>
       </keep-alive>
@@ -62,9 +63,9 @@ const adjustChildren = computed(() => {
   Object.values(cloneConfig).forEach((value) => {
     if (!value.type) {
       value.type = "group";
-      value.props = {
-        hideHeader: true,
-      };
+    }
+    if (value.type === 'group') {
+      value.props = Object.assign({}, value.props || {}, {hideHeader: true,})
     }
   });
   return cloneConfig;
@@ -82,9 +83,6 @@ const menuClasses = computed(() => {
   ];
 });
 
-const contentChild = computed(() => {
-  return state.activeKey;
-});
 </script>
 
 <style lang='scss' scoped>

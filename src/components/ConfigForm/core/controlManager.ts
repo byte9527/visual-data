@@ -1,15 +1,17 @@
+import CDefault from '../controls/CDefault.vue'
 import CMenu from '../controls/CMenu.vue'
 import CGroup from '../controls/CGroup.vue'
 import CSuite from '../controls/CSuite.vue'
 import CList from '../controls/CList.vue'
-import CDefault from '../controls/CDefault.vue'
+import CSelect from '../controls/CSelect.vue'
 
 export const components = {
   CMenu,
   CGroup,
   CSuite,
   CList,
-  CDefault
+  CDefault,
+  CSelect
 }
 
 type componentDictType = {
@@ -21,15 +23,15 @@ export const componentDict: componentDictType = {
   CGroup: ['group'],
   CSuite: ['suite'],
   CList: ['list'],
+  CSelect: ['select'],
   ElInput: ['input'],
   ElInputNumber: ['number'],
   ElRadioGroup: ['radio'],
-  ElSelect: ['select'],
   ElSlider: ['slider'],
   ElSwitch: ['switch'],
   ElColorPicker: ['color'],
   ElCheckbox: ['checkbox'],
-  CDefault: ['default'],
+  CDefault: ['default']
 }
 
 export function showLabelByType(type: string) {

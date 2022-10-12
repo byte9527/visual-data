@@ -7,7 +7,7 @@ export default {
           name: '分组',
           type: 'group',
           props: {
-            
+            hideHeader: true
           },
           children: {
             text: {
@@ -31,13 +31,14 @@ export default {
               type: 'group',
               name: 'group_2',
               children: {
-                switch: {
+                select: {
                   name: '下拉选择',
                   type: 'select',
                   props: {
+                    size: 'small',
                     options: [
-                      {label: '', value: ''},
-                      {label: '', value: ''},
+                      {label: 'label1', value: '1'},
+                      {label: 'label2', value: '2'},
                     ]
                   }
                 },

@@ -17,6 +17,8 @@ declare module '@vue/runtime-core' {
     copy: typeof import('./src/components/ConfigForm/controls/CSuite copy.vue')['default']
     CSelect: typeof import('./src/components/ConfigForm/controls/CSelect.vue')['default']
     CSuite: typeof import('./src/components/ConfigForm/controls/CSuite.vue')['default']
+    ElOption: typeof import('element-plus/es')['ElOption']
+    ElSelect: typeof import('element-plus/es')['ElSelect']
     HelloWorld: typeof import('./src/components/HelloWorld.vue')['default']
     RouterLink: typeof import('vue-router')['RouterLink']
     RouterView: typeof import('vue-router')['RouterView']
