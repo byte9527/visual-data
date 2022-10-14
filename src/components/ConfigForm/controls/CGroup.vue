@@ -1,30 +1,27 @@
 <template>
   <div class="c-group" :class="{ 'c-group--noHeader': hideHeader }">
     <el-collapse v-if="!hideHeader">
-      <el-collapse-item :title="title" name="1">
-        <div
-          v-for="(item, key) in children"
-          v-show="item.showInPanel !== false"
-          :key="key"
-          class="control-item control-item-el-collapse"
-        >
-          <span
-            v-show="item.name"
-            :class="[
-              'control-item__label',
-              item.name.length > 4 ? 'label-wrap' : '',
-            ]"
-            >{{ item.name }}</span
-          >
-          <div class="control-item__control-wrap">
-            <ControlWrapper
-              v-for="(item, key) in children"
-              class="control-wrap"
-              :config-data="item"
-              :key="key"
-            ></ControlWrapper>
+      <el-collapse-item :title="name" name="1">
+        <template slot="title">
+          <div>
+            <el-switch
+              v-if="enableHide"
+              v-model="value.show"
+              size="mini"
+              active-text=""
+              inactive-text=""
+              style="margin-right: 1px"
+              class="el-switch--nano"
+            />
+            <span>{{ name }}</span>
           </div>
-        </div>
+        </template>
+        <ControlWrapper
+          v-for="(item, key) in children"
+          class="control-wrap"
+          :config-data="item"
+          :key="key"
+        ></ControlWrapper>
       </el-collapse-item>
     </el-collapse>
   </div>
@@ -36,6 +33,7 @@ const props = defineProps({
     type: Object,
     default() {
       return {};
+
     },
   },
   children: {
@@ -48,12 +46,29 @@ const props = defineProps({
     type: Boolean,
     default: false,
   },
-  title: {
+  name: {
     type: String,
     default: "",
   },
+  valuePath: {
+    type: [String, Boolean],
+    default: "",
+  },
+  enableHide: {
+    type: Boolean,
+    default: false
+  }
 });
 </script>
 
-<style lang='scss' scoped>
+<style lang='scss'>
+  .c-group {
+    width: 100%;
+    .control-wrapper {
+      margin-bottom: 8px;
+    }
+    .el-collapse-item__content {
+      padding-bottom: unset;
+    }
+  }
 </style>

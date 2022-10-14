@@ -22,7 +22,6 @@
       <keep-alive>
         <ControlWrapper
           v-for="(item, key) in activeComponents"
-          class="control-wrap"
           :config-data="item"
           :key="key"
         ></ControlWrapper>
@@ -33,7 +32,7 @@
 
 <script lang="ts" setup>
 import { cloneDeep } from "lodash-es";
-import { computed, reactive } from "vue";
+import { computed, reactive, toRaw } from "vue";
 
 const props = defineProps({
   value: {
@@ -48,14 +47,20 @@ const props = defineProps({
       return {};
     },
   },
+  valuePath: {
+    type: String,
+    default: ''
+  },
   layout: {
     type: String,
     default: "vertical",
   },
 });
 
+
+
 const state = reactive({
-  activeKey: "",
+  activeKey: Object.keys(toRaw(props.children))[0]
 });
 
 const adjustChildren = computed(() => {
@@ -73,7 +78,7 @@ const adjustChildren = computed(() => {
 
 const activeComponents = computed(() => {
   const r = adjustChildren.value[state.activeKey];
-  return r;
+  return r.children;
 });
 
 const menuClasses = computed(() => {
@@ -90,19 +95,45 @@ $textColor: #fff;
 $activeBg: #0046ff;
 .c-menu {
   display: flex;
-  color: $textColor;
+
+  .header-item {
+    display: flex;
+      align-items: center;
+      justify-content: center;
+  }
 
   &--horizontal {
     flex-direction: column;
+
+    .c-menu__header {
+      height: 40px;
+    }
+    .header-item {
+      padding: 0 8px;
+      
+      &--active {
+        background: $activeBg;
+      }
+    }
   }
 
   &--vertical {
     flex-direction: row;
+
+    .c-menu__header {
+      width: 40px;
+    }
     .header-item {
       padding: 16px 0;
-
+      
       &--active {
         background: $activeBg;
+      }
+    }
+
+    .c-menu__content {
+      .control-wrapper {
+        margin-bottom: 8px;
       }
     }
 

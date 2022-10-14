@@ -3,51 +3,58 @@ export default {
     option: {
       type: 'menu',
       children: {
-        group: {
-          name: '分组',
+        tooltip: {
+          name: '提示框',
           type: 'group',
           props: {
-            hideHeader: true
+            hideHeader: true,
+            enableHide: true
           },
           children: {
-            text: {
-              type: 'input',
+            show: {
+              type: 'switch',
+              name: '是否显示'
             },
-            group_1: {
-              type: 'group',
-              name: 'group_1',
-              children: {
-                switch: {
-                  name: '开关',
-                  type: 'switch'
-                },
-                slider: {
-                  name: '滑块',
-                  type: 'slider'
-                }
+            padding: {
+              type: 'slider',
+              name: '内边距'
+            },
+            extraCssText: {
+              type: 'input',
+              name: '额外样式'
+            },
+            triggerOn: {
+              type: 'select',
+              name: '触发方式',
+              props: {
+                options: [
+                  { label: '悬浮', value: 'mousemove' },
+                  { label: '点击', value: 'click' },
+                ]
               }
             },
-            group_2: {
+            textStyle: {
               type: 'group',
-              name: 'group_2',
+              name: '文本样式',
               children: {
-                select: {
-                  name: '下拉选择',
-                  type: 'select',
-                  props: {
-                    size: 'small',
-                    options: [
-                      {label: 'label1', value: '1'},
-                      {label: 'label2', value: '2'},
-                    ]
-                  }
+                color: {
+                  name: '颜色',
+                  type: 'color'
                 },
+                fontSize: {
+                  name: '大小',
+                  type: 'number',
+                  props: {
+                    min: 12,
+                    max: 100
+                  }
+                }
               }
             },
           },
         },
-        secondaryMenu: {
-          name: '二级菜单',
+        axis: {
+          name: '轴信息',
           type: 'menu',
           props: {
             layout: 'horizontal'
@@ -68,16 +75,32 @@ export default {
               },
             }
           },
-          
+
         },
         // list: {
         // },
-        
+
       }
-    
+
+    }
+  },
+  initValue: {
+    option: {
+      tooltip: {
+        show: true,
+        padding: 6,
+        triggerOn: 'mousemove',
+        textStyle: {
+          fontSize: 12
+        }
+      },
+      xAxis: {
+      },
+      yAxis: {
+      }
     }
   },
   hooks: {
-    
+
   }
 }

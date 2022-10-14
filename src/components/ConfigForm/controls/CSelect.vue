@@ -1,5 +1,5 @@
 <template>
-  <el-select v-bind="selectProps">
+  <el-select v-bind="selectProps" :model-value="value">
     <el-option
       v-for="item in options"
       :key="item.value"
@@ -10,27 +10,27 @@
 </template>
 
 <script lang="ts" setup>
-import { computed } from "vue-demi";
+import { computed, useAttrs  } from "vue";
 
 const props = defineProps({
   value: {
-    type: Object,
-    default() {
-      return {};
-    },
+    type: [String, Number, Array, Boolean, Object],
   },
   options: {
     type: Object,
     default() {
-      return {};
+      return {};  
     },
   },
 });
 
+const attrs = useAttrs()
+
 const selectProps = computed(() => {
-  const { options, ...rest } = props;
+  const { options, ...rest } = attrs;
   return rest;
 });
+
 </script>
 
 <style lang='scss' scoped>

@@ -1,21 +1,20 @@
-
 <template>
-  <div class="c-list">
-  </div>
+  <div class="c-list"></div>
 </template>
 
 <script lang="ts">
-import { defineComponent } from 'vue'
+import { defineComponent } from "vue";
 
 export default defineComponent({
-  name: 'CList',
+  name: "CList",
   props: {
+    valuePath: {
+      type: [String, Boolean],
+      default: "",
+    },
   },
-  setup(props) {
-  },
-})
-
+  setup(props) {},
+});
 </script>
 
-<style lang='scss' scoped>
-</style>
+<style lang="scss" scoped></style>

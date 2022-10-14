@@ -78,7 +78,7 @@ export default defineComponent({
       },
     },
     updateDeps: {
-      type: Array,
+    type: Array,
       default() {
         return [];
       },
@@ -105,11 +105,6 @@ export default defineComponent({
     return {
       computedUpdateDeps: result.deps,
       renderData: result.config,
-    };
-  },
-  provide() {
-    return {
-      formSetting: merge(defaultOption, this.formSetting),
     };
   },
   computed: {
@@ -151,9 +146,7 @@ export default defineComponent({
   },
   provide() {
     return {
-      root: () => {
-        return this.context;
-      },
+      formSetting: merge(defaultOption, this.formSetting),
     };
   },
   mounted() {
@@ -311,25 +304,8 @@ export default defineComponent({
 </script>
 
 <style lang="scss" scoped>
-$bg_color: #151a25;
-
 .config-form {
-  background: #1f2839;
-  flex: 1;
-  .control-item {
-    padding: 0;
-    height: auto;
-    .control-item__control-wrap {
-      margin: 0;
-      .control-item__control {
-        height: 100%;
-      }
-    }
-  }
-  ::v-deep {
-    .el-input__icon {
-      width: inherit;
-    }
-  }
+  color: black;
+  width: 320px;
 }
 </style>
