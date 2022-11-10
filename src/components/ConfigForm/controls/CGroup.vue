@@ -21,6 +21,7 @@
           class="control-wrap"
           :config-data="item"
           :key="key"
+          :value-path="getValuePath(key)"
         ></ControlWrapper>
       </el-collapse-item>
     </el-collapse>
@@ -28,6 +29,7 @@
 </template>
 
 <script lang="ts" setup>
+
 const props = defineProps({
   value: {
     type: Object,
@@ -46,6 +48,10 @@ const props = defineProps({
     type: Boolean,
     default: false,
   },
+  layout: {
+    type: String,
+    default: ""
+  },
   name: {
     type: String,
     default: "",
@@ -59,6 +65,13 @@ const props = defineProps({
     default: false
   }
 });
+
+const getValuePath = (key) => {
+  if (props.valuePath) {
+    return ''
+  }
+}
+
 </script>
 
 <style lang='scss'>

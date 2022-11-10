@@ -3,6 +3,7 @@
     <ControlWrapper
       v-for="(item, key) in renderData"
       :key="key"
+      :value-path="`${key}`"
       :config-data="item"
     />
   </div>
@@ -147,6 +148,7 @@ export default defineComponent({
   provide() {
     return {
       formSetting: merge(defaultOption, this.formSetting),
+      rootForm: this
     };
   },
   mounted() {
@@ -161,6 +163,9 @@ export default defineComponent({
     // this.$off("message", this.getControlMsg);
   },
   methods: {
+    fieldChange(path, value) {
+    
+    },
     /**
      * @description: 获取来自控件发送的消息，并透传给外部
      * @param {*} payload { type: '', params: {} }

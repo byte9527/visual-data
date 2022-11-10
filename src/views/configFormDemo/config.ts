@@ -15,6 +15,16 @@ export default {
               type: 'switch',
               name: '是否显示'
             },
+            showContent: {
+              type: 'radio',
+              name: '提示框浮层',
+              props: {
+                options: [
+                  {label: '是', value: true},
+                  {label: '否', value: false},
+                ]
+              }
+            },
             padding: {
               type: 'slider',
               name: '内边距'
@@ -31,6 +41,7 @@ export default {
                   { label: '悬浮', value: 'mousemove' },
                   { label: '点击', value: 'click' },
                 ]
+                // options: "${util.getOptions(context.data)}"
               }
             },
             textStyle: {
@@ -48,7 +59,7 @@ export default {
                     min: 12,
                     max: 100
                   }
-                }
+                },
               }
             },
           },

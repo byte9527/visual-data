@@ -5,23 +5,23 @@
     </span>
     <div class="control-content">
       <component
-      :is="componentDefine"
-      :value="state.value"
-      :model-value="state.value"
-      v-bind="componentProps"
-      @change="valueChange"
-    ></component>
+        :is="componentDefine"
+        :value="state.value"
+        :model-value="state.value"
+        v-bind="componentProps"
+        @change="valueChange"
+      ></component>
     </div>
   </div>
 </template>
 
 <script lang="ts" setup>
-import { reactive, computed } from "vue";
+import { reactive, computed, inject } from "vue";
 import { getComponent, showTitle } from "../core/controlManager";
 
 const props = defineProps({
   valuePath: {
-    type: String,
+    type: [String, Boolean],
     default: "",
   },
   configData: {
@@ -35,18 +35,26 @@ const props = defineProps({
 
 const componentDefine = getComponent(props.configData.type);
 
+const rootForm = inject('rootForm')
+
 const componentProps = computed(() => {
-  const { showInPanel, type, props: componentProps, ...rest } = props.configData;
-  return {...rest, ...componentProps};
+  const {
+    showInPanel,
+    type,
+    props: componentProps,
+    ...rest
+  } = props.configData;
+  return { ...rest, ...componentProps };
 });
 
 const state = reactive({
   value: "",
-  showControlTitle: showTitle(props.configData.type)
+  showControlTitle: showTitle(props.configData.type),
 });
 
 const valueChange = (val) => {
-  state.value = val
+  state.value = val;
+  rootForm.fieldChange('', val)
 };
 
 const initSearcher = () => {};
@@ -55,25 +63,24 @@ const responseSearch = () => {};
 </script>
 
 <style lang='scss' scoped>
+.control-wrapper {
+  display: flex;
 
-  .control-wrapper {
+  .control-title {
+    width: 100px;
+    min-width: 100px;
+    font-size: 12px;
     display: flex;
-    
-    .control-title {
-      width: 100px;
-      min-width: 100px;
-      font-size: 12px;
-      display: flex;
-      align-items: center;
-      justify-content: flex-end;
-      padding-right: 16px;
-    }
-
-    .control-content {
-      flex-grow: 1;
-      display: flex;
-      justify-content: flex-start;
-    }
+    align-items: center;
+    justify-content: flex-end;
+    padding-right: 16px;
   }
+
+  .control-content {
+    flex-grow: 1;
+    display: flex;
+    justify-content: flex-start;
+  }
+}
 </style>
 
