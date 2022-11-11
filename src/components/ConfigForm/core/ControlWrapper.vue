@@ -1,6 +1,6 @@
 <template>
   <div class="control-wrapper" v-if="configData.showInPanel !== false">
-    <span class="control-title" v-if="state.showControlTitle">
+    <span class="control-title" v-if="state.showName">
       {{ configData.name }}
     </span>
     <div class="control-content">
@@ -49,7 +49,7 @@ const componentProps = computed(() => {
 
 const state = reactive({
   value: "",
-  showControlTitle: showTitle(props.configData.type),
+  showName: showTitle(props.configData.type) && !props.configData.hideName,
 });
 
 const valueChange = (val) => {

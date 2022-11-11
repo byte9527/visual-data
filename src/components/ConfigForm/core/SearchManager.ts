@@ -2,17 +2,11 @@ import mitt, { Emitter } from 'mitt'
 
 let instance: SearchManager;
 
-interface searchManagerProps {
-  key?: string;
-}
 
-type Events = {
-  [propName: string]: any
-}
 export class SearchManager {
   searchKey: string;
-  emitter: Emitter<Events>;
-  constructor(props: searchManagerProps) {
+  emitter: Emitter<cForm.Events>;
+  constructor(props: cForm.searchManagerProps) {
     this.searchKey = props.key || ''
     this.emitter = mitt()
   }

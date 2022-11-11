@@ -1,11 +1,3 @@
-interface AnyKeyObject {
-    [propName: string]: any;
-}
-
-interface FormContext {
-  form: object
-}
-
 export const transformOptions = {
   // 不会被转换的配置
   // exclude: [{ type: 'tabs', keys: ['template'] }],
@@ -33,7 +25,7 @@ function getType(val: any) {
   return type
 }
 
-function transformArray(target: Array<any>, context: FormContext, util: object, keyPath?: string): Array<object> {
+function transformArray(target: Array<any>, context: cForm.FormContext, util: object, keyPath?: string): Array<object> {
   const arr: Array<object> = []
   target.forEach((item) => {
     const type: any = getType(item)
@@ -59,7 +51,7 @@ function transformArray(target: Array<any>, context: FormContext, util: object, 
 }
 
 let deps: Array<string>, options: object;
-export function configHandle(target: object, context:FormContext, util = {}, opt: object): object {
+export function configHandle(target: object, context:cForm.FormContext, util = {}, opt: object): object {
   options = opt
   deps = []
   const newConfig = objConfigTransform(target, context, util),
@@ -84,8 +76,8 @@ function transformDeps(param: Array<string>):void {
   })
 }
 
-export function objConfigTransform(target: AnyKeyObject, context = {form:{}}, util = {}, keyPath?:string) {
-  const obj:AnyKeyObject = {}
+export function objConfigTransform(target: cForm.AnyKeyObject, context = {form:{}}, util = {}, keyPath?:string) {
+  const obj:cForm.AnyKeyObject = {}
 
   // target = cloneDeep(target)
   Object.keys(target).forEach((k) => {
@@ -128,7 +120,7 @@ function getDepByString(content: string): Array<string> {
   return matches || []
 }
 
-function transformString(str: string, context: FormContext, util: object, keyPath?: string): any {
+function transformString(str: string, context: cForm.FormContext, util: object, keyPath?: string): any {
   const cb = function () {
   }
   const { test, match } = transformOptions.stringExp
@@ -176,7 +168,7 @@ function transformString(str: string, context: FormContext, util: object, keyPat
  * @param {*} target
  * @return {*}
  */
-export function getRootValueKeys(target:AnyKeyObject) {
+export function getRootValueKeys(target:cForm.AnyKeyObject) {
   let keys:Array<string> = []
   Object.keys(target).forEach((key) => {
     const item = target[key]

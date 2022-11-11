@@ -44,6 +44,29 @@ export default {
                 // options: "${util.getOptions(context.data)}"
               }
             },
+            border: {
+              type: 'suite',
+              name: "边框",
+              valuePath: false,
+              props: {
+                layout: {
+                  type: 'row',
+                  setting: {
+                    colSpan: []
+                  }
+                }
+              },
+              children: {
+                borderWidth: {
+                  name: '边框宽度',
+                  type: 'number'
+                },
+                borderColor: {
+                  name: '边框颜色',
+                  type: 'color'
+                }
+              }
+            },
             textStyle: {
               type: 'group',
               name: '文本样式',
@@ -61,7 +84,7 @@ export default {
                   }
                 },
               }
-            },
+            }
           },
         },
         axis: {

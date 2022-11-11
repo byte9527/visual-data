@@ -20,23 +20,6 @@ import {  showLabelByType } from "./core/controlManager";
 import { configHandle, getRootValueKeys } from "./core/configHandle";
 import defaultOption from "./utils/option";
 
-interface FormSetting {
-  util: object;
-  controls: object;
-}
-
-interface AnyKeyObject {
-  [propName: string]: any;
-}
-
-interface ControlNode {
-  type: string;
-  props?: AnyKeyObject;
-  name?: string;
-  children: {
-    [propName: string]: ControlNode;
-  };
-}
 
 export default defineComponent({
   components: {
@@ -238,7 +221,7 @@ export default defineComponent({
       (watchers as Array<any>).forEach((unwatch) => unwatch());
       (this as any).watchers = [];
     },
-    setMultipleFieldValue(params: AnyKeyObject) {
+    setMultipleFieldValue(params: cForm.AnyKeyObject) {
       Object.keys(params).forEach((key) => {
         this.setFieldValue(params[key], key);
       });

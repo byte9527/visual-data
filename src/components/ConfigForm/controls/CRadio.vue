@@ -1,11 +1,3 @@
-<!--
- * @Author: zhangm
- * @Date: 2022-10-17 19:23:52
- * @LastEditTime: 2022-10-17 19:25:50
- * @LastEditors: zhangm
- * @Description: 
- * @FilePath: \visual-data\src\components\ConfigForm\controls\CRadio.vue
--->
 <template>
   <el-radio-group v-bind="selectProps" :model-value="value">
     <el-radio

@@ -6,19 +6,13 @@ import CList from '../controls/CList.vue'
 import CSelect from '../controls/CSelect.vue'
 import CRadio from '../controls/CRadio.vue'
 
-interface controlOption {
-  test: Array<string>;
-  define: any;
-  key: string;
-  type: string
-}
 
 export const controyTypes = {
   container: 'container',
   basic: 'basic'
 }
 
-export function registerControl(option: controlOption) {
+export function registerControl(option: cForm.controlOption) {
   const { key, define, test } = option
   if (key) {
     components[key] = define
@@ -28,11 +22,7 @@ export function registerControl(option: controlOption) {
 
 export const components = {}
 
-type componentDictType = {
-  [propName: string]: Array<string>;
-}
-
-export const componentDict: componentDictType = {}
+export const componentDict: cForm.componentDictType = {}
 
 const systemControls = [
   { test: ['default'], define: CDefault, key: 'CDefault', type: controyTypes.basic, titleInLabel: true },
@@ -52,10 +42,10 @@ const systemControls = [
 
 systemControls.forEach(v => registerControl(v))
 
-export const noTitleTypes = ["group", "menu", "list"]
+export const noNameTypes = ["group", "menu", "list"]
 
 export function showLabelByType(type: string) {
-  return !noTitleTypes.includes(type)
+  return !noNameTypes.includes(type)
 }
 
 /**
@@ -79,5 +69,5 @@ export function getComponent(keyword: string) {
 }
 
 export function showTitle(type: string): boolean {
-  return !noTitleTypes.includes(type)
+  return !noNameTypes.includes(type)
 }
