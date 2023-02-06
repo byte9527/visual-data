@@ -51,7 +51,7 @@ export default {
               props: {
                 layout: {
                   type: 'row',
-                  colSpan: [[18, 6], [18, 6]]
+                  setting: [[18, 6]]
                 }
               },
               children: {

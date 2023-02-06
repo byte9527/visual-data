@@ -33,5 +33,11 @@ export default defineComponent({
 <style lang='scss' scoped>
   .config-form-box {
     height: 500px;
+
+    ::v-deep {
+      .el-input-number {
+        width: 100%;
+      }
+    }
   }
 </style>

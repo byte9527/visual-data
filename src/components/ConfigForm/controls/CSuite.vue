@@ -1,18 +1,15 @@
 <template>
   <div class="c-suite">
-    <el-row v-for="row in layout.colSpan">
-      <el-col :span="row[0]">
-
+    <el-row v-for="(row, id) in layoutInfo" :key="id">
+      <el-col v-for="(col, index) in row" :key="index" :span="col.colSpan">
+        <ControlWrapper class="control-wrap" :config-data="col.child" :value-path="getValuePath(col.child.key)">
+        </ControlWrapper>
       </el-col>
     </el-row>
-
-    <ControlWrapper v-for="(item, key) in convertedChildren" class="control-wrap" :config-data="item" :key="key"
-      :value-path="getValuePath(key)"></ControlWrapper>
   </div>
 </template>
 
 <script lang="ts" setup>
-import { forEach } from "lodash";
 import { computed, toRaw } from "vue";
 
 const props = defineProps({
@@ -49,15 +46,42 @@ const convertedChildren = computed(() => {
   return children;
 });
 
+interface colInfo {
+  colSpan: number;
+  child: {
+    key: string,
+    value: {
+      [prop: string]: any
+    }
+  };
+
+}
+
 const layoutInfo = computed(() => {
   const children = toRaw(props.children);
-  const flatColSpan = props.layout.colSpan.flat()
-  const maxLength = Math.max(children.length, flatColSpan.length)
   const result = []
-  for (let i = 0; i < props.layout.colSpan; i++) {
-
-
+  const setting = props.layout.setting
+  let count = 0;
+  const keys = Object.keys(children)
+  for (let i = 0; i < setting.length; i++) {
+    result[i] = []
+    const row = setting[i]
+    for (let j = 0; j < row.length; j++) {
+      const colSpan = row[j];
+      if (count < Object.keys(children).length) {
+        result[i].push({
+          colSpan,
+          child: {
+            key: keys[count],
+            hideName: true,
+            ...children[keys[count]],
+          }
+        })
+      }
+      count++
+    }
   }
+  return result
 })
 
 const getValuePath = (key) => {

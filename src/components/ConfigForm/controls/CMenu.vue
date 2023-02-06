@@ -3,15 +3,9 @@
     <div class="c-menu__header-wrap">
       <div class="c-menu__header">
         <div class="item-container">
-          <div
-            v-for="(item, key) in children"
-            :key="key"
-            class="header-item"
-            :class="{
-              'header-item--active': state.activeKey === key,
-            }"
-            @click="state.activeKey = key"
-          >
+          <div v-for="(item, key) in children" :key="key" class="header-item" :class="{
+            'header-item--active': state.activeKey === key,
+          }" @click="state.activeKey = key">
             <p class="header-item-name">{{ item.name }}</p>
           </div>
         </div>
@@ -20,11 +14,7 @@
 
     <div class="c-menu__content">
       <keep-alive>
-        <ControlWrapper
-          v-for="(item, key) in activeComponents"
-          :config-data="item"
-          :key="key"
-        ></ControlWrapper>
+        <ControlWrapper :config-data="activeComponent"></ControlWrapper>
       </keep-alive>
     </div>
   </div>
@@ -70,15 +60,15 @@ const adjustChildren = computed(() => {
       value.type = "group";
     }
     if (value.type === 'group') {
-      value.props = Object.assign({}, value.props || {}, {hideHeader: true,})
+      value.props = Object.assign({}, value.props || {}, { hideHeader: true, })
     }
   });
   return cloneConfig;
 });
 
-const activeComponents = computed(() => {
+const activeComponent = computed(() => {
   const r = adjustChildren.value[state.activeKey];
-  return r.children;
+  return r
 });
 
 const menuClasses = computed(() => {
@@ -93,13 +83,14 @@ const menuClasses = computed(() => {
 <style lang='scss' scoped>
 $textColor: #fff;
 $activeBg: #0046ff;
+
 .c-menu {
   display: flex;
 
   .header-item {
     display: flex;
-      align-items: center;
-      justify-content: center;
+    align-items: center;
+    justify-content: center;
   }
 
   &--horizontal {
@@ -108,9 +99,10 @@ $activeBg: #0046ff;
     .c-menu__header {
       height: 40px;
     }
+
     .header-item {
       padding: 0 8px;
-      
+
       &--active {
         background: $activeBg;
       }
@@ -123,9 +115,10 @@ $activeBg: #0046ff;
     .c-menu__header {
       width: 40px;
     }
+
     .header-item {
       padding: 16px 0;
-      
+
       &--active {
         background: $activeBg;
       }
