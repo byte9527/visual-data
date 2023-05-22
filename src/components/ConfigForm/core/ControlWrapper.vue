@@ -60,6 +60,7 @@ const valueChange = (val) => {
 const initSearcher = () => {};
 
 const responseSearch = () => {};
+
 </script>
 
 <style lang='scss' scoped>

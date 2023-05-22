@@ -13,19 +13,13 @@ const routes: Array<RouteRecordRaw> = [
   },
   {
     path: '/visualScreen',
-    name: '大屏编辑器',
+    name: '编辑器',
     component: () => import('@/views/configFormDemo/index.vue'),
     meta: { title: '大屏编辑器' },
   },
   {
-    path: '/visualPage',
-    name: '页面编辑器',
-    component: () => import('@/views/configFormDemo/index.vue'),
-    meta: { title: '页面编辑器' },
-  },
-  {
     path: '/onlineExcel',
-    name: '在线excel',
+    name: '3D编辑器',
     component: () => import('@/views/configFormDemo/index.vue'),
     meta: { title: '在线excel' },
   },

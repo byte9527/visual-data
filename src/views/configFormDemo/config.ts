@@ -8,7 +8,7 @@ export default {
           type: 'group',
           props: {
             hideHeader: true,
-            enableHide: true
+            enableOpen: false
           },
           children: {
             show: {
@@ -65,24 +65,24 @@ export default {
                 }
               }
             },
-            textStyle: {
-              type: 'group',
-              name: '文本样式',
-              children: {
-                color: {
-                  name: '颜色',
-                  type: 'color'
-                },
-                fontSize: {
-                  name: '大小',
-                  type: 'number',
-                  props: {
-                    min: 12,
-                    max: 100
-                  }
-                },
-              }
-            }
+            // textStyle: {
+            //   type: 'group',
+            //   name: '文本样式',
+            //   children: {
+            //     color: {
+            //       name: '颜色',
+            //       type: 'color'
+            //     },
+            //     fontSize: {
+            //       name: '大小',
+            //       type: 'number',
+            //       props: {
+            //         min: 12,
+            //         max: 100
+            //       }
+            //     },
+            //   }
+            // }
           },
         },
         axis: {
@@ -95,22 +95,26 @@ export default {
             xAxis: {
               name: 'x轴',
               type: 'group',
-              enableHide: true,
+              props: {
+                enableOpen: false,
+              },
               children: {
               },
             },
             yAxis: {
               name: 'y轴',
               type: 'group',
-              enableHide: true,
+              props: {
+                enableOpen: false,
+              },
               children: {
               },
             }
           },
 
         },
-        // list: {
-        // },
+        list: {
+        },
 
       }
 

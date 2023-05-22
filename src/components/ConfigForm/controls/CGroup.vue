@@ -1,11 +1,11 @@
 <template>
   <div class="c-group" :class="{ 'c-group--noHeader': hideHeader }">
-    <el-collapse v-if="!hideHeader">
+    <el-collapse v-model="reactValue">
       <el-collapse-item :title="name" name="1">
-        <template slot="title">
+        <!-- <template slot="title" v-if="!hideHeader">
           <div>
             <el-switch
-              v-if="enableHide"
+              v-if="enableOpen"
               v-model="value.show"
               size="mini"
               active-text=""
@@ -15,21 +15,16 @@
             />
             <span>{{ name }}</span>
           </div>
-        </template>
-        <ControlWrapper
-          v-for="(item, key) in children"
-          class="control-wrap"
-          :config-data="item"
-          :key="key"
-          :value-path="getValuePath(key)"
-        ></ControlWrapper>
+        </template> -->
+        <ControlWrapper v-for="(item, key) in children" class="control-wrap" :config-data="item" :key="key"
+          :value-path="getValuePath(key)"></ControlWrapper>
       </el-collapse-item>
     </el-collapse>
   </div>
 </template>
 
 <script lang="ts" setup>
-
+import { ref } from 'vue'
 const props = defineProps({
   value: {
     type: Object,
@@ -60,28 +55,60 @@ const props = defineProps({
     type: [String, Boolean],
     default: "",
   },
-  enableHide: {
+  enableOpen: {
     type: Boolean,
     default: false
   }
 });
 
+const reactValue = ref(props.hideHeader ? "1" : "")
+
 const getValuePath = (key) => {
   if (props.valuePath) {
-    return ''
+    return props.valuePath
+  } else {
+    return key
   }
 }
 
 </script>
 
 <style lang='scss'>
-  .c-group {
-    width: 100%;
-    .control-wrapper {
-      margin-bottom: 8px;
+.c-group {
+  width: 100%;
+
+  >.el-collapse {
+    border-top: none;
+  }
+
+  &--noHeader {
+
+    >.el-collapse {
+      border-bottom: none;
+
+      .el-collapse-item__header {
+        display: none;
+      }
     }
-    .el-collapse-item__content {
-      padding-bottom: unset;
+
+
+  }
+
+  .control-wrapper {
+    margin-bottom: 8px;
+  }
+
+  .el-collapse-item__header {
+        padding-left: 8px;
+      }
+
+  .el-collapse-item__content {
+    padding-bottom: unset;
+    padding-bottom: 8px;
+
+    .control-wrapper:last-child {
+      margin-bottom: 0;
     }
   }
+}
 </style>

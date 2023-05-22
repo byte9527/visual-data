@@ -295,5 +295,6 @@ export default defineComponent({
 .config-form {
   color: black;
   width: 320px;
+  user-select: none;
 }
 </style>

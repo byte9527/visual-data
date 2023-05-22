@@ -13,9 +13,10 @@
     </div>
 
     <div class="c-menu__content">
-      <keep-alive>
+      <!-- <keep-alive>
         <ControlWrapper :config-data="activeComponent"></ControlWrapper>
-      </keep-alive>
+      </keep-alive> -->
+      <ControlWrapper :config-data="activeComponent"></ControlWrapper>
     </div>
   </div>
 </template>
@@ -60,7 +61,7 @@ const adjustChildren = computed(() => {
       value.type = "group";
     }
     if (value.type === 'group') {
-      value.props = Object.assign({}, value.props || {}, { hideHeader: true, })
+      value.props = Object.assign({}, value.props || {})
     }
   });
   return cloneConfig;
@@ -82,10 +83,11 @@ const menuClasses = computed(() => {
 
 <style lang='scss' scoped>
 $textColor: #fff;
-$activeBg: #0046ff;
+$activeBg: #409eff;
 
 .c-menu {
   display: flex;
+  flex-grow: 1;
 
   .header-item {
     display: flex;
@@ -125,6 +127,7 @@ $activeBg: #0046ff;
     }
 
     .c-menu__content {
+      flex-grow: 1;
       .control-wrapper {
         margin-bottom: 8px;
       }

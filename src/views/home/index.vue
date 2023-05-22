@@ -18,15 +18,11 @@ export default {
           to: '/configForm' 
         },
         {
-          label: '大屏编辑器',
+          label: '页面编辑器',
           to: '/visualScreen' 
         },
         {
-          label: '页面编辑器',
-          to: '/visualPage' 
-        },
-        {
-          label: '在线excel',
+          label: '3D编辑器',
           to: '/onlineExcel' 
         },
       ]
