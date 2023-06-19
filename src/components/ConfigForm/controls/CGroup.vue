@@ -16,21 +16,25 @@
             <span>{{ name }}</span>
           </div>
         </template> -->
-        <ControlWrapper v-for="(item, key) in children" class="control-wrap" :config-data="item" :key="key"
-          :value-path="getValuePath(key)"></ControlWrapper>
+        <ControlWrapper
+          v-for="(item, key) in children"
+          class="control-wrap"
+          :config-data="item"
+          :key="key"
+          :value-path="getValuePath(key)"
+        ></ControlWrapper>
       </el-collapse-item>
     </el-collapse>
   </div>
 </template>
 
 <script lang="ts" setup>
-import { ref } from 'vue'
+import { ref } from "vue";
 const props = defineProps({
   value: {
     type: Object,
     default() {
       return {};
-
     },
   },
   children: {
@@ -45,7 +49,7 @@ const props = defineProps({
   },
   layout: {
     type: String,
-    default: ""
+    default: "",
   },
   name: {
     type: String,
@@ -57,41 +61,37 @@ const props = defineProps({
   },
   enableOpen: {
     type: Boolean,
-    default: false
-  }
+    default: false,
+  },
 });
 
-const reactValue = ref(props.hideHeader ? "1" : "")
+const reactValue = ref(props.hideHeader ? "1" : "");
 
 const getValuePath = (key) => {
   if (props.valuePath) {
-    return props.valuePath
+    return props.valuePath;
   } else {
-    return key
+    return key;
   }
-}
-
+};
 </script>
 
-<style lang='scss'>
+<style lang="scss">
 .c-group {
   width: 100%;
 
-  >.el-collapse {
+  > .el-collapse {
     border-top: none;
   }
 
   &--noHeader {
-
-    >.el-collapse {
+    > .el-collapse {
       border-bottom: none;
 
       .el-collapse-item__header {
         display: none;
       }
     }
-
-
   }
 
   .control-wrapper {
@@ -99,8 +99,13 @@ const getValuePath = (key) => {
   }
 
   .el-collapse-item__header {
-        padding-left: 8px;
-      }
+    padding-left: 8px;
+    background-color: unset;
+  }
+
+  .el-collapse-item__wrap {
+    background-color: unset;
+  }
 
   .el-collapse-item__content {
     padding-bottom: unset;

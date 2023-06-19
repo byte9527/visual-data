@@ -1,43 +1,56 @@
 <template>
-  <div class="config-form-box">
-    <ConfigForm 
-      :config-data="config.dataConfig"
-      :hooks="config.hooks"
-    />
+  <div class="config-form-demo">
+    <div class="form-box">
+      <ConfigForm
+        :config-data="config1.dataConfig"
+        :value="config1.initValue"
+        :hooks="config1.hooks"
+      />
+    </div>
+    <div class="form-box">
+      <ConfigForm
+        :config-data="config2.dataConfig"
+        :value="config2.initValue"
+        :hooks="config2.hooks"
+      />
+    </div>
   </div>
 </template>
 
 <script lang="ts">
-import { defineComponent } from 'vue'
-import ConfigForm from '@/components/ConfigForm/index.vue'
-import config from './config'
+import { defineComponent } from "vue";
+import ConfigForm from "@/components/ConfigForm/index.vue";
+import { config1, config2 } from "./config";
 
 export default defineComponent({
-  name: 'ConfigFormDemo',
+  name: "ConfigFormDemo",
   components: {
-    ConfigForm
-  },  
-  props: {
+    ConfigForm,
   },
+  props: {},
   data() {
     return {
-      config: config
-    }
+      config1: config1,
+      config2: config2,
+    };
   },
-  setup(props) {
-  },
-})
-
+  setup(props) {},
+});
 </script>
 
-<style lang='scss' scoped>
-  .config-form-box {
-    height: 500px;
+<style lang="scss" scoped>
+.config-form-demo {
 
-    ::v-deep {
-      .el-input-number {
-        width: 100%;
-      }
+  .form-box {
+    // padding: 8px;
+    background-color: lightblue;
+    margin-bottom: 32px;
+  }
+
+  ::v-deep {
+    .el-input-number {
+      width: 100%;
     }
   }
+}
 </style>

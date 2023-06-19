@@ -16,12 +16,12 @@ import { set, get, isEqual, merge } from "lodash";
 import ControlWrapper from "./core/ControlWrapper.vue";
 
 import { SearchManager, searchSingleton } from "./core/SearchManager";
-import {  showLabelByType } from "./core/controlManager";
+import { showLabelByType } from "./core/controlManager";
 import { configHandle, getRootValueKeys } from "./core/configHandle";
 import defaultOption from "./utils/option";
 
-
 export default defineComponent({
+  name: "ConfigForm",
   components: {
     ControlWrapper,
   },
@@ -62,7 +62,7 @@ export default defineComponent({
       },
     },
     updateDeps: {
-    type: Array,
+      type: Array,
       default() {
         return [];
       },
@@ -131,7 +131,7 @@ export default defineComponent({
   provide() {
     return {
       formSetting: merge(defaultOption, this.formSetting),
-      rootForm: this
+      rootForm: this,
     };
   },
   mounted() {
@@ -146,9 +146,7 @@ export default defineComponent({
     // this.$off("message", this.getControlMsg);
   },
   methods: {
-    fieldChange(path, value) {
-    
-    },
+    fieldChange(path, value) {},
     /**
      * @description: 获取来自控件发送的消息，并透传给外部
      * @param {*} payload { type: '', params: {} }

@@ -90,7 +90,11 @@ export function objConfigTransform(target: cForm.AnyKeyObject, context = {form:{
         break
 
       case 'object':
-        obj[k] = objConfigTransform(value, context, util, newKeyPath)
+        if (k !== "children") {
+          obj[k] = objConfigTransform(value, context, util, newKeyPath)
+        } else {
+          obj[k] = value
+        }
         break
 
       case 'string':
