@@ -1,7 +1,7 @@
 <template>
-  <div class="control-wrapper" v-if="configData.showInPanel !== false">
+  <div class="control-wrapper" v-if="state.renderData.show !== false">
     <span class="control-title" v-if="state.showName">
-      {{ configData.name }}
+      {{ state.renderData.name }}
     </span>
     <div class="control-content">
       <component
@@ -16,8 +16,10 @@
 </template>
 
 <script lang="ts" setup>
-import { reactive, computed, inject } from "vue";
-import { getComponent, showTitle } from "../core/controlManager";
+import { reactive, computed, inject, toRaw } from "vue";
+import { getComponent, showTitle } from "./controlManager";
+import { configHandle } from "./configHandle";
+import get from "lodash/get";
 
 const props = defineProps({
   valuePath: {
@@ -35,35 +37,45 @@ const props = defineProps({
 
 const componentDefine = getComponent(props.configData.type);
 
-const rootForm = inject('rootForm')
+const formValue = inject("formValue");
+const context = inject("context");
 
 const componentProps = computed(() => {
-  const {
-    showInPanel,
-    type,
-    props: componentProps,
-    ...rest
-  } = props.configData;
+  const { show, type, props: componentProps, ...rest } = props.configData;
   return { ...rest, ...componentProps };
 });
 
+const handleConfig = () => {
+  const data = {};
+
+  const newData = configHandle(
+    toRaw(props.configData),
+    {
+      form: data,
+      ...(context as cForm.AnyKeyObject),
+    },
+    {}, // util
+    {}
+  );
+  return newData;
+};
+
+const options = handleConfig();
+
 const state = reactive({
-  value: "",
+  value: get(formValue, props.valuePath as any),
+  renderData: {},
   showName: showTitle(props.configData.type) && !props.configData.hideName,
 });
 
-const valueChange = (val) => {
-  state.value = val;
-  rootForm.fieldChange('', val)
-};
+const valueChange = (val) => {};
 
 const initSearcher = () => {};
 
 const responseSearch = () => {};
-
 </script>
 
-<style lang='scss' scoped>
+<style lang="scss" scoped>
 .control-wrapper {
   display: flex;
 
@@ -84,4 +96,3 @@ const responseSearch = () => {};
   }
 }
 </style>
-

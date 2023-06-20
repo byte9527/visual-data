@@ -51,7 +51,7 @@ function transformArray(target: Array<any>, context: cForm.FormContext, util: ob
 }
 
 let deps: Array<string>, options: object;
-export function configHandle(target: object, context:cForm.FormContext, util = {}, opt: object): object {
+export function configHandle(target: object, context: cForm.FormContext, util = {}, opt: object): object {
   options = opt
   deps = []
   const newConfig = objConfigTransform(target, context, util),
@@ -68,7 +68,7 @@ export function configHandle(target: object, context:cForm.FormContext, util = {
  * @param {*} param
  * @return {*}
  */
-function transformDeps(param: Array<string>):void {
+function transformDeps(param: Array<string>): void {
   param.forEach((item, index) => {
     if (/\[\d\]/g.test(item)) {
       param[index] = param[index].replace(/[\[\d\]]{1,}/g, '\\[\\d\\]')
@@ -76,14 +76,14 @@ function transformDeps(param: Array<string>):void {
   })
 }
 
-export function objConfigTransform(target: cForm.AnyKeyObject, context = {form:{}}, util = {}, keyPath?:string) {
-  const obj:cForm.AnyKeyObject = {}
+export function objConfigTransform(target: cForm.AnyKeyObject, context = { form: {} }, util = {}, keyPath?: string) {
+  const obj: cForm.AnyKeyObject = {}
 
   // target = cloneDeep(target)
   Object.keys(target).forEach((k) => {
     const value = target[k]
     const type = getType(value)
-    const newKeyPath:string = keyPath ? `${keyPath}.${k}` : k
+    const newKeyPath: string = keyPath ? `${keyPath}.${k}` : k
     switch (type) {
       case 'array':
         obj[k] = transformArray(value, context, util, newKeyPath)
@@ -129,7 +129,7 @@ function transformString(str: string, context: cForm.FormContext, util: object, 
   }
   const { test, match } = transformOptions.stringExp
   if (test.test(str)) {
-    const matches:RegExpMatchArray | null = str.match(match)
+    const matches: RegExpMatchArray | null = str.match(match)
     if (!matches) {
       return
     }
@@ -147,7 +147,7 @@ function transformString(str: string, context: cForm.FormContext, util: object, 
         `return ${content}`
       )
       const { form = {} } = context
-      result = func(form|| {}, context, util, cb)
+      result = func(form || {}, context, util, cb)
     } catch (error) {
       console.warn(error)
       result = false
@@ -172,8 +172,8 @@ function transformString(str: string, context: cForm.FormContext, util: object, 
  * @param {*} target
  * @return {*}
  */
-export function getRootValueKeys(target:cForm.AnyKeyObject) {
-  let keys:Array<string> = []
+export function getRootValueKeys(target: cForm.AnyKeyObject) {
+  let keys: Array<string> = []
   Object.keys(target).forEach((key) => {
     const item = target[key]
     if (item.valuePath === false) {

@@ -26,7 +26,6 @@ declare namespace cForm {
     form: object
   }
 
-
   interface FormSetting {
     util: object;
     controls: object;

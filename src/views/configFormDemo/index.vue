@@ -1,12 +1,12 @@
 <template>
   <div class="config-form-demo">
-    <div class="form-box">
+    <!-- <div class="form-box">
       <ConfigForm
         :config-data="config1.dataConfig"
         :value="config1.initValue"
         :hooks="config1.hooks"
       />
-    </div>
+    </div> -->
     <div class="form-box">
       <ConfigForm
         :config-data="config2.dataConfig"

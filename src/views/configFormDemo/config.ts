@@ -166,7 +166,8 @@ export const config2 = {
               { label: '是', value: true },
               { label: '否', value: false },
             ]
-          }
+          },
+          show: "${$form.tooltip.show}"
         },
         padding: {
           type: 'slider',

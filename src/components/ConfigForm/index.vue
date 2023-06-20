@@ -78,7 +78,7 @@ export default defineComponent({
       },
     },
     formSetting: {
-      type: Object as PropType<FormSetting>,
+      type: Object as PropType<cForm.FormSetting>,
       default() {
         return {};
       },
@@ -88,7 +88,7 @@ export default defineComponent({
     const result = (this as any).handleConfig();
     return {
       computedUpdateDeps: result.deps,
-      renderData: result.config,
+      renderData: this.configData,
     };
   },
   computed: {
@@ -132,6 +132,7 @@ export default defineComponent({
     return {
       formSetting: merge(defaultOption, this.formSetting),
       rootForm: this,
+      context: {}
     };
   },
   mounted() {
