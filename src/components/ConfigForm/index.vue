@@ -28,7 +28,7 @@ export default defineComponent({
   mixins: [],
   props: {
     configData: {
-      type: Object as PropType<ControlNode>,
+      type: Object as PropType<cForm.ControlNode>,
       default() {
         return {};
       },
@@ -99,7 +99,7 @@ export default defineComponent({
     },
     formValue() {
       const styleValue = this.value;
-      const filterValue: AnyKeyObject = {};
+      const filterValue: cForm.AnyKeyObject = {};
       const rootKeys = getRootValueKeys(this.configData);
       rootKeys.forEach((key) => {
         if (styleValue[key]) {
@@ -269,8 +269,8 @@ export default defineComponent({
       const data = this.stateValue || this.value;
 
       const newData = configHandle(
-        toRaw(this.configData),
-        {
+          toRaw(this.configData),
+          {
           form: data,
           ...(this as any).context,
         },

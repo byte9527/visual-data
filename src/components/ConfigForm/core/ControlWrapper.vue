@@ -16,10 +16,11 @@
 </template>
 
 <script lang="ts" setup>
-import { reactive, computed, inject, toRaw } from "vue";
+import { reactive, computed, inject, toRaw, onMounted, watch } from "vue";
 import { getComponent, showTitle } from "./controlManager";
 import { configHandle } from "./configHandle";
 import get from "lodash/get";
+import option from "../utils/option";
 
 const props = defineProps({
   valuePath: {
@@ -45,7 +46,12 @@ const componentProps = computed(() => {
   return { ...rest, ...componentProps };
 });
 
-const handleConfig = () => {
+interface config {
+  config: Object;
+  deps: Array<string>
+}
+
+const handleConfig = ():config => {
   const data = {};
 
   const newData = configHandle(
@@ -64,11 +70,27 @@ const options = handleConfig();
 
 const state = reactive({
   value: get(formValue, props.valuePath as any),
-  renderData: {},
+  renderData: options.config,
   showName: showTitle(props.configData.type) && !props.configData.hideName,
 });
 
-const valueChange = (val) => {};
+onMounted(() => {
+  if (options.deps.length) {
+    const watchSource = options.deps.map(item => {
+      return () => {
+        return get(formValue, item.replace("form", ""))
+      }
+    })
+    watch(watchSource, () => {
+      state.renderData = handleConfig()
+    
+    })
+  }
+})
+
+const valueChange = (val) => {
+  state.value = val
+};
 
 const initSearcher = () => {};
 

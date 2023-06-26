@@ -55,8 +55,8 @@ const props = defineProps({
     type: String,
     default: "",
   },
-  valuePath: {
-    type: [String, Boolean],
+  keyName: {
+    type: String,
     default: "",
   },
   enableOpen: {
