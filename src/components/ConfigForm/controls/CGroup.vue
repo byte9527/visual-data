@@ -21,7 +21,7 @@
           class="control-wrap"
           :config-data="item"
           :key="key"
-          :value-path="getValuePath(key)"
+          :key-path="getValuePath(key, item)"
         ></ControlWrapper>
       </el-collapse-item>
     </el-collapse>
@@ -55,7 +55,7 @@ const props = defineProps({
     type: String,
     default: "",
   },
-  keyName: {
+  valuePath: {
     type: String,
     default: "",
   },
@@ -67,11 +67,11 @@ const props = defineProps({
 
 const reactValue = ref(props.hideHeader ? "1" : "");
 
-const getValuePath = (key) => {
-  if (props.valuePath) {
-    return props.valuePath;
+const getValuePath = (key, item) => {
+  if (item.valuePath === false) {
+    return props.valuePath
   } else {
-    return key;
+    return `${props.valuePath}.${key}` ;
   }
 };
 </script>

@@ -2,7 +2,11 @@
   <div class="c-suite">
     <el-row v-for="(row, id) in layoutInfo" :key="id">
       <el-col v-for="(col, index) in row" :key="index" :span="col.colSpan">
-        <ControlWrapper class="control-wrap" :config-data="col.child" :value-path="getValuePath(col.child.key)">
+        <ControlWrapper
+          class="control-wrap"
+          :config-data="col.child"
+          :key-path="getValuePath(col.child.key, col.child)"
+        >
         </ControlWrapper>
       </el-col>
     </el-row>
@@ -34,9 +38,9 @@ const props = defineProps({
     default() {
       return {
         type: "row",
-        colSpan: [[12, 12]]
-      }
-    }
+        colSpan: [[12, 12]],
+      };
+    },
   },
 });
 
@@ -49,23 +53,22 @@ const convertedChildren = computed(() => {
 interface colInfo {
   colSpan: number;
   child: {
-    key: string,
+    key: string;
     value: {
-      [prop: string]: any
-    }
+      [prop: string]: any;
+    };
   };
-
 }
 
 const layoutInfo = computed(() => {
   const children = toRaw(props.children);
-  const result = []
-  const setting = props.layout.setting
+  const result = [];
+  const setting = props.layout.setting;
   let count = 0;
-  const keys = Object.keys(children)
+  const keys = Object.keys(children);
   for (let i = 0; i < setting.length; i++) {
-    result[i] = []
-    const row = setting[i]
+    result[i] = [];
+    const row = setting[i];
     for (let j = 0; j < row.length; j++) {
       const colSpan = row[j];
       if (count < Object.keys(children).length) {
@@ -75,22 +78,22 @@ const layoutInfo = computed(() => {
             key: keys[count],
             hideName: true,
             ...children[keys[count]],
-          }
-        })
+          },
+        });
       }
-      count++
+      count++;
     }
   }
-  return result
-})
+  return result;
+});
 
-const getValuePath = (key) => {
-  if (props.valuePath) {
-    return "";
+const getValuePath = (key, item) => {
+  if (item.valuePath === false) {
+    return props.valuePath;
+  } else {
+    return `${props.valuePath}.${key}`;
   }
 };
 </script>
 
-<style lang="scss" scoped>
-
-</style>
+<style lang="scss" scoped></style>

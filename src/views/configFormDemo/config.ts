@@ -160,6 +160,7 @@ export const config2 = {
         },
         showContent: {
           type: 'radio',
+          show: "${$form.tooltip.show}",
           name: '提示框浮层',
           props: {
             options: [
@@ -167,7 +168,6 @@ export const config2 = {
               { label: '否', value: false },
             ]
           },
-          show: "${$form.tooltip.show}"
         },
         padding: {
           type: 'slider',
@@ -235,10 +235,13 @@ export const config2 = {
     tooltip: {
         show: true,
         showContent: false,
-        padding: 6,
+        padding: 20,
         triggerOn: 'mousemove',
         textStyle: {
           fontSize: 12
+        },
+        border: {
+          borderWidth: 1
         }
       },
   },

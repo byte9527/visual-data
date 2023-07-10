@@ -51,6 +51,7 @@ function transformArray(target: Array<any>, context: cForm.FormContext, util: ob
 }
 
 let deps: Array<string>, options: object;
+
 export function configHandle(target: object, context: cForm.FormContext, util = {}, opt: object): object {
   options = opt
   deps = []
@@ -140,9 +141,9 @@ function transformString(str: string, context: cForm.FormContext, util: object, 
 
     try {
       const func = new Function(
-        'form',
-        'context',
-        'util',
+        '$form',
+        '$ctx',
+        '$util',
         'cb',
         `return ${content}`
       )

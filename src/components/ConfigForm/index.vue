@@ -3,7 +3,7 @@
     <ControlWrapper
       v-for="(item, key) in renderData"
       :key="key"
-      :value-path="`${key}`"
+      :key-path="key"
       :config-data="item"
     />
   </div>
@@ -11,14 +11,15 @@
 
 <script lang="ts">
 import { defineComponent, toRaw } from "vue";
+import mitt from "mitt";
 import type { PropType } from "vue";
 import { set, get, isEqual, merge } from "lodash";
 import ControlWrapper from "./core/ControlWrapper.vue";
 
 import { SearchManager, searchSingleton } from "./core/SearchManager";
-import { showLabelByType } from "./core/controlManager";
-import { configHandle, getRootValueKeys } from "./core/configHandle";
+import { configHandle } from "./core/configHandle";
 import defaultOption from "./utils/option";
+import { deepSet } from "./utils/proxyHelp";
 
 export default defineComponent({
   name: "ConfigForm",
@@ -86,9 +87,26 @@ export default defineComponent({
   },
   data() {
     const result = (this as any).handleConfig();
+    const formBus = new mitt();
     return {
       computedUpdateDeps: result.deps,
       renderData: this.configData,
+      formBus,
+      // stateValue: this.value,
+      stateValue: {
+        tooltip: {
+          show: true,
+          showContent: false,
+          padding: 20,
+          triggerOn: "mousemove",
+          textStyle: {
+            fontSize: 12,
+          },
+          border: {
+            borderWidth: 1,
+          },
+        },
+      },
     };
   },
   computed: {
@@ -97,22 +115,9 @@ export default defineComponent({
         new Set([...this.updateDeps, ...this.computedUpdateDeps])
       );
     },
-    formValue() {
-      const styleValue = this.value;
-      const filterValue: cForm.AnyKeyObject = {};
-      const rootKeys = getRootValueKeys(this.configData);
-      rootKeys.forEach((key) => {
-        if (styleValue[key]) {
-          filterValue[key] = styleValue[key];
-        }
-      });
-      return filterValue;
-    },
   },
   watch: {
     activeId() {
-      // 切换组件后重新加入观察
-      this.addWatchers();
       (this as any).stateValue = this.value;
     },
     value: {
@@ -121,33 +126,23 @@ export default defineComponent({
       },
       deep: true,
     },
-    "configData.options": {
-      handler() {
-        this.renderData = this.transformConfig();
-      },
-      deep: true,
-    },
   },
   provide() {
     return {
       formSetting: merge(defaultOption, this.formSetting),
-      rootForm: this,
-      context: {}
+      formBus: this.formBus,
+      context: {},
+      formValue: this.stateValue,
     };
   },
   mounted() {
-    // this.$on("valueChange", this.setFieldValue);
-    // this.$on("message", this.getControlMsg);
-    (this as any).stateValue = this.value;
-    this.addWatchers();
-    this.formSetting;
+    this.formBus.on("fieldChange", (payload) => {
+      deepSet(this.stateValue, payload.keyPath, payload.value);
+      this.stateValue;
+    });
   },
-  destroyed() {
-    // this.$off("valueChange", this.setFieldValue);
-    // this.$off("message", this.getControlMsg);
-  },
+  destroyed() {},
   methods: {
-    fieldChange(path, value) {},
     /**
      * @description: 获取来自控件发送的消息，并透传给外部
      * @param {*} payload { type: '', params: {} }
@@ -174,29 +169,6 @@ export default defineComponent({
         return `${parentPath ? parentPath + "." + key : key}`;
       }
     },
-    /**
-     * @description: 加入对context的观察
-     * @param {*}
-     * @return {*}
-     */
-    addWatchers() {
-      this.deleteWatchers();
-      const deps = this.mergeUpdateDeps.filter((item) =>
-        item.includes("context")
-      );
-      deps.forEach((dep) => {
-        this.$watch(
-          dep,
-          (newVal: any, val: any) => {
-            if (!isEqual(newVal, val)) {
-              this.configLinkage();
-              this.triggerHook("contextChange", dep, newVal);
-            }
-          },
-          { deep: true }
-        );
-      });
-    },
     triggerHook(...args: any[]) {
       const [name, ...params] = args;
       const cb = this.hooks[name];
@@ -215,62 +187,20 @@ export default defineComponent({
     getContext() {
       return this.context;
     },
-    deleteWatchers() {
-      const watchers = this.watchers || [];
-      (watchers as Array<any>).forEach((unwatch) => unwatch());
-      (this as any).watchers = [];
-    },
-    setMultipleFieldValue(params: cForm.AnyKeyObject) {
-      Object.keys(params).forEach((key) => {
-        this.setFieldValue(params[key], key);
-      });
-    },
+    setMultipleFieldValue(params: cForm.AnyKeyObject) {},
     getFieldValue(path: string) {
       return get(this.stateValue, path);
     },
-    setFieldValue(value, valuePath) {
-      if (!valuePath || isEqual(value, get(this.stateValue, valuePath))) {
-        return;
-      }
-      this.triggerHook("fieldValueChange", valuePath, value);
-      set(this.stateValue, valuePath, value);
-      const isMatch = this.checkMatchDeps(`form.${valuePath}`);
-      if (isMatch) {
-        this.configLinkage();
-      }
-      // 子组件处理值的改变
-      this.$emit("formValueChange", `form.${valuePath}`);
-      this.$emit("change", this.stateValue);
-    },
+    setFieldValue(value, valuePath) {},
     getFormValue() {
       return this.stateValue;
-    },
-    checkMatchDeps(str: string) {
-      // this.mergeUpdateDeps.includes()
-      return this.mergeUpdateDeps.some((item) => {
-        const reg = new RegExp(item);
-        return reg.test(str);
-      });
-    },
-    configLinkage() {
-      const newRenderData = this.transformConfig();
-      if (!isEqual(newRenderData, this.renderData)) {
-        this.renderData = newRenderData;
-      }
-    },
-    transformConfig() {
-      const data = this.handleConfig();
-      this.$nextTick(() => {
-        this.computedUpdateDeps = data.deps;
-      });
-      return data.config;
     },
     handleConfig() {
       const data = this.stateValue || this.value;
 
       const newData = configHandle(
-          toRaw(this.configData),
-          {
+        toRaw(this.configData),
+        {
           form: data,
           ...(this as any).context,
         },
@@ -282,9 +212,6 @@ export default defineComponent({
         }
       );
       return newData;
-    },
-    showLabel(type: string) {
-      return showLabelByType(type);
     },
   },
 });

@@ -8,6 +8,7 @@
         :is="componentDefine"
         :value="state.value"
         :model-value="state.value"
+        :valuePath="keyPath"
         v-bind="componentProps"
         @change="valueChange"
       ></component>
@@ -19,11 +20,10 @@
 import { reactive, computed, inject, toRaw, onMounted, watch } from "vue";
 import { getComponent, showTitle } from "./controlManager";
 import { configHandle } from "./configHandle";
-import get from "lodash/get";
-import option from "../utils/option";
+import { deepGet } from "../utils/proxyHelp";
 
 const props = defineProps({
-  valuePath: {
+  keyPath: {
     type: [String, Boolean],
     default: "",
   },
@@ -40,6 +40,7 @@ const componentDefine = getComponent(props.configData.type);
 
 const formValue = inject("formValue");
 const context = inject("context");
+const formBus = inject("formBus");
 
 const componentProps = computed(() => {
   const { show, type, props: componentProps, ...rest } = props.configData;
@@ -48,16 +49,16 @@ const componentProps = computed(() => {
 
 interface config {
   config: Object;
-  deps: Array<string>
+  deps: Array<string>;
 }
 
-const handleConfig = ():config => {
+const handleConfig = (): config => {
   const data = {};
 
   const newData = configHandle(
     toRaw(props.configData),
     {
-      form: data,
+      form: formValue,
       ...(context as cForm.AnyKeyObject),
     },
     {}, // util
@@ -69,27 +70,28 @@ const handleConfig = ():config => {
 const options = handleConfig();
 
 const state = reactive({
-  value: get(formValue, props.valuePath as any),
+  value: deepGet(formValue, props.keyPath),
   renderData: options.config,
   showName: showTitle(props.configData.type) && !props.configData.hideName,
 });
 
 onMounted(() => {
   if (options.deps.length) {
-    const watchSource = options.deps.map(item => {
+    const watchSource = options.deps.map((item) => {
       return () => {
-        return get(formValue, item.replace("form", ""))
-      }
-    })
+        return deepGet(formValue, item.replace("form.", ""));
+      };
+    });
     watch(watchSource, () => {
-      state.renderData = handleConfig()
-    
-    })
+      const opt = handleConfig()
+      state.renderData = opt.config;
+    });
   }
-})
+});
 
 const valueChange = (val) => {
-  state.value = val
+  state.value = val;
+  formBus.emit("fieldChange", { keyPath: props.keyPath, value: val });
 };
 
 const initSearcher = () => {};

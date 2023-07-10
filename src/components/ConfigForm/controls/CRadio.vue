@@ -3,14 +3,14 @@
     <el-radio
       v-for="item in options"
       :key="item.value"
-      :label="item.label"
-      :value="item.value"
-    />
+      :label="item.value"
+      :model-value="item.value"
+    >{{ item.label }}</el-radio>
     </el-radio-group>
 </template>
 
 <script lang="ts" setup>
-import { computed, useAttrs  } from "vue";
+import { computed, useAttrs, ref  } from "vue";
 
 const props = defineProps({
   value: {
@@ -28,8 +28,11 @@ const attrs = useAttrs()
 
 const selectProps = computed(() => {
   const { options, ...rest } = attrs;
-  return rest;
+  return {...rest, modelValue: props.value};
 });
+
+const emit = defineEmits(['change'])
+
 
 </script>
 
