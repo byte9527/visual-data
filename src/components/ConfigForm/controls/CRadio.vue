@@ -31,7 +31,6 @@ const selectProps = computed(() => {
   return {...rest, modelValue: props.value};
 });
 
-const emit = defineEmits(['change'])
 
 
 </script>

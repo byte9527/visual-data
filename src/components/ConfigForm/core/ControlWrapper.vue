@@ -90,8 +90,10 @@ onMounted(() => {
 });
 
 const valueChange = (val) => {
-  state.value = val;
-  formBus.emit("fieldChange", { keyPath: props.keyPath, value: val });
+  if (!(val instanceof Event)) {
+    state.value = val;
+    formBus.emit("fieldChange", { keyPath: props.keyPath, value: val });
+  }
 };
 
 const initSearcher = () => {};
