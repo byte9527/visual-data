@@ -99,6 +99,7 @@ export default defineComponent({
           showContent: false,
           padding: 20,
           triggerOn: "mousemove",
+          extraCssText: "sssss",
           textStyle: {
             fontSize: 12,
           },

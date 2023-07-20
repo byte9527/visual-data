@@ -20,7 +20,7 @@ const routes: Array<RouteRecordRaw> = [
   {
     path: '/onlineExcel',
     name: '3D编辑器',
-    component: () => import('@/views/configFormDemo/index.vue'),
+    component: () => import('@/views/test/input.vue'),
     meta: { title: '在线excel' },
   },
 ]

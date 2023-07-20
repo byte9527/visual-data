@@ -18,7 +18,11 @@
 
 <script lang="ts" setup>
 import { reactive, computed, inject, toRaw, onMounted, watch } from "vue";
-import { getComponent, showTitle } from "./controlManager";
+import {
+  getComponent,
+  showTitle,
+  getComponentDecorator,
+} from "./controlManager";
 import { configHandle } from "./configHandle";
 import { deepGet } from "../utils/proxyHelp";
 
@@ -83,15 +87,23 @@ onMounted(() => {
       };
     });
     watch(watchSource, () => {
-      const opt = handleConfig()
+      const opt = handleConfig();
       state.renderData = opt.config;
     });
   }
 });
 
-const valueChange = (val) => {
+const valueChange = (val, newVal) => {
+  // const val = args[0];
   if (!(val instanceof Event)) {
-    state.value = val;
+    const decorator = getComponentDecorator(props.configData.type);
+    if (decorator.valueChange) {
+      // state.value = decorator.valueChange(...args);
+      state.value = val;
+
+    } else {
+      state.value = val;
+    }
     formBus.emit("fieldChange", { keyPath: props.keyPath, value: val });
   }
 };

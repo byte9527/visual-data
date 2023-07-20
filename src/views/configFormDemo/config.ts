@@ -237,6 +237,7 @@ export const config2 = {
         showContent: false,
         padding: 20,
         triggerOn: 'mousemove',
+        extraCssText: "dsafs",
         textStyle: {
           fontSize: 12
         },
