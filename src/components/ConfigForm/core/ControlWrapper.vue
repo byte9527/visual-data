@@ -94,18 +94,8 @@ onMounted(() => {
 });
 
 const valueChange = (val, newVal) => {
-  // const val = args[0];
-  if (!(val instanceof Event)) {
-    const decorator = getComponentDecorator(props.configData.type);
-    if (decorator.valueChange) {
-      // state.value = decorator.valueChange(...args);
-      state.value = val;
-
-    } else {
-      state.value = val;
-    }
-    formBus.emit("fieldChange", { keyPath: props.keyPath, value: val });
-  }
+  state.value = val;
+  formBus.emit("fieldChange", { keyPath: props.keyPath, value: val });
 };
 
 const initSearcher = () => {};
