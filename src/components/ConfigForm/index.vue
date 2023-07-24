@@ -93,21 +93,7 @@ export default defineComponent({
       renderData: this.configData,
       formBus,
       // stateValue: this.value,
-      stateValue: {
-        tooltip: {
-          show: true,
-          showContent: false,
-          padding: 20,
-          triggerOn: "mousemove",
-          extraCssText: "sssss",
-          textStyle: {
-            fontSize: 12,
-          },
-          border: {
-            borderWidth: 1,
-          },
-        },
-      },
+      stateValue: this.value
     };
   },
   computed: {
@@ -222,6 +208,11 @@ export default defineComponent({
 .config-form {
   color: black;
   width: 320px;
+  padding-right: 8px;
   user-select: none;
+
+  & > .control-wrapper{
+    margin-bottom: 8px;
+  }
 }
 </style>

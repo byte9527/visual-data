@@ -3,9 +3,15 @@
     <div class="c-menu__header-wrap">
       <div class="c-menu__header">
         <div class="item-container">
-          <div v-for="(item, key) in children" :key="key" class="header-item" :class="{
-            'header-item--active': state.activeKey === key,
-          }" @click="state.activeKey = key">
+          <div
+            v-for="(item, key) in children"
+            :key="key"
+            class="header-item"
+            :class="{
+              'header-item--active': state.activeKey === key,
+            }"
+            @click="state.activeKey = key"
+          >
             <p class="header-item-name">{{ item.name }}</p>
           </div>
         </div>
@@ -13,10 +19,13 @@
     </div>
 
     <div class="c-menu__content">
-      <!-- <keep-alive>
-        <ControlWrapper :config-data="activeComponent"></ControlWrapper>
-      </keep-alive> -->
-      <ControlWrapper :config-data="activeComponent"></ControlWrapper>
+      <keep-alive>
+        <ControlWrapper
+          :key="state.activeKey"
+          :config-data="activeComponent"
+          :key-path="getKeyPath(state.activeKey, activeComponent)"
+        ></ControlWrapper>
+      </keep-alive>
     </div>
   </div>
 </template>
@@ -24,6 +33,8 @@
 <script lang="ts" setup>
 import { cloneDeep } from "lodash-es";
 import { computed, reactive, toRaw } from "vue";
+
+import { useCommonUtil } from "../utils/controlSetup";
 
 const props = defineProps({
   value: {
@@ -40,7 +51,7 @@ const props = defineProps({
   },
   valuePath: {
     type: String,
-    default: ''
+    default: "",
   },
   layout: {
     type: String,
@@ -48,10 +59,8 @@ const props = defineProps({
   },
 });
 
-
-
 const state = reactive({
-  activeKey: Object.keys(toRaw(props.children))[0]
+  activeKey: Object.keys(toRaw(props.children))[0],
 });
 
 const adjustChildren = computed(() => {
@@ -60,8 +69,8 @@ const adjustChildren = computed(() => {
     if (!value.type) {
       value.type = "group";
     }
-    if (value.type === 'group') {
-      value.props = Object.assign({}, value.props || {})
+    if (value.type === "group") {
+      value.props = Object.assign({}, value.props || {});
     }
   });
   return cloneConfig;
@@ -69,7 +78,7 @@ const adjustChildren = computed(() => {
 
 const activeComponent = computed(() => {
   const r = adjustChildren.value[state.activeKey];
-  return r
+  return r;
 });
 
 const menuClasses = computed(() => {
@@ -79,11 +88,12 @@ const menuClasses = computed(() => {
   ];
 });
 
+const { getKeyPath } = useCommonUtil(props);
 </script>
 
-<style lang='scss' scoped>
+<style lang="scss" scoped>
 $textColor: #fff;
-$activeBg: #409eff;
+$activeBg: #d9e1e9;
 
 .c-menu {
   display: flex;

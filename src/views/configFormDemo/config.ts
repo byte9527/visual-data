@@ -34,7 +34,7 @@ export const config1 = {
               name: '额外样式',
               props: {
                 placeholder: "请输入"
-              
+
               }
             },
             triggerOn: {
@@ -69,24 +69,27 @@ export const config1 = {
                 }
               }
             },
-            // textStyle: {
-            //   type: 'group',
-            //   name: '文本样式',
-            //   children: {
-            //     color: {
-            //       name: '颜色',
-            //       type: 'color'
-            //     },
-            //     fontSize: {
-            //       name: '大小',
-            //       type: 'number',
-            //       props: {
-            //         min: 12,
-            //         max: 100
-            //       }
-            //     },
-            //   }
-            // }
+            textStyle: {
+              type: 'group',
+              name: '文本样式',
+              props: {
+                hideHeader: false
+              },
+              children: {
+                color: {
+                  name: '颜色',
+                  type: 'color'
+                },
+                fontSize: {
+                  name: '大小',
+                  type: 'number',
+                  props: {
+                    min: 12,
+                    max: 100
+                  }
+                },
+              }
+            }
           },
         },
         axis: {
@@ -117,8 +120,12 @@ export const config1 = {
           },
 
         },
-        list: {
-        },
+        name: {
+          type: "input",
+          name: "名称"
+        }
+        // list: {
+        // },
 
       }
 
@@ -129,22 +136,26 @@ export const config1 = {
       tooltip: {
         show: true,
         showContent: false,
-        padding: 6,
+        padding: 30,
         triggerOn: 'mousemove',
         textStyle: {
           fontSize: 12
         }
       },
-      xAxis: {
+      axis: {
+        xAxis: {
+        },
+        yAxis: {
+        },
       },
-      yAxis: {
-      }
+      name: ""
     }
   },
   hooks: {
 
   }
 }
+
 export const config2 = {
   dataConfig: {
     tooltip: {
@@ -233,20 +244,96 @@ export const config2 = {
   },
   initValue: {
     tooltip: {
-        show: true,
-        showContent: false,
-        padding: 20,
-        triggerOn: 'mousemove',
-        extraCssText: "dsafs",
-        textStyle: {
-          fontSize: 12
-        },
-        border: {
-          borderWidth: 1
-        }
+      show: true,
+      showContent: false,
+      padding: 30,
+      triggerOn: 'mousemove',
+      extraCssText: "dsafs",
+      textStyle: {
+        fontSize: 12
       },
+      border: {
+        borderWidth: 1
+      }
+    },
   },
   hooks: {
 
   }
+}
+
+export const config3 = {
+  dataConfig: {
+    show: {
+      type: 'switch',
+      name: '是否显示'
+    },
+    showContent: {
+      type: 'radio',
+      show: "${$form.tooltip.show}",
+      name: '提示框浮层',
+      props: {
+        options: [
+          { label: '是', value: true },
+          { label: '否', value: false },
+        ]
+      },
+    },
+    padding: {
+      type: 'slider',
+      name: '内边距'
+    },
+    extraCssText: {
+      type: 'input',
+      name: '额外样式'
+    },
+    triggerOn: {
+      type: 'select',
+      name: '触发方式',
+      props: {
+        options: [
+          { label: '悬浮', value: 'mousemove' },
+          { label: '点击', value: 'click' },
+        ]
+        // options: "${util.getOptions(context.data)}"
+      }
+    },
+    border: {
+      type: 'suite',
+      name: "边框",
+      valuePath: false,
+      props: {
+        layout: {
+          type: 'row',
+          setting: [[18, 6]]
+        }
+      },
+      children: {
+        borderWidth: {
+          name: '边框宽度',
+          type: 'number'
+        },
+        borderColor: {
+          name: '边框颜色',
+          type: 'color'
+        }
+      }
+    },
+  },
+  layout: {
+
+  },
+  initValue: {
+    show: true,
+    showContent: false,
+    padding: 30,
+    triggerOn: 'mousemove',
+    extraCssText: "dsafs",
+    textStyle: {
+      fontSize: 12
+    },
+    border: {
+      borderWidth: 1
+    }
+  },
 }

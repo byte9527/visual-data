@@ -21,7 +21,7 @@
           class="control-wrap"
           :config-data="item"
           :key="key"
-          :key-path="getValuePath(key, item)"
+          :key-path="getKeyPath(key, item)"
         ></ControlWrapper>
       </el-collapse-item>
     </el-collapse>
@@ -30,8 +30,10 @@
 
 <script lang="ts" setup>
 import { ref } from "vue";
+import { useCommonUtil } from "../utils/controlSetup";
+
 const props = defineProps({
-  value: {
+  modelValue: {
     type: Object,
     default() {
       return {};
@@ -67,13 +69,7 @@ const props = defineProps({
 
 const reactValue = ref(props.hideHeader ? "1" : "");
 
-const getValuePath = (key, item) => {
-  if (item.valuePath === false) {
-    return props.valuePath
-  } else {
-    return `${props.valuePath}.${key}` ;
-  }
-};
+const { getKeyPath } = useCommonUtil(props);
 </script>
 
 <style lang="scss">
@@ -82,6 +78,10 @@ const getValuePath = (key, item) => {
 
   > .el-collapse {
     border-top: none;
+  }
+
+  .el-collapse-item__wrap {
+    border-bottom: none;
   }
 
   &--noHeader {

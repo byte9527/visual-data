@@ -1,17 +1,24 @@
 <template>
   <div class="config-form-demo">
-    <!-- <div class="form-box">
+    <div class="form-box">
       <ConfigForm
         :config-data="config1.dataConfig"
         :value="config1.initValue"
         :hooks="config1.hooks"
       />
-    </div> -->
+    </div>
     <div class="form-box">
       <ConfigForm
         :config-data="config2.dataConfig"
         :value="config2.initValue"
         :hooks="config2.hooks"
+      />
+    </div>
+    <div class="form-box">
+      <ConfigForm
+        :config-data="config3.dataConfig"
+        :value="config3.initValue"
+        :hooks="config3.hooks"
       />
     </div>
   </div>
@@ -20,7 +27,7 @@
 <script lang="ts">
 import { defineComponent } from "vue";
 import ConfigForm from "@/components/ConfigForm/index.vue";
-import { config1, config2 } from "./config";
+import { config1, config2, config3 } from "./config";
 
 export default defineComponent({
   name: "ConfigFormDemo",
@@ -32,6 +39,7 @@ export default defineComponent({
     return {
       config1: config1,
       config2: config2,
+      config3: config3
     };
   },
   setup(props) {},
@@ -40,11 +48,14 @@ export default defineComponent({
 
 <style lang="scss" scoped>
 .config-form-demo {
-
+  display: flex;
+  flex-wrap: wrap;
   .form-box {
     // padding: 8px;
-    background-color: lightblue;
+    background-color: #f6f6f6;
     margin-bottom: 32px;
+    margin-right: 32px;
+    height: fit-content;
   }
 
   ::v-deep {
