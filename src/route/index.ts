@@ -18,8 +18,8 @@ const routes: Array<RouteRecordRaw> = [
     meta: { title: '大屏编辑器' },
   },
   {
-    path: '/onlineExcel',
-    name: '3D编辑器',
+    path: '/storyboard',
+    name: '故事板',
     component: () => import('@/views/test/input.vue'),
     meta: { title: '在线excel' },
   },

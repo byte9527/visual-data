@@ -22,8 +22,8 @@ export default {
           to: '/visualScreen' 
         },
         {
-          label: '3D编辑器',
-          to: '/onlineExcel' 
+          label: '故事板',
+          to: '/storyboard' 
         },
       ]
     

@@ -85,12 +85,13 @@ const { getKeyPath } = useCommonUtil(props);
   }
 
   &--noHeader {
-    > .el-collapse {
-      border-bottom: none;
-
+    > .el-collapse > .el-collapse-item > div:first-of-type {
       .el-collapse-item__header {
         display: none;
       }
+    }
+    > .el-collapse {
+      border-bottom: none;
     }
   }
 

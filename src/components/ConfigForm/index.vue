@@ -93,7 +93,7 @@ export default defineComponent({
       renderData: this.configData,
       formBus,
       // stateValue: this.value,
-      stateValue: this.value
+      stateValue: this.value,
     };
   },
   computed: {
@@ -210,8 +210,10 @@ export default defineComponent({
   width: 320px;
   padding-right: 8px;
   user-select: none;
+  box-sizing: border-box;
+  user-select: none;
 
-  & > .control-wrapper{
+  & > .control-wrapper {
     margin-bottom: 8px;
   }
 }

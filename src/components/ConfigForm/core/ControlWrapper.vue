@@ -21,7 +21,6 @@ import { reactive, computed, inject, toRaw, onMounted, watch } from "vue";
 import {
   getComponent,
   showTitle,
-  getComponentDecorator,
 } from "./controlManager";
 import { configHandle } from "./configHandle";
 import { deepGet } from "../utils/proxyHelp";
@@ -104,12 +103,14 @@ const responseSearch = () => {};
 </script>
 
 <style lang="scss" scoped>
+
+$titleWidth: 80px;
 .control-wrapper {
   display: flex;
 
   .control-title {
-    width: 100px;
-    min-width: 100px;
+    width: $titleWidth;
+    min-width: $titleWidth;
     font-size: 12px;
     display: flex;
     align-items: center;

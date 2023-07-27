@@ -104,17 +104,35 @@ export const config1 = {
               type: 'group',
               props: {
                 enableOpen: false,
+                hideHeader: true
               },
               children: {
+                show: {
+                  type: "switch",
+                  name: "显示"
+                },
+                name: {
+                  type: "input",
+                  name: "名称"
+                }
               },
             },
             yAxis: {
               name: 'y轴',
               type: 'group',
               props: {
+              hideHeader: true,
                 enableOpen: false,
               },
               children: {
+                show: {
+                  type: "switch",
+                  name: "显示"
+                },
+                name: {
+                  type: "input",
+                  name: "名称"
+                }
               },
             }
           },
@@ -124,8 +142,9 @@ export const config1 = {
           type: "input",
           name: "名称"
         }
-        // list: {
-        // },
+        series: {
+          
+        },
 
       }
 
