@@ -4,12 +4,12 @@
     :style="{
       width: realWidth + 'px',
     }"
-    class="panel-tabs"
+    class="c-tabs"
   >
-    <el-collapse v-model="activeNames" accordion class="panel-tabs-collapse">
+    <el-collapse v-model="activeNames" accordion class="c-tabs-collapse">
       <el-collapse-item name="containerName">
         <template slot="title">
-          <label for="">{{ configData.name }}</label>
+          <label>{{ name }}</label>
         </template>
         <div v-if="list.length">
           <el-tabs
@@ -17,18 +17,25 @@
             type="card"
             :closable="deleteAllow"
             :addable="addAllow"
-            class="panel-tabs-collapse--content"
+            class="c-tabs-collapse--content"
             @tab-click="handleClick"
             @tab-remove="deleteTab"
             @tab-add="addTab"
           >
             <el-tab-pane
-              v-for="(child, index) in convertList()"
-              :key="child.name"
-              :label="child.name"
-              :name="child.name"
+              v-for="(tab, index) in list"
+              :key="tab.name"
+              :label="tab.name"
+              :name="tab.name"
               class="panel-group"
             >
+              <ControlWrapper
+                v-for="(item, k) in tab.children"
+                class="control-wrap"
+                :config-data="item"
+                :key="k"
+                :key-path="getKeyPath(k, item, index)"
+              ></ControlWrapper>
             </el-tab-pane>
           </el-tabs>
         </div>
@@ -39,7 +46,6 @@
 </template>
 
 <script>
-
 export default {
   components: {},
   mixins: [],
@@ -50,10 +56,18 @@ export default {
         return [];
       },
     },
-    options: {
-      type: Object,
+    valuePath: {
+      type: String,
+      default: "",
+    },
+    name: {
+      type: String,
+      default: "",
+    },
+    template: {
+      type: Function,
       default() {
-        return {};
+        return () => {};
       },
     },
   },
@@ -62,7 +76,6 @@ export default {
       activeNames: "containerName",
       activeTabName: "",
       activeTabIndex: "0",
-      template: () => {},
       list: [],
       realWidth: false,
       clientWidth: "",
@@ -108,7 +121,6 @@ export default {
         this.$refs.panelTabs?.parentNode.clientWidth;
     }
     this.initial();
-    this.listenEventBusMsg();
   },
   beforeUpdate() {
     if (!this.realWidth && this.$refs.panelTabs?.clientWidth !== 0) {
@@ -118,6 +130,9 @@ export default {
     }
   },
   methods: {
+    getKeyPath(key, item, index) {
+      return `${this.valuePath}[${index}].${key}`;
+    },
     checkMatchDeps(str) {
       // this.mergeUpdateDeps.includes()
       return this.deps.some((item) => {
@@ -128,12 +143,8 @@ export default {
     getValuePath(parentValuePath, key, index) {
       return `${parentValuePath}[${index}].${key}`;
     },
-    convertList() {
-      return [];
-    },
     initial() {
       // 获取模板
-      this.template = this.configData?.template || false;
       // 根据模板初始化
       if (this.template !== false) {
         this.list = this.createList(this.value);
@@ -141,7 +152,7 @@ export default {
         this.list = this.configData?.children;
       }
       // 获取默认值产生方式
-      this.defaultValue = this.configData?.defaultValue || false;
+      this.defaultValue = this.value
       if (this.list.length > 0) this.activeTabName = this.list[0].name;
     },
     createList(data) {
@@ -237,15 +248,22 @@ export default {
   border: 1px solid red;
   width: 100%;
 }
-::v-deep .panel-tabs {
+.c-tabs {
+  width: 100%;
   &-collapse {
     border: none;
+
+    ::v-deep {
+      .el-collapse-item__header,
+      .el-collapse-item__wrap {
+        background-color: inherit;
+      }
+    }
     &--content {
       .control-item__control-wrap {
         display: flex;
       }
       > .el-tabs__header {
-        background: #1a202d;
         > .el-tabs__new-tab {
           margin: 9px 0 9px 0;
           border: none;

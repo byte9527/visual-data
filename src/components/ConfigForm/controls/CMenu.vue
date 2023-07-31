@@ -19,13 +19,13 @@
     </div>
 
     <div class="c-menu__content">
-      <keep-alive>
+      <KeepAlive>
         <ControlWrapper
           :key="state.activeKey"
           :config-data="activeComponent"
           :key-path="getKeyPath(state.activeKey, activeComponent)"
         ></ControlWrapper>
-      </keep-alive>
+      </KeepAlive>
     </div>
   </div>
 </template>
@@ -33,7 +33,7 @@
 <script lang="ts" setup>
 import { cloneDeep } from "lodash-es";
 import { computed, reactive, toRaw } from "vue";
-
+import ControlWrapper from "../core/ControlWrapper.vue";
 import { useCommonUtil } from "../utils/controlSetup";
 
 const props = defineProps({

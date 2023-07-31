@@ -121,7 +121,7 @@ export const config1 = {
               name: 'y轴',
               type: 'group',
               props: {
-              hideHeader: true,
+                hideHeader: true,
                 enableOpen: false,
               },
               children: {
@@ -141,9 +141,30 @@ export const config1 = {
         name: {
           type: "input",
           name: "名称"
-        }
+        },
         series: {
-          
+          type: "list",
+          name: "系列",
+          props: {
+            template(item, i) { // item为defaultValue创建的新值，i为当前系列下标
+              return {
+                name: `系列${i + 1}`,
+                children: {
+                  type: {
+                    type: "select",
+                    name: "类型",
+                    props: {
+                      options: []
+                    }
+                  },
+                  color: {
+                    type: 'color',
+                    name: '颜色',
+                  }
+                }
+              }
+            },
+          }
         },
 
       }
@@ -167,7 +188,8 @@ export const config1 = {
         yAxis: {
         },
       },
-      name: ""
+      name: "",
+      series: [{ type: "bar", color: "" }, { type: "line", color: "" },]
     }
   },
   hooks: {

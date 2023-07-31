@@ -31,6 +31,7 @@
 <script lang="ts" setup>
 import { ref } from "vue";
 import { useCommonUtil } from "../utils/controlSetup";
+import ControlWrapper from "../core/ControlWrapper.vue";
 
 const props = defineProps({
   modelValue: {
