@@ -27,7 +27,7 @@
               :key="tab.name"
               :label="tab.name"
               :name="tab.name"
-              class="panel-group"
+              class="c-group"
             >
               <ControlWrapper
                 v-for="(item, k) in tab.children"
@@ -46,8 +46,13 @@
 </template>
 
 <script>
+import { defineAsyncComponent } from "vue";
 export default {
-  components: {},
+  components: {
+    ControlWrapper: defineAsyncComponent(() =>
+      import("../core/ControlWrapper.vue")
+    ),
+  },
   mixins: [],
   props: {
     value: {
@@ -152,7 +157,7 @@ export default {
         this.list = this.configData?.children;
       }
       // 获取默认值产生方式
-      this.defaultValue = this.value
+      this.defaultValue = this.value;
       if (this.list.length > 0) this.activeTabName = this.list[0].name;
     },
     createList(data) {

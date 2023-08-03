@@ -5,11 +5,11 @@
     </span>
     <div class="control-content">
       <component
+        v-bind="componentProps"
         :is="componentDefine"
         :value="state.value"
         :model-value="state.value"
-        :valuePath="keyPath"
-        v-bind="componentProps"
+        :value-path="keyPath"
         @change="valueChange"
       ></component>
     </div>
@@ -83,6 +83,8 @@ onMounted(() => {
     const watchSource = options.deps.map((item) => {
       return () => {
         return deepGet(formValue, item.replace("form.", ""));
+        // let func = new Function('form', `return ${item}`)
+        // return func(formValue)
       };
     });
     watch(watchSource, () => {
@@ -92,7 +94,11 @@ onMounted(() => {
   }
 });
 
-const valueChange = (val, newVal) => {
+const valueChange = (val) => {
+  if (val instanceof Event) {
+    return
+  }
+
   state.value = val;
   formBus.emit("fieldChange", { keyPath: props.keyPath, value: val });
 };

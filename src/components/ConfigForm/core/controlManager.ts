@@ -155,11 +155,3 @@ export function getComponentConfig(keyword: string) {
 export function showTitle(type: string): boolean {
   return !noNameTypes.includes(type);
 }
-
-export function getComponentDecorator(keyword: string) {
-  if (!keyword) {
-    return {};
-  }
-  let config = getComponentConfig(keyword);
-  return config.decorator || {};
-}

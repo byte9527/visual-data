@@ -6,6 +6,7 @@
           <div
             v-for="(item, key) in children"
             :key="key"
+            :data-key="key"
             class="header-item"
             :class="{
               'header-item--active': state.activeKey === key,

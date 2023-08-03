@@ -5,7 +5,7 @@
         <ControlWrapper
           class="control-wrap"
           :config-data="col.child"
-          :key-path="getValuePath(col.child.key, col.child)"
+          :key-path="getKeyPath(col.child.key, col.child)"
         >
         </ControlWrapper>
       </el-col>
@@ -15,6 +15,8 @@
 
 <script lang="ts" setup>
 import { computed, toRaw } from "vue";
+import ControlWrapper from "../core/ControlWrapper.vue";
+import { useCommonUtil } from "../utils/controlSetup";
 
 const props = defineProps({
   value: {
@@ -87,13 +89,7 @@ const layoutInfo = computed(() => {
   return result;
 });
 
-const getValuePath = (key, item) => {
-  if (item.valuePath === false) {
-    return props.valuePath;
-  } else {
-    return `${props.valuePath}.${key}`;
-  }
-};
+const { getKeyPath } = useCommonUtil(props);
 </script>
 
 <style lang="scss" scoped></style>

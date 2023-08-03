@@ -150,9 +150,14 @@ export const config1 = {
               return {
                 name: `系列${i + 1}`,
                 children: {
+                  show: {
+                    name: "展示",
+                    type: 'switch'
+                  },
                   type: {
                     type: "select",
                     name: "类型",
+                    show: `\$\{$form.option.series[${i}].show\}`,
                     props: {
                       options: []
                     }
@@ -189,7 +194,7 @@ export const config1 = {
         },
       },
       name: "",
-      series: [{ type: "bar", color: "" }, { type: "line", color: "" },]
+      series: [{ type: "bar", color: "", show: false }, { type: "line", color: "", show: false },]
     }
   },
   hooks: {
@@ -297,6 +302,7 @@ export const config2 = {
         borderWidth: 1
       }
     },
+    textStyle: {}
   },
   hooks: {
 

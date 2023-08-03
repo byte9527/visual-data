@@ -57,7 +57,7 @@ export function configHandle(target: object, context: cForm.FormContext, util = 
   deps = []
   const newConfig = objConfigTransform(target, context, util),
     filterDeps = Array.from(new Set(deps))
-  transformDeps(filterDeps)
+  // transformDeps(filterDeps)
   return {
     config: newConfig,
     deps: filterDeps
@@ -102,14 +102,15 @@ export function objConfigTransform(target: cForm.AnyKeyObject, context = { form:
         obj[k] = transformString(value, context, util, newKeyPath)
         break
       case 'function':
-        // 针对具备循环特征且已template作为子配置模板的套件
-        if (k === 'template') {
-          const firstEl = value({}, 0)
-          obj[k] = value
-          objConfigTransform(firstEl.children)
-        } else {
-          obj[k] = value
-        }
+        // // 针对具备循环特征且已template作为子配置模板的套件
+        // if (k === 'template') {
+        //   const firstEl = value({}, 0)
+        //   obj[k] = value
+        //   objConfigTransform(firstEl.children)
+        // } else {
+        //   obj[k] = value
+        // }
+        obj[k] = value
         break
       default:
         obj[k] = value

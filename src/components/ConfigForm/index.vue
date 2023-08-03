@@ -109,7 +109,7 @@ export default defineComponent({
     },
     value: {
       handler(newVal) {
-        (this as any).stateValue = JSON.parse(JSON.stringify(newVal));
+        // (this as any).stateValue = JSON.parse(JSON.stringify(newVal));
       },
       deep: true,
     },

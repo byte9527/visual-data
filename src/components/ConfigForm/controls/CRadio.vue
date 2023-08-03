@@ -1,5 +1,5 @@
 <template>
-  <el-radio-group v-bind="selectProps" :model-value="value">
+  <el-radio-group v-bind="selectProps" :model-value="value" @change="change">
     <el-radio
       v-for="item in options"
       :key="item.value"
@@ -11,7 +11,9 @@
 
 <script lang="ts" setup>
 import { computed, useAttrs, ref  } from "vue";
-
+defineOptions({
+  inheritAttrs: false
+})
 const props = defineProps({
   value: {
     type: [String, Number, Array, Boolean, Object],
@@ -31,7 +33,15 @@ const selectProps = computed(() => {
   return {...rest, modelValue: props.value};
 });
 
+const emit = defineEmits(["change"]);
 
+const currentValue = ref(props.value);
+
+const change = (val) => {
+  if (val !== currentValue) {
+    emit("change", val);
+  }
+};
 
 </script>
 

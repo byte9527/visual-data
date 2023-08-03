@@ -13,8 +13,8 @@
         :value="config2.initValue"
         :hooks="config2.hooks"
       />
-    </div>
-    <div class="form-box">
+    </div> -->
+    <!-- <div class="form-box">
       <ConfigForm
         :config-data="config3.dataConfig"
         :value="config3.initValue"
@@ -25,7 +25,7 @@
 </template>
 
 <script lang="ts">
-import { defineComponent } from "vue";
+import { defineComponent, toRaw } from "vue";
 import ConfigForm from "@/components/ConfigForm/index.vue";
 import { config1, config2, config3 } from "./config";
 
