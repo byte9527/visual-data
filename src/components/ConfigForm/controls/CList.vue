@@ -8,7 +8,7 @@
   >
     <el-collapse v-model="activeNames" accordion class="c-tabs-collapse">
       <el-collapse-item name="containerName">
-        <template slot="title">
+        <template #title>
           <label>{{ name }}</label>
         </template>
         <div v-if="list.length">

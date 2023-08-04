@@ -159,7 +159,7 @@ export const config1 = {
                     name: "类型",
                     show: `\$\{$form.option.series[${i}].show\}`,
                     props: {
-                      options: []
+                      options: [{ label: "柱状图", value: "bar" }, { label: "折线图", value: "line" },]
                     }
                   },
                   color: {
