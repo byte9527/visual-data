@@ -8,7 +8,7 @@
   >
     <el-collapse v-model="activeNames" accordion class="c-tabs-collapse">
       <el-collapse-item name="containerName">
-        <template #title>
+        <template v-if="showTitle" #title >
           <label>{{ name }}</label>
         </template>
         <div v-if="list.length">
@@ -75,6 +75,10 @@ export default {
         return () => {};
       },
     },
+    showTitle: {
+      type: Boolean,
+      default: false
+    }
   },
   data() {
     return {

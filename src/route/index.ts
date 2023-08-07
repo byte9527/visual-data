@@ -12,9 +12,9 @@ const routes: Array<RouteRecordRaw> = [
     meta: { title: '配置面板demo' },
   },
   {
-    path: '/visualScreen',
-    name: '编辑器',
-    component: () => import('@/views/configFormDemo/index.vue'),
+    path: '/VisualPage',
+    name: '可视化设计',
+    component: () => import('@/views/VisualPage/PageList.vue'),
     meta: { title: '大屏编辑器' },
   },
   {

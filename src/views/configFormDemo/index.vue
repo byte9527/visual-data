@@ -7,20 +7,20 @@
         :hooks="config1.hooks"
       />
     </div>
-    <!-- <div class="form-box">
+    <div class="form-box">
       <ConfigForm
         :config-data="config2.dataConfig"
         :value="config2.initValue"
         :hooks="config2.hooks"
       />
-    </div> -->
-    <!-- <div class="form-box">
+    </div>
+    <div class="form-box">
       <ConfigForm
         :config-data="config3.dataConfig"
         :value="config3.initValue"
         :hooks="config3.hooks"
       />
-    </div> -->
+    </div>
   </div>
 </template>
 
