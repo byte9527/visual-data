@@ -1,37 +1,27 @@
 <template>
-  <div>
-    
-  </div>
+  <el-container class="page-designer">
+    <el-header>Header</el-header>
+    <el-container>
+      <el-aside width="200px">Aside</el-aside>
+      <el-main>Main</el-main>
+      <el-aside width="200px">Aside</el-aside>
+    </el-container>
+  </el-container>
 </template>
 
 <script>
 export default {
   mixins: [],
   components: {},
-  props: {
-  
-  },
+  props: {},
   data() {
-    return {
-    
-    }
+    return {};
   },
-  watch: {
-  
-  },
-  computed: {
-
-  },
-  mounted() {
-
-  },
-  methods: {
-  
-  }
-
-}
+  watch: {},
+  computed: {},
+  mounted() {},
+  methods: {},
+};
 </script>
 
-<style lang='scss'>
-  
-</style>
+<style lang="scss"></style>

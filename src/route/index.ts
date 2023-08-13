@@ -1,28 +1,40 @@
 import { createRouter, createWebHashHistory, RouteRecordRaw } from 'vue-router'
 const routes: Array<RouteRecordRaw> = [
+{
+  path: "/",
+  name: "主页",
+  redirect: "/home/configForm"
+},
   {
-    path: '/',
+    path: '/home',
     name: 'Home',
+    redirect: "/home/configForm",
     component: () => import('@/views/home/index.vue'),
+    children: [{
+      path: '/home/configForm',
+      name: '配置面板',
+      component: () => import('@/views/configFormDemo/index.vue'),
+      meta: { title: '配置面板demo' }
+    },
+    {
+      path: '/home/visualPage',
+      name: '可视化设计',
+      component: () => import('@/views/VisualPage/PageList.vue'),
+      meta: { title: '大屏编辑器' },
+    },
+    {
+      path: '/home/storyboard',
+      name: '故事板',
+      component: () => import('@/views/test/input.vue'),
+      meta: { title: '在线excel' },
+    },]
   },
   {
-    path: '/configForm',
-    name: '配置面板',
-    component: () => import('@/views/configFormDemo/index.vue'),
-    meta: { title: '配置面板demo' },
-  },
-  {
-    path: '/VisualPage',
-    name: '可视化设计',
-    component: () => import('@/views/VisualPage/PageList.vue'),
-    meta: { title: '大屏编辑器' },
-  },
-  {
-    path: '/storyboard',
-    name: '故事板',
-    component: () => import('@/views/test/input.vue'),
-    meta: { title: '在线excel' },
-  },
+    path: "/pageDesigner",
+    name: '页面设计器',
+    component: () => import('@/views/Designer/index.vue'),
+    meta: { title: '页面设计器' },
+  }
 ]
 
 
