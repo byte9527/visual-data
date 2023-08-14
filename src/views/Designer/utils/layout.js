@@ -5,6 +5,9 @@ const layoutMap = {
   flex: {
   
   },
+  col: {
+  
+  },
   free: {
   
   

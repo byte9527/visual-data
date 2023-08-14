@@ -20,7 +20,13 @@ const routes: Array<RouteRecordRaw> = [
       path: '/home/visualPage',
       name: '可视化设计',
       component: () => import('@/views/VisualPage/PageList.vue'),
-      meta: { title: '大屏编辑器' },
+      meta: { title: '页面编辑器' },
+    },
+    {
+      path: '/home/onlineComponent',
+      name: '在线组件',
+      component: () => import('@/views/VisualPage/PageList.vue'),
+      meta: { title: '在线组件' },
     },
     {
       path: '/home/storyboard',
