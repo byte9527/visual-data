@@ -5,20 +5,27 @@ class WidgetManager {
   }
 
   init() {
-    const modules = import.meta.glob("../widget/\*/index.js")
-    debugger
+    const modules = import.meta.glob("../../widgets/\*/index.js",  { eager: true })
+    for (const k in modules) {
+      const m = modules[k]
+      this.registerWidget(m.type, m.default)
+    }
   }
 
-  getWidgetConfig(type) {
-
+  getWidgetMetadata(type) {
+    return this.map[type]
+  }
+  
+  getWidgetMetadata(type) {
+    return this.map[type].config
   }
 
   getWidgetDefine(type) {
-  
+    return this.map[type].config
   }
 
-  registerWidget() {
-    
+  registerWidget(type, config) {
+    this.map[config.type] = config
   }
 }
 

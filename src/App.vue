@@ -4,7 +4,8 @@
   </div>
 </template>
 
-<script lang="ts">
+<script lang="js">
+let aa;
 export default {
   data() {
     return {
@@ -17,7 +18,7 @@ export default {
         {
           key: "/visualPage",
           label: "可视化页面",
-          children: [],
+          children: []
         },
         {
           key: "/storyboard",

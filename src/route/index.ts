@@ -50,7 +50,7 @@ const router = createRouter({
   routes,
 })
 
-router.beforeEach(async (to, from, next) => {
+router.beforeEach(async (to: { meta: { title: any } }, from: any, next: () => void) => {
   // set page title
   const defaultTitle = '可视化'
   if (to.meta && to.meta.title) {

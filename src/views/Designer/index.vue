@@ -19,8 +19,11 @@
 </template>
 
 <script>
+
+import WM from "./core/utils/widgetManager.js"
 import Header from "./components/Header.vue";
 import ComponentList from "./components/ComponentList.vue";
+
 export default {
   mixins: [],
   components: { Header, ComponentList },

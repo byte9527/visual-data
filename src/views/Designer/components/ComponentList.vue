@@ -9,9 +9,11 @@
         <el-collapse v-model="activeNames" @change="handleChange">
           <el-collapse-item
             v-for="item in category.children"
+            :key="item.key"
             :title="item.name"
             name="4"
           >
+            <div v-for="el in item.children" :key="el.key"></div>
           </el-collapse-item>
         </el-collapse>
       </el-tab-pane>
@@ -19,6 +21,8 @@
   </div>
 </template>
 <script>
+import WM from "../core/utils/widgetManager.js";
+
 export default {
   mixins: [],
   components: {},
@@ -61,7 +65,34 @@ export default {
     this.initComponents();
   },
   methods: {
-    initComponents() {},
+    initComponents() {
+      const categoryMap = this.reflectComponentList();
+      this.categoryList;
+
+      for (const type in WM.map) {
+        const metadata = WM.map[type];
+        const { category } = metadata;
+        const target = categoryMap[category];
+        const { config, ...rest } = metadata;
+
+        target.children.push(rest);
+      }
+    },
+    reflectComponentList() {
+      let map = {};
+      for (const category of this.categoryList) {
+        const { key, group = true, children } = category;
+        if (!group) {
+          map[key] = category;
+        } else {
+          for (const index in children) {
+            const child = children[index];
+            map[`${category.key}/${child.key}`] = child;
+          }
+        }
+      }
+      return map;
+    },
   },
 };
 </script>
