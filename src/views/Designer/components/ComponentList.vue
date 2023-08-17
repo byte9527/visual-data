@@ -121,6 +121,7 @@ export default {
 <style lang="scss">
 .component-list {
   height: 100%;
+  user-select: none; 
 
   .el-tabs {
     .el-tabs__nav {

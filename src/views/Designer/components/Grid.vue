@@ -3,6 +3,7 @@
 </template>
 
 <script>
+import debounce from 'lodash/debounce';
 export default {
   props: {
     layout: {
@@ -12,7 +13,7 @@ export default {
           paddingX: 16,
           paddingY: 16,
           colNum: 8,
-          cellHeight: 16,
+          cellHeight: 32,
           xSpace: 8,
           ySpace: 8,
         };
@@ -20,11 +21,11 @@ export default {
     },
     cellColor: {
       type: String,
-      default: "#F2F5FB"
+      default: '#F2F5FB',
     },
     spaceColor: {
       type: String,
-      default: "#D0DBF0"
+      default: '#f4f8ff',
     },
   },
   data() {
@@ -42,49 +43,56 @@ export default {
     },
   },
   mounted() {
-    const parentEl = this.$el.parentElement
-    this.width = parseInt(parentEl.clientWidth) - 10
-    this.height = parseInt(parentEl.clientHeight) - 10
-
     const canvas = this.$refs.canvas;
     this.ctx = canvas.getContext('2d');
-    this.repaint();
+    this.resetSize();
+    this.addListener();
+    this.repaintAfterResize = debounce(this.resetSize, 100);
   },
   methods: {
-    async repaint() {
+    addListener() {
+      this.observer = new ResizeObserver((entries) => {
+        this.repaintAfterResize();
+      });
+      this.observer.observe(this.$el.parentElement);
+    },
+    resetSize() {
+      const parentEl = this.$el.parentElement;
+      this.width = parseInt(parentEl.clientWidth) - 10;
+      this.height = parseInt(parentEl.clientHeight) - 10;
+
+      this.$nextTick(() => {
+        this.repaint();
+      });
+    },
+    repaint() {
+
       let ctx = this.ctx;
       let x = 0,
         y = 0;
-      let {
-        ySpace,
-        xSpace,
-        colNum,
-        paddingY,
-        paddingX
-      } = this.layout;
-      const {width, height} = this.height
+      let { ySpace, xSpace, colNum, paddingY, paddingX } = this.layout;
+      const { width, height } = this;
 
-      let cellWidth =
-        (width - xSpace * (colNum - 1) - paddingX * 2) / colNum;
-      let cellHeight = this.layout.cellHeight
+      let cellWidth = (width - xSpace * (colNum - 1) - paddingX * 2) / colNum;
+      let cellHeight = this.layout.cellHeight;
       ctx.clearRect(0, 0, width, height);
       ctx.fillStyle = this.spaceColor;
       ctx.fillRect(x, y, width, height);
 
-
       //按照Salesforce Einstein 的方式将背景色易一定规律转换成每个小矩形的颜色
-        ctx.fillStyle = this.getCellColor(this.spaceColor);
-        // ctx.fillRect(8, 8, 16, 16);
-        // ctx.fillRect(8, 32, 16, 16);
-        for (let i = 0; i < colNum; i++) {
-          for (let j = 0; j * (ySpace + cellHeight) < height; j++) {
-            x = i * (xSpace + cellWidth) + paddingX;
-            y = j * (ySpace + cellHeight) + paddingY;
-            // canvas绘图时会从坐标中间往两边发散，而不是以目标点为起点绘制
-            // 因此为保证与dom图渲染一致，使组件卡片能正常匹配背景，需要做一些偏移和宽高的减少
-            ctx.fillRect(x + 1, y + 1, cellWidth - 2, cellHeight - 2);
-          }
+      const cellColor = this.getCellColor(this.spaceColor);
+      ctx.fillStyle = cellColor;
+      // ctx.fillRect(8, 8, 16, 16);
+      // ctx.fillRect(8, 32, 16, 16);
+      for (let i = 0; i < colNum; i++) {
+        for (let j = 0; j * (ySpace + cellHeight) < height; j++) {
+          x = i * (xSpace + cellWidth) + paddingX;
+          y = j * (ySpace + cellHeight) + paddingY;
+          // canvas绘图时会从坐标中间往两边发散，而不是以目标点为起点绘制
+          // 因此为保证与dom图渲染一致，使组件卡片能正常匹配背景，需要做一些偏移和宽高的减少
+          ctx.fillRect(x + 1, y + 1, cellWidth - 2, cellHeight - 2);
         }
+      }
     },
     /**
      * 将8位的16进制hex颜色值转换成rgb颜色字符串

@@ -1,20 +1,21 @@
-import { isEqual, cloneDeep, mergeWith } from 'lodash'
-
 export default {
-  state:  {
+  state: {
+    pageSetting: {
+      layout: {
+        type: '',
+        gridLayout: {
+
+        },
+      },
+    },
     elList: [],
     elMap: {},
     selectIds: [],
-    
   },
-  getters: {
-  
-  
-  },
+  getters: {},
   mutations: {
     setSelectIds(state, data) {
-      state.selectIds = data
+      state.selectIds = data;
     },
-
-  }
-}
+  },
+};
