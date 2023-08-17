@@ -6,22 +6,25 @@
         :key="category.key"
         :label="category.name"
       >
-        <el-collapse v-model="activeNames" @change="handleChange">
+        <el-collapse v-model="category.active" @change="handleChange">
           <el-collapse-item
             v-for="item in category.children"
             :key="item.key"
             :title="item.name"
-            name="4"
+            :name="item.key"
           >
-            <div v-for="el in item.children" :key="el.key"></div>
+            <div v-for="el in item.children" :key="el.key" class="widget-item">
+              {{ el.name }}
+            </div>
           </el-collapse-item>
         </el-collapse>
       </el-tab-pane>
     </el-tabs>
   </div>
 </template>
+
 <script>
-import WM from "../core/utils/widgetManager.js";
+import WM from '../core/utils/widgetManager.js';
 
 export default {
   mixins: [],
@@ -31,31 +34,49 @@ export default {
     return {
       categoryList: [
         {
-          name: "基础",
-          key: "base",
+          name: '基础',
+          key: 'base',
+          active: 'base',
           children: [
-            { name: "基础", key: "base", children: [] },
-            { name: "媒体", key: "media", children: [] },
+            { name: '基础', key: 'base', children: [] },
+            { name: '媒体', key: 'media', children: [] },
           ],
         },
         {
-          name: "图表",
-          key: "chart",
+          name: '图表',
+          key: 'chart',
+          active: 'bar',
           children: [
-            { name: "柱状图", key: "bar", children: [] },
-            { name: "线状图", key: "line", children: [] },
-            { name: "饼环图", key: "pie", children: [] },
-            { name: "其他", key: "others", children: [] },
+            { name: '柱状图', key: 'bar', children: [] },
+            { name: '线状图', key: 'line', children: [] },
+            { name: '饼环图', key: 'pie', children: [] },
+            { name: '其他', key: 'others', children: [] },
           ],
         },
         {
-          name: "表单",
-          key: "form",
-          group: false,
-          children: [],
+          name: '表单',
+          key: 'form',
+          children: [
+            { name: '选择', key: 'select', children: [] },
+            { name: '文本输入', key: 'text', children: [] },
+          ],
         },
-        { name: "数据", key: "data", group: false, children: [] },
-        { name: "容器", key: "container", group: false, children: [] },
+        {
+          name: '展示',
+          key: 'data',
+          children: [
+            { name: '表格', key: 'table', children: [] },
+            { name: '文本', key: 'text', children: [] },
+          ],
+        },
+        {
+          name: '容器',
+          key: 'container',
+          children: [
+            { name: '布局', key: 'layout', children: [] },
+            { name: '功能', key: 'layout', children: [] },
+          ],
+        },
       ],
     };
   },
@@ -73,9 +94,9 @@ export default {
         const metadata = WM.map[type];
         const { category } = metadata;
         const target = categoryMap[category];
-        const { config, ...rest } = metadata;
+        const { config, showInPanel = true, ...rest } = metadata;
 
-        target.children.push(rest);
+        showInPanel && target.children.push(rest);
       }
     },
     reflectComponentList() {
@@ -116,6 +137,29 @@ export default {
 
     .el-tabs__item.is-left {
       justify-content: center;
+    }
+  }
+
+  .el-collapse-item__content {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: flex-start;
+    padding: 0 8px;
+
+    .widget-item {
+      width: 40%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      margin-bottom: 8px;
+      border-radius: 4px;
+      border: 1px solid lightgray;
+      cursor: pointer;
+
+      &:nth-of-type(2n + 1) {
+        margin-left: 5%;
+        margin-right: 10%;
+      }
     }
   }
 }

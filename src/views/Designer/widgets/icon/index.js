@@ -1,19 +1,19 @@
-import config from "./config"
+import config from './config'
 export default {
   // 名称
-  name: "图标",
+  name: '图标',
   // 显示的icon
-  icon: "",
+  icon: '',
   // 组件类型，唯一表示
-  type: "icon",
+  type: 'icon',
   // 组件定义，用于渲染
-  define: "el-icon",
+  define: 'el-icon',
   // 组件版本，暂留
-  version: "1.0",
+  version: '1.0',
   // 配置，用于设计时的属性设置
   config,
   // 是否展示在组件面板中
-  showInPanel: false,
+  showInPanel: true,
   // 类型分类
-  category: "base/base"
+  category: 'base/base'
 }

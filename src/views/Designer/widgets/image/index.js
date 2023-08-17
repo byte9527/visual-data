@@ -1,7 +1,7 @@
 import config from './config';
 export default {
   // 名称
-  name: '按钮',
+  name: '图片',
   // 显示的icon
   icon: '',
   // 组件类型，唯一表示
@@ -15,5 +15,5 @@ export default {
   // 是否展示在组件面板中
   showInPanel: true,
   // 类型分类
-  category: 'base/base',
+  category: 'base/media',
 };

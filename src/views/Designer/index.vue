@@ -6,32 +6,33 @@
     <el-container>
       <el-aside :width="leftSiderWidth" class="left-sider">
         <el-tabs v-model="activeName" @tab-click="handleClick">
-          <el-tab-pane label="组件" name="components"
-            ><ComponentList
-          /></el-tab-pane>
+          <el-tab-pane label="组件" name="components">
+            <ComponentList />
+          </el-tab-pane>
           <el-tab-pane label="图层" name="layer">图层</el-tab-pane>
         </el-tabs>
       </el-aside>
-      <el-main>Main</el-main>
+      <el-main><PageCanvas /></el-main>
       <el-aside class="right-sider" :width="rightSiderWidth">Aside</el-aside>
     </el-container>
   </el-container>
 </template>
 
 <script>
-
-import WM from "./core/utils/widgetManager.js"
-import Header from "./components/Header.vue";
-import ComponentList from "./components/ComponentList.vue";
+import WM from './core/utils/widgetManager.js';
+import Header from './components/Header.vue';
+import ComponentList from './components/ComponentList.vue';
+import PageCanvas from './components/PageCanvas.vue';
 
 export default {
   mixins: [],
-  components: { Header, ComponentList },
+  components: { Header, ComponentList, PageCanvas },
   props: {},
   data() {
     return {
-      leftSiderWidth: "240px",
-      rightSiderWidth: "320px",
+      leftSiderWidth: '240px',
+      rightSiderWidth: '320px',
+      activeName: 'components',
     };
   },
   watch: {},
@@ -47,6 +48,11 @@ $dividerColor: lightgray;
 .page-designer {
   width: 100vw;
   height: 100vh;
+
+  .el-main {
+    padding: 0;
+  }
+
   .el-tabs--top {
     display: flex;
     flex-direction: column;
