@@ -3,6 +3,14 @@ export default {
   props: {
 
 
+  },
+  editInCanvas: {
+    layout: {
+      grid: {
+        w: 4,
+        h: 4,
+      },
+    }
   }
 }
 

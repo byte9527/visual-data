@@ -1,14 +1,14 @@
 <template>
   <div class="page-canvas">
-    <Grid />
+    <RenderContainer></RenderContainer>
   </div>
 </template>
 
 <script>
-import Grid from './Grid.vue';
+import RenderContainer from './RenderContainer.vue';
 
 export default {
-  components: { Grid },
+  components: { RenderContainer },
   props: {},
   data() {
     return {};

@@ -33,7 +33,7 @@ export const config1 = {
               type: 'input',
               name: '额外样式',
               props: {
-                placeholder: "请输入"
+                placeholder: '请输入'
 
               }
             },
@@ -50,7 +50,7 @@ export const config1 = {
             },
             border: {
               type: 'suite',
-              name: "边框",
+              name: '边框',
               valuePath: false,
               props: {
                 layout: {
@@ -108,12 +108,12 @@ export const config1 = {
               },
               children: {
                 show: {
-                  type: "switch",
-                  name: "显示"
+                  type: 'switch',
+                  name: '显示'
                 },
                 name: {
-                  type: "input",
-                  name: "名称"
+                  type: 'input',
+                  name: '名称'
                 }
               },
             },
@@ -126,12 +126,12 @@ export const config1 = {
               },
               children: {
                 show: {
-                  type: "switch",
-                  name: "显示"
+                  type: 'switch',
+                  name: '显示'
                 },
                 name: {
-                  type: "input",
-                  name: "名称"
+                  type: 'input',
+                  name: '名称'
                 }
               },
             }
@@ -139,27 +139,27 @@ export const config1 = {
 
         },
         name: {
-          type: "input",
-          name: "名称"
+          type: 'input',
+          name: '名称'
         },
         series: {
-          type: "list",
-          name: "系列",
+          type: 'list',
+          name: '系列',
           props: {
             template(item, i) { // item为defaultValue创建的新值，i为当前系列下标
               return {
                 name: `系列${i + 1}`,
                 children: {
                   show: {
-                    name: "展示",
+                    name: '展示',
                     type: 'switch'
                   },
                   type: {
-                    type: "select",
-                    name: "类型",
+                    type: 'select',
+                    name: '类型',
                     show: `\$\{$form.option.series[${i}].show\}`,
                     props: {
-                      options: [{ label: "柱状图", value: "bar" }, { label: "折线图", value: "line" },]
+                      options: [{ label: '柱状图', value: 'bar' }, { label: '折线图', value: 'line' },]
                     }
                   },
                   color: {
@@ -171,7 +171,6 @@ export const config1 = {
             },
           }
         },
-
       }
 
     }
@@ -193,8 +192,8 @@ export const config1 = {
         yAxis: {
         },
       },
-      name: "",
-      series: [{ type: "bar", color: "", show: false }, { type: "line", color: "", show: false },]
+      name: '',
+      series: [{ type: 'bar', color: '', show: false }, { type: 'line', color: '', show: false },]
     }
   },
   hooks: {
@@ -217,7 +216,7 @@ export const config2 = {
         },
         showContent: {
           type: 'radio',
-          show: "${$form.tooltip.show}",
+          show: '${$form.tooltip.show}',
           name: '提示框浮层',
           props: {
             options: [
@@ -247,7 +246,7 @@ export const config2 = {
         },
         border: {
           type: 'suite',
-          name: "边框",
+          name: '边框',
           valuePath: false,
           props: {
             layout: {
@@ -294,7 +293,7 @@ export const config2 = {
       showContent: false,
       padding: 30,
       triggerOn: 'mousemove',
-      extraCssText: "dsafs",
+      extraCssText: 'dsafs',
       textStyle: {
         fontSize: 12
       },
@@ -317,7 +316,7 @@ export const config3 = {
     },
     showContent: {
       type: 'radio',
-      show: "${$form.tooltip.show}",
+      show: '${$form.tooltip.show}',
       name: '提示框浮层',
       props: {
         options: [
@@ -347,7 +346,7 @@ export const config3 = {
     },
     border: {
       type: 'suite',
-      name: "边框",
+      name: '边框',
       valuePath: false,
       props: {
         layout: {
@@ -366,6 +365,20 @@ export const config3 = {
         }
       }
     },
+    width: {
+      type: 'size',
+      name: '宽度',
+      props: {
+        size: 'small'
+      }
+    },
+    fontsize: {
+      type: 'fontsize',
+      name: '文本大小',
+      props: {
+        size: 'small'
+      }
+    }
   },
   layout: {
 
@@ -375,7 +388,7 @@ export const config3 = {
     showContent: false,
     padding: 30,
     triggerOn: 'mousemove',
-    extraCssText: "dsafs",
+    extraCssText: 'dsafs',
     textStyle: {
       fontSize: 12
     },

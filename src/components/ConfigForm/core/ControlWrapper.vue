@@ -20,6 +20,7 @@
 import { reactive, computed, inject, toRaw, onMounted, watch } from "vue";
 import {
   getComponent,
+  getComponentConfig,
   showTitle,
 } from "./controlManager";
 import { configHandle } from "./configHandle";
@@ -40,14 +41,16 @@ const props = defineProps({
 });
 
 const componentDefine = getComponent(props.configData.type);
+const componentConfig = getComponentConfig(props.configData.type)
 
 const formValue = inject("formValue");
 const context = inject("context");
 const formBus = inject("formBus");
 
 const componentProps = computed(() => {
+  const defaultProps = componentConfig.defaultProps && componentConfig.defaultProps()
   const { show, type, props: componentProps, ...rest } = props.configData;
-  return { ...rest, ...componentProps };
+  return { ...rest,  ...defaultProps, ...componentProps };
 });
 
 interface config {

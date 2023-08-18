@@ -3,9 +3,7 @@ export default {
     pageSetting: {
       layout: {
         type: '',
-        gridLayout: {
-
-        },
+        gridLayout: {},
       },
     },
     elList: [],
@@ -18,4 +16,25 @@ export default {
       state.selectIds = data;
     },
   },
+};
+
+const widgetPropertyDemo = {
+  layout: {
+    grid: {
+      x: 0,
+      y: 0,
+      w: 4,
+      h: 4,
+    },
+  },
+  style: {
+    border: {},
+    background: {},
+    size: {
+      width: '',
+      height: '',
+    },
+  },
+  property: {},
+  data: {},
 };
