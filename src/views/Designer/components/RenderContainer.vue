@@ -11,7 +11,8 @@ export default {
   components: { Grid },
   props: {
     type: {
-      type: 'fuild',
+      type: String,
+      default: 'grid'
     },
     layout: {},
   },
@@ -28,6 +29,8 @@ export default {
 <style lang="scss">
 .render-container {
   position: relative;
+  width: 100%;
+  height: 100%;
   &__grid-bg {
     position: absolute;
     top: 0;

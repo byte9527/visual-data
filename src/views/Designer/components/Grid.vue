@@ -58,8 +58,9 @@ export default {
     },
     resetSize() {
       const parentEl = this.$el.parentElement;
-      this.width = parseInt(parentEl.clientWidth) - 10;
-      this.height = parseInt(parentEl.clientHeight) - 10;
+      const rect = parentEl.getBoundingClientRect()
+      this.width = parseInt(rect.width);
+      this.height = parseInt(rect.height);
 
       this.$nextTick(() => {
         this.repaint();
