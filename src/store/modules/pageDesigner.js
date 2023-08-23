@@ -10,11 +10,22 @@ export default {
     elMap: {},
     selectIds: [],
   },
-  getters: {},
+  getters: {
+    elSnapshot() {
+      return {
+        xxId: {
+          parentId: '',
+        },
+      };
+    },
+  },
   mutations: {
     setSelectIds(state, data) {
       state.selectIds = data;
     },
+    deleteWidget(state, data) {},
+    updateWidget(state, data) {},
+    addWdiget(state, data) {},
   },
 };
 

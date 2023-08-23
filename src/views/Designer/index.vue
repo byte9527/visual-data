@@ -13,7 +13,9 @@
         </el-tabs>
       </el-aside>
       <el-main><PageCanvas /></el-main>
-      <el-aside class="right-sider" :width="rightSiderWidth">Aside</el-aside>
+      <el-aside class="right-sider" :width="rightSiderWidth">
+        <PropertyPanel />
+      </el-aside>
     </el-container>
   </el-container>
 </template>
@@ -23,10 +25,11 @@ import WM from './core/utils/widgetManager.js';
 import Header from './components/Header.vue';
 import ComponentList from './components/ComponentList.vue';
 import PageCanvas from './components/PageCanvas.vue';
+import PropertyPanel from './components/PropertyPanel/index.vue';
 
 export default {
   mixins: [],
-  components: { Header, ComponentList, PageCanvas },
+  components: { Header, ComponentList, PageCanvas, PropertyPanel },
   props: {},
   data() {
     return {

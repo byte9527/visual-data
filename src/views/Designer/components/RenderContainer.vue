@@ -1,12 +1,13 @@
 <template>
   <div class="render-container" style="">
     <Grid v-if="type === 'grid'" class="render-container__grid-bg" />
+    <WidgetRender v-for="widget in widgetList"/>
   </div>
 </template>
 
 <script>
 import Grid from './Grid.vue';
-
+import WidgetRender from './WidgetRender.vue'
 export default {
   components: { Grid },
   props: {
@@ -20,7 +21,12 @@ export default {
     return {};
   },
   watch: {},
-  computed: {},
+  computed: {
+    widgetList() {
+      let a = {}
+      return []
+    }
+  },
   mounted() {},
   methods: {},
 };

@@ -11,7 +11,6 @@
 
 <script>
 export default {
-  mixins: [],
   components: {},
   props: {
     designData: {
