@@ -25,24 +25,24 @@
 </template>
 
 <script lang="ts">
-import { defineComponent, toRaw } from "vue";
-import ConfigForm from "@/components/ConfigForm/index.vue";
-import { config1, config2, config3 } from "./config";
+import { defineComponent, toRaw } from 'vue';
+import ConfigForm from '@/components/ConfigForm/index.vue';
+import { config1, config2, config3 } from './config';
 
 export default defineComponent({
-  name: "ConfigFormDemo",
+  name: 'ConfigFormDemo',
   components: {
-    ConfigForm,
+    ConfigForm
   },
   props: {},
   data() {
     return {
-      config1: config1,
-      config2: config2,
-      config3: config3
+      config1,
+      config2,
+      config3
     };
   },
-  setup(props) {},
+  setup(props) {}
 });
 </script>
 
@@ -63,6 +63,5 @@ export default defineComponent({
       width: 100%;
     }
   }
-  
 }
 </style>

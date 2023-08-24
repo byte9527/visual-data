@@ -39,8 +39,8 @@ export default {
           active: 'base',
           children: [
             { name: '基础', key: 'base', children: [] },
-            { name: '媒体', key: 'media', children: [] },
-          ],
+            { name: '媒体', key: 'media', children: [] }
+          ]
         },
         {
           name: '图表',
@@ -50,34 +50,34 @@ export default {
             { name: '柱状图', key: 'bar', children: [] },
             { name: '线状图', key: 'line', children: [] },
             { name: '饼环图', key: 'pie', children: [] },
-            { name: '其他', key: 'others', children: [] },
-          ],
+            { name: '其他', key: 'others', children: [] }
+          ]
         },
         {
           name: '表单',
           key: 'form',
           children: [
             { name: '选择', key: 'select', children: [] },
-            { name: '文本输入', key: 'text', children: [] },
-          ],
+            { name: '文本输入', key: 'text', children: [] }
+          ]
         },
         {
           name: '展示',
           key: 'data',
           children: [
             { name: '表格', key: 'table', children: [] },
-            { name: '文本', key: 'text', children: [] },
-          ],
+            { name: '文本', key: 'text', children: [] }
+          ]
         },
         {
           name: '容器',
           key: 'container',
           children: [
             { name: '布局', key: 'layout', children: [] },
-            { name: '功能', key: 'layout', children: [] },
-          ],
-        },
-      ],
+            { name: '功能', key: 'layout', children: [] }
+          ]
+        }
+      ]
     };
   },
   watch: {},
@@ -100,7 +100,7 @@ export default {
       }
     },
     reflectComponentList() {
-      let map = {};
+      const map = {};
       for (const category of this.categoryList) {
         const { key, group = true, children } = category;
         if (!group) {
@@ -113,8 +113,8 @@ export default {
         }
       }
       return map;
-    },
-  },
+    }
+  }
 };
 </script>
 

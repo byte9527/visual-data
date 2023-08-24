@@ -15,7 +15,7 @@ export default {
       type: String,
       default: 'grid'
     },
-    layout: {},
+    layout: {}
   },
   data() {
     return {};
@@ -23,12 +23,12 @@ export default {
   watch: {},
   computed: {
     widgetList() {
-      let a = {}
+      const a = {}
       return []
     }
   },
   mounted() {},
-  methods: {},
+  methods: {}
 };
 </script>
 

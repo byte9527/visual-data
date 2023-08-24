@@ -13,7 +13,7 @@ const matchMutationTypes = [
   'UPDATE_ELEMENTS',
   'DELETE_ELEMENTS',
   'UPDATE_PAGE_SETTING',
-  'UPDATE_ELEMENT_LIST',
+  'UPDATE_ELEMENT_LIST'
 ]
 
 function clonePrevData(state, store) {
@@ -44,7 +44,6 @@ const dataStack = (store) => {
           prevData
         )
         prevData = clonePrevData(state.screen, store)
-        return
       }
     }
   })

@@ -6,7 +6,7 @@
 
 <script>
 export default {
-  name: "WidgetPropertyPanel",
+  name: 'WidgetPropertyPanel',
   mixins: [],
   components: {},
   props: {

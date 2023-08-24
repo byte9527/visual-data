@@ -17,40 +17,40 @@
 </template>
 
 <script lang="ts" setup>
-import { reactive, computed, inject, toRaw, onMounted, watch } from "vue";
+import { reactive, computed, inject, toRaw, onMounted, watch } from 'vue';
 import {
   getComponent,
   getComponentConfig,
-  showTitle,
-} from "./controlManager";
-import { configHandle } from "./configHandle";
-import { deepGet } from "../utils/proxyHelp";
+  showTitle
+} from './controlManager';
+import { configHandle } from './configHandle';
+import { deepGet } from '../utils/proxyHelp';
 
 const props = defineProps({
   keyPath: {
     type: [String, Boolean],
-    default: "",
+    default: ''
   },
   configData: {
     type: Object,
     required: true,
     default() {
       return {};
-    },
-  },
+    }
+  }
 });
 
 const componentDefine = getComponent(props.configData.type);
 const componentConfig = getComponentConfig(props.configData.type)
 
-const formValue = inject("formValue");
-const context = inject("context");
-const formBus = inject("formBus");
+const formValue = inject('formValue');
+const context = inject('context');
+const formBus = inject('formBus');
 
 const componentProps = computed(() => {
   const defaultProps = componentConfig.defaultProps && componentConfig.defaultProps()
   const { show, type, props: componentProps, ...rest } = props.configData;
-  return { ...rest,  ...defaultProps, ...componentProps };
+  return { ...rest, ...defaultProps, ...componentProps };
 });
 
 interface config {
@@ -65,7 +65,7 @@ const handleConfig = (): config => {
     toRaw(props.configData),
     {
       form: formValue,
-      ...(context as cForm.AnyKeyObject),
+      ...(context as cForm.AnyKeyObject)
     },
     {}, // util
     {}
@@ -78,14 +78,14 @@ const options = handleConfig();
 const state = reactive({
   value: deepGet(formValue, props.keyPath),
   renderData: options.config,
-  showName: showTitle(props.configData.type) && !props.configData.hideName,
+  showName: showTitle(props.configData.type) && !props.configData.hideName
 });
 
 onMounted(() => {
   if (options.deps.length) {
     const watchSource = options.deps.map((item) => {
       return () => {
-        return deepGet(formValue, item.replace("form.", ""));
+        return deepGet(formValue, item.replace('form.', ''));
         // let func = new Function('form', `return ${item}`)
         // return func(formValue)
       };
@@ -103,7 +103,7 @@ const valueChange = (val) => {
   }
 
   state.value = val;
-  formBus.emit("fieldChange", { keyPath: props.keyPath, value: val });
+  formBus.emit('fieldChange', { keyPath: props.keyPath, value: val });
 };
 
 const initSearcher = () => {};

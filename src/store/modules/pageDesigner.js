@@ -3,21 +3,21 @@ export default {
     pageSetting: {
       layout: {
         type: '',
-        gridLayout: {},
-      },
+        gridLayout: {}
+      }
     },
     elList: [],
     elMap: {},
-    selectIds: [],
+    selectIds: []
   },
   getters: {
     elSnapshot() {
       return {
         xxId: {
-          parentId: '',
-        },
+          parentId: ''
+        }
       };
-    },
+    }
   },
   mutations: {
     setSelectIds(state, data) {
@@ -25,8 +25,8 @@ export default {
     },
     deleteWidget(state, data) {},
     updateWidget(state, data) {},
-    addWdiget(state, data) {},
-  },
+    addWdiget(state, data) {}
+  }
 };
 
 const widgetPropertyDemo = {
@@ -35,17 +35,17 @@ const widgetPropertyDemo = {
       x: 0,
       y: 0,
       w: 4,
-      h: 4,
-    },
+      h: 4
+    }
   },
   style: {
     border: {},
     background: {},
     size: {
       width: '',
-      height: '',
-    },
+      height: ''
+    }
   },
   property: {},
-  data: {},
+  data: {}
 };

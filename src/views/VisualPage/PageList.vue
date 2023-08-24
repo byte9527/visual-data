@@ -33,9 +33,7 @@
         <template #footer>
           <span class="dialog-footer">
             <el-button @click="dialogClose">取消</el-button>
-            <el-button type="primary" @click="confirmPageInfo">
-              确定
-            </el-button>
+            <el-button type="primary" @click="confirmPageInfo">确定</el-button>
           </span>
         </template>
       </el-dialog>
@@ -45,8 +43,8 @@
 </template>
 
 <script>
-import { toRaw } from "vue";
-import { db } from "@/utils/db";
+import { toRaw } from 'vue';
+import { db } from '@/utils/db';
 
 export default {
   mixins: [],
@@ -56,8 +54,8 @@ export default {
     return {
       pageList: [],
       showPageModal: false,
-      pageModalType: "",
-      form: { name: "", remark: "" },
+      pageModalType: '',
+      form: { name: '', remark: '' }
     };
   },
   watch: {},
@@ -68,26 +66,26 @@ export default {
   methods: {
     creatPage() {
       this.showPageModal = true;
-      this.pageModalType = "add";
+      this.pageModalType = 'add';
     },
     editPage(param) {
-      this.showPageModal = true
-      this.pageModalType = "edit"
-      this.form = param
+      this.showPageModal = true;
+      this.pageModalType = 'edit';
+      this.form = param;
     },
     designePage() {
-      this.$router.push("/pageDesigner")
+      this.$router.push('/pageDesigner');
     },
     dialogClose() {
       this.showPageModal = false;
-      this.pageModalType = "";
+      this.pageModalType = '';
     },
     async confirmPageInfo() {
-      if (this.pageModalType === "add") {
+      if (this.pageModalType === 'add') {
         await db.page.add(toRaw(this.form));
       } else {
-        const {id, ...rest} = this.form
-        await db.page.update(this.form.id, rest)
+        const { id, ...rest } = this.form;
+        await db.page.update(this.form.id, rest);
       }
       this.dialogClose();
       this.form = {};
@@ -97,8 +95,8 @@ export default {
       const list = await db.page.toArray();
       this.pageList = list;
     },
-    select(key) {},
-  },
+    select(key) {}
+  }
 };
 </script>
 

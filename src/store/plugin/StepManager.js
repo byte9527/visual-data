@@ -36,6 +36,7 @@ class StepManager extends Vue {
   get canUndo() {
     return this.cursor > 0
   }
+
   get canRedo() {
     return this.cursor < this.stack.length
   }

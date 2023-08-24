@@ -31,56 +31,56 @@ export const eventTypeEnum = {
   lifeCircleHook: 'lifeCircleHook', // 组件生命周期
   dataCircleHook: 'dataCircleHook', // 组件数据周期
   widgetInternalOperate: 'widgetInternalOperate', // 内部事件,
-  globalEvent: 'globalEvent',
+  globalEvent: 'globalEvent'
 };
 
 // 通用鼠标事件
 export const commonMouseEvents = autoFillKey(
   {
     click: {
-      name: '鼠标单击',
+      name: '鼠标单击'
     },
     mouseenter: {
-      name: '鼠标移入',
+      name: '鼠标移入'
     },
     mouseleave: {
-      name: '鼠标移出',
-    },
+      name: '鼠标移出'
+    }
   },
-  { eventType: eventTypeEnum.operate },
+  { eventType: eventTypeEnum.operate }
 );
 
 // 动作分类
 export const actionCategoryMap = autoFillKey({
   commonUIAction: {
-    name: '组件通用动作',
+    name: '组件通用动作'
   },
   componentSelfAction: {
-    name: '组件特定动作',
+    name: '组件特定动作'
   },
   globalAction: {
-    name: '全局动作',
-  },
+    name: '全局动作'
+  }
 });
 
 // 通用组件周期事件
 export const componentHookEvents = autoFillKey(
   {
     [COMPONENT_DID_MOUNT]: {
-      name: '组件初始化完成',
-    },
+      name: '组件初始化完成'
+    }
   },
-  { eventType: eventTypeEnum.lifeCircleHook },
+  { eventType: eventTypeEnum.lifeCircleHook }
 );
 // 通用组件数据周期事件
 export const componentDataHookEvents = autoFillKey(
   {
     [COMPONENT_DATA_LOADED]: {
       name: '数据请求完成',
-      disabled: false,
-    },
+      disabled: false
+    }
   },
-  { eventType: eventTypeEnum.dataCircleHook },
+  { eventType: eventTypeEnum.dataCircleHook }
 );
 
 // 图表组件事件
@@ -88,18 +88,18 @@ export const chartEvents = autoFillKey(
   {
     [CLICK_DATA_ITEM]: {
       name: '点击数据项',
-      hasParamOptions: true,
+      hasParamOptions: true
     },
     [HOVER_DATA_ITEM]: {
       name: '悬浮数据项',
-      hasParamOptions: true,
+      hasParamOptions: true
     },
     [LEAVE_DATA_ITEM]: {
       name: '离开数据项',
-      hasParamOptions: true,
-    },
+      hasParamOptions: true
+    }
   },
-  { eventType: eventTypeEnum.widgetInternalOperate },
+  { eventType: eventTypeEnum.widgetInternalOperate }
 );
 
 export const textEvents = autoFillKey(
@@ -107,18 +107,18 @@ export const textEvents = autoFillKey(
     [CLICK_TEXT_ITEM]: {
       name: '点击内容',
       hasParamOptions: true,
-      paramOptions: [{ label: '内容', value: '${param.content}' }],
+      paramOptions: [{ label: '内容', value: '${param.content}' }]
     },
     [HOVER_TEXT_ITEM]: {
       name: '悬浮内容',
-      hasParamOptions: [{ label: '内容', value: '${param.content}' }],
+      hasParamOptions: [{ label: '内容', value: '${param.content}' }]
     },
     [LEAVE_TEXT_ITEM]: {
       name: '离开内容',
-      hasParamOptions: [{ label: '内容', value: '${param.content}' }],
-    },
+      hasParamOptions: [{ label: '内容', value: '${param.content}' }]
+    }
   },
-  { eventType: eventTypeEnum.widgetInternalOperate },
+  { eventType: eventTypeEnum.widgetInternalOperate }
 );
 
 // 表格组事件
@@ -126,14 +126,14 @@ export const tableEvents = autoFillKey(
   {
     [CLICK_ROW]: {
       name: '点击行',
-      hasParamOptions: true,
+      hasParamOptions: true
     },
     [HOVER_ROW]: {
       name: '悬浮行',
-      hasParamOptions: true,
-    },
+      hasParamOptions: true
+    }
   },
-  { eventType: eventTypeEnum.widgetInternalOperate },
+  { eventType: eventTypeEnum.widgetInternalOperate }
 );
 
 // 交互组件通用事件    //  radio / select / tab
@@ -141,10 +141,10 @@ export const interactionComponentEvents = autoFillKey(
   {
     selectValueChange: {
       name: '选择项改变',
-      hasParamOptions: true,
-    },
+      hasParamOptions: true
+    }
   },
-  { eventType: eventTypeEnum.widgetInternalOperate },
+  { eventType: eventTypeEnum.widgetInternalOperate }
 );
 
 export const datePickerEvents = autoFillKey(
@@ -154,11 +154,11 @@ export const datePickerEvents = autoFillKey(
       hasParamOptions: true,
       paramOptions: [
         { label: '日期', value: '${param.formatDate}' },
-        { label: '时间戳', value: '${param.timestamp}' },
-      ],
-    },
+        { label: '时间戳', value: '${param.timestamp}' }
+      ]
+    }
   },
-  { eventType: eventTypeEnum.widgetInternalOperate },
+  { eventType: eventTypeEnum.widgetInternalOperate }
 );
 
 export const dateRangePickerEvents = autoFillKey(
@@ -167,12 +167,12 @@ export const dateRangePickerEvents = autoFillKey(
       name: '日期范围改变',
       hasParamOptions: true,
       paramOptions: [
-        { label: '日期范围', value: '${param.formatDate}' },
+        { label: '日期范围', value: '${param.formatDate}' }
         // { label: '时间戳', value: '${param.timestamp}' }
-      ],
-    },
+      ]
+    }
   },
-  { eventType: eventTypeEnum.widgetInternalOperate },
+  { eventType: eventTypeEnum.widgetInternalOperate }
 );
 
 export const dateRangeStartPickerEvents = autoFillKey(
@@ -180,10 +180,10 @@ export const dateRangeStartPickerEvents = autoFillKey(
     dateValueChangeRangeStart: {
       name: '日期范围改变之开始日期',
       hasParamOptions: true,
-      paramOptions: [{ label: '开始日期', value: '${param.formatDate}' }],
-    },
+      paramOptions: [{ label: '开始日期', value: '${param.formatDate}' }]
+    }
   },
-  { eventType: eventTypeEnum.widgetInternalOperate },
+  { eventType: eventTypeEnum.widgetInternalOperate }
 );
 
 export const dateRangeEndPickerEvents = autoFillKey(
@@ -191,10 +191,10 @@ export const dateRangeEndPickerEvents = autoFillKey(
     dateValueChangeRangeEnd: {
       name: '日期范围改变之结束日期',
       hasParamOptions: true,
-      paramOptions: [{ label: '结束日期', value: '${param.formatDate}' }],
-    },
+      paramOptions: [{ label: '结束日期', value: '${param.formatDate}' }]
+    }
   },
-  { eventType: eventTypeEnum.widgetInternalOperate },
+  { eventType: eventTypeEnum.widgetInternalOperate }
 );
 
 export const mapMarkerClickOnSymbolThemeLayerEvents = autoFillKey(
@@ -202,10 +202,10 @@ export const mapMarkerClickOnSymbolThemeLayerEvents = autoFillKey(
     mapMarkerClickOnSymbolThemeLayer: {
       name: '图片散点图点击标记',
       hasParamOptions: true,
-      paramOptions: [{ label: '标记点详情', value: '${param}' }],
-    },
+      paramOptions: [{ label: '标记点详情', value: '${param}' }]
+    }
   },
-  { eventType: eventTypeEnum.widgetInternalOperate },
+  { eventType: eventTypeEnum.widgetInternalOperate }
 );
 
 // 交互组件通用动作
@@ -226,8 +226,8 @@ export const interactionComponentActions = autoFillKey({
             'allow-create': true,
             'default-first-option': true,
             clearable: true,
-            options: '${util.getParamOptions()}',
-          },
+            options: '${util.getParamOptions()}'
+          }
         },
         field: {
           type: 'select',
@@ -235,16 +235,16 @@ export const interactionComponentActions = autoFillKey({
           props: {
             options: [
               { label: '标题', value: 'label' },
-              { label: '选项', value: 'value' },
-            ],
-          },
-        },
-      },
+              { label: '选项', value: 'value' }
+            ]
+          }
+        }
+      }
       // updateDeps: ['form.animation.show']
     },
     propsValue: {},
-    targetFilter: specialActionTargetFilter,
-  },
+    targetFilter: specialActionTargetFilter
+  }
 });
 export const dynamicPanelActions = autoFillKey({
   [SWITCH_STATE]: {
@@ -263,13 +263,13 @@ export const dynamicPanelActions = autoFillKey({
             'allow-create': true,
             'default-first-option': true,
             clearable: true,
-            options: '${util.getParamOptions()}',
-          },
-        },
-      },
+            options: '${util.getParamOptions()}'
+          }
+        }
+      }
     },
     propsValue: {},
-    targetFilter: specialActionTargetFilter,
+    targetFilter: specialActionTargetFilter
   },
   start_loop: {
     name: '轮播动态面板',
@@ -277,7 +277,7 @@ export const dynamicPanelActions = autoFillKey({
     implementation({ instance, param, props }) {
       instance.startLoop(props);
     },
-    targetFilter: specialActionTargetFilter,
+    targetFilter: specialActionTargetFilter
   },
   stop_loop: {
     name: '停止轮播动态面板',
@@ -285,8 +285,8 @@ export const dynamicPanelActions = autoFillKey({
     implementation({ instance, param, props }) {
       instance.stopLoop(props);
     },
-    targetFilter: specialActionTargetFilter,
-  },
+    targetFilter: specialActionTargetFilter
+  }
 });
 
 export function defaultTargetFilter() {
@@ -303,7 +303,7 @@ export function defaultTargetConfig() {
   return {
     type: 'select',
     options: [],
-    props: {},
+    props: {}
   };
 }
 
@@ -322,18 +322,18 @@ const defaultAnimationConfig = {
     name: '动画设置',
     // enableHide: true,
     props: {
-      hideHeader: true,
+      hideHeader: true
     },
     children: {
       show: {
         type: 'switch',
-        name: '动画设置',
+        name: '动画设置'
       },
       duration: {
         type: 'number',
         name: '动画时长',
         min: 0,
-        showInPanel: '${form.animation.show}',
+        showInPanel: '${form.animation.show}'
       },
       timingFunction: {
         type: 'select',
@@ -344,19 +344,19 @@ const defaultAnimationConfig = {
             { label: '慢-快-慢', value: 'ease' },
             { label: '慢-快', value: 'ease-in' },
             { label: '快-慢', value: 'ease-out' },
-            { label: '慢-匀速-慢', value: 'ease-in-out' },
-          ],
+            { label: '慢-匀速-慢', value: 'ease-in-out' }
+          ]
         },
-        showInPanel: '${form.animation.show}',
+        showInPanel: '${form.animation.show}'
       },
       delay: {
         type: 'number',
         name: '延时',
         min: 0,
-        showInPanel: '${form.animation.show}',
-      },
-    },
-  },
+        showInPanel: '${form.animation.show}'
+      }
+    }
+  }
 };
 
 const defaultAnimationValue = {
@@ -364,8 +364,8 @@ const defaultAnimationValue = {
     show: false,
     timingFunction: 'linear',
     duration: 1000,
-    delay: 0,
-  },
+    delay: 0
+  }
 };
 
 // 通用UI动作
@@ -383,13 +383,13 @@ export const commonUIActions = autoFillKey(
       // 动作相关设置
       propsConfig: {
         options: {
-          ...defaultAnimationConfig,
-        },
+          ...defaultAnimationConfig
+        }
         // updateDeps: ['form.animation.show']
       },
       propsValue: {
-        ...defaultAnimationValue,
-      },
+        ...defaultAnimationValue
+      }
     },
     hide: {
       name: '隐藏',
@@ -399,13 +399,13 @@ export const commonUIActions = autoFillKey(
       },
       propsConfig: {
         options: {
-          ...defaultAnimationConfig,
-        },
+          ...defaultAnimationConfig
+        }
         // updateDeps: ['form.animation.show']
       },
       propsValue: {
-        ...defaultAnimationValue,
-      },
+        ...defaultAnimationValue
+      }
     },
     changeVisible: {
       name: '显隐切换',
@@ -413,21 +413,21 @@ export const commonUIActions = autoFillKey(
       implementation({ wrapper, props }) {
         wrapper.updateDisplay(
           {
-            display: wrapper.runtimeStyle.display === 'none' ? 'block' : 'none',
+            display: wrapper.runtimeStyle.display === 'none' ? 'block' : 'none'
           },
-          props,
+          props
         );
       },
       propsConfig: {
         options: {
-          ...defaultAnimationConfig,
-        },
+          ...defaultAnimationConfig
+        }
 
         // updateDeps: ['form.animation.show']
       },
       propsValue: {
-        ...defaultAnimationValue,
-      },
+        ...defaultAnimationValue
+      }
     },
     move: {
       name: '移动',
@@ -440,7 +440,7 @@ export const commonUIActions = autoFillKey(
           moveInfo: {
             type: 'group',
             props: {
-              hideHeader: true,
+              hideHeader: true
             },
             children: {
               moveType: {
@@ -449,32 +449,32 @@ export const commonUIActions = autoFillKey(
                 props: {
                   options: [
                     { label: '相对定位', value: 'relative' },
-                    { label: '绝对定位', value: 'absolute' },
-                  ],
-                },
+                    { label: '绝对定位', value: 'absolute' }
+                  ]
+                }
               },
               moveX: {
                 type: 'number',
-                name: '${form.moveInfo.moveType === "relative" ? "位移-X" : "坐标-X"}',
+                name: '${form.moveInfo.moveType === "relative" ? "位移-X" : "坐标-X"}'
               },
               moveY: {
                 type: 'number',
-                name: '${form.moveInfo.moveType === "relative" ? "位移-Y" : "坐标-Y"}',
-              },
-            },
+                name: '${form.moveInfo.moveType === "relative" ? "位移-Y" : "坐标-Y"}'
+              }
+            }
           },
-          ...defaultAnimationConfig,
-        },
+          ...defaultAnimationConfig
+        }
         // updateDeps: ['form.animation.show', 'form.moveInfo.moveType']
       },
       propsValue: {
         moveInfo: {
           moveType: 'relative',
           moveX: 0,
-          moveY: 0,
+          moveY: 0
         },
-        ...defaultAnimationValue,
-      },
+        ...defaultAnimationValue
+      }
     },
     rotate: {
       name: '旋转',
@@ -486,16 +486,16 @@ export const commonUIActions = autoFillKey(
         options: {
           deg: {
             type: 'number',
-            name: '旋转角度',
+            name: '旋转角度'
           },
-          ...defaultAnimationConfig,
-        },
+          ...defaultAnimationConfig
+        }
         // updateDeps: ['form.animation.show']
       },
       propsValue: {
-        ...defaultAnimationValue,
-      },
-    },
+        ...defaultAnimationValue
+      }
+    }
   },
   {
     // 哪些组件可被选
@@ -506,8 +506,8 @@ export const commonUIActions = autoFillKey(
       } else {
         return true;
       }
-    },
-  },
+    }
+  }
 );
 
 // 通用数据动作
@@ -517,8 +517,8 @@ export const commonDataActions = autoFillKey({
     category: actionCategoryMap.componentSelfAction.key,
     implementation({ wrapper }) {
       wrapper.autoGetData();
-    },
-  },
+    }
+  }
 });
 
 // 聚合地图-子图层隐藏动作
@@ -537,13 +537,13 @@ export const OneMapWidgetActions = autoFillKey({
           props: {
             clearable: true,
             multiple: true,
-            options: '${util.getOneMapChildLayer(context.targets)}',
-          },
-        },
-      },
+            options: '${util.getOneMapChildLayer(context.targets)}'
+          }
+        }
+      }
     },
     propsValue: {},
-    targetFilter: specialActionTargetFilter,
+    targetFilter: specialActionTargetFilter
   },
   showOneMapSublayer: {
     name: '聚合地图子图层显示',
@@ -559,14 +559,14 @@ export const OneMapWidgetActions = autoFillKey({
           props: {
             clearable: true,
             multiple: true,
-            options: '${util.getOneMapChildLayer(context.targets)}',
-          },
-        },
-      },
+            options: '${util.getOneMapChildLayer(context.targets)}'
+          }
+        }
+      }
     },
     propsValue: {},
-    targetFilter: specialActionTargetFilter,
-  },
+    targetFilter: specialActionTargetFilter
+  }
 });
 
 export const SymbolThemeLayerWidgetActions = autoFillKey({
@@ -585,8 +585,8 @@ export const SymbolThemeLayerWidgetActions = autoFillKey({
             filterable: true,
             'allow-create': true,
             'default-first-option': true,
-            options: '${util.getParamOptions()}',
-          },
+            options: '${util.getParamOptions()}'
+          }
         },
         latitude: {
           type: 'select',
@@ -595,8 +595,8 @@ export const SymbolThemeLayerWidgetActions = autoFillKey({
             filterable: true,
             'allow-create': true,
             'default-first-option': true,
-            options: '${util.getParamOptions()}',
-          },
+            options: '${util.getParamOptions()}'
+          }
         },
         radius: {
           type: 'select',
@@ -605,12 +605,12 @@ export const SymbolThemeLayerWidgetActions = autoFillKey({
             filterable: true,
             'allow-create': true,
             'default-first-option': true,
-            options: '${util.getParamOptions()}',
-          },
-        },
-      },
+            options: '${util.getParamOptions()}'
+          }
+        }
+      }
     },
-    targetFilter: specialActionTargetFilter,
+    targetFilter: specialActionTargetFilter
   },
 
   removeDraw: {
@@ -620,10 +620,10 @@ export const SymbolThemeLayerWidgetActions = autoFillKey({
       instance.removeDraw();
     },
     propsConfig: {
-      options: {},
+      options: {}
     },
-    targetFilter: specialActionTargetFilter,
-  },
+    targetFilter: specialActionTargetFilter
+  }
 });
 
 // 素材组件动作
@@ -643,13 +643,13 @@ export const mediaWidgetActions = autoFillKey({
             filterable: true,
             'allow-create': true,
             'default-first-option': true,
-            options: '${util.getParamOptions()}',
-          },
-        },
-      },
+            options: '${util.getParamOptions()}'
+          }
+        }
+      }
     },
-    targetFilter: specialActionTargetFilter,
-  },
+    targetFilter: specialActionTargetFilter
+  }
 });
 
 // 实时路况刷新动作
@@ -669,13 +669,13 @@ export const trafficRealtimeWidgetActions = autoFillKey({
             filterable: true,
             'allow-create': true,
             'default-first-option': true,
-            options: '${util.getParamOptions()}',
-          },
-        },
-      },
+            options: '${util.getParamOptions()}'
+          }
+        }
+      }
     },
-    targetFilter: specialActionTargetFilter,
-  },
+    targetFilter: specialActionTargetFilter
+  }
 });
 
 // 直播流组件动作
@@ -695,13 +695,13 @@ export const liveVideoWidgetActions = autoFillKey({
             filterable: true,
             'allow-create': true,
             'default-first-option': true,
-            options: '${util.getParamOptions()}',
-          },
-        },
-      },
+            options: '${util.getParamOptions()}'
+          }
+        }
+      }
     },
-    targetFilter: specialActionTargetFilter,
-  },
+    targetFilter: specialActionTargetFilter
+  }
 });
 
 // 全局动作
@@ -720,45 +720,45 @@ export const globalActions = autoFillKey({
           props: {
             options: [
               { label: '大屏', value: 'screen' },
-              { label: '链接地址', value: 'url' },
-            ],
-          },
+              { label: '链接地址', value: 'url' }
+            ]
+          }
         },
         src: {
           type: 'textarea',
           name: '链接地址',
-          showInPanel: '${form.linkType === "url"}',
+          showInPanel: '${form.linkType === "url"}'
         },
         screenId: {
           type: 'select',
           name: '大屏',
           showInPanel: '${form.linkType === "screen"}',
           props: {
-            options: '${util.getScreenOptions()}',
-          },
+            options: '${util.getScreenOptions()}'
+          }
         },
         isOpenNewWindow: {
           type: 'switch',
-          name: '是否新开窗口',
+          name: '是否新开窗口'
         },
         isPreload: {
           type: 'switch',
           name: '是否预加载',
-          showInPanel: '${form.linkType === "screen"}',
-        },
-      },
+          showInPanel: '${form.linkType === "screen"}'
+        }
+      }
       // updateDeps: ['form.linkType']
     },
     propsValue: {
-      linkType: 'url',
-    },
+      linkType: 'url'
+    }
   },
   setGlobalParams: {
     name: '赋值全局参数',
     category: actionCategoryMap.globalAction.key,
     implementation({ wrapper, props }) {
       wrapper.setGlobalParams(props);
-    },
+    }
   },
   postMsgToScreenWrapper: {
     name: '发送消息到其容器',
@@ -770,35 +770,35 @@ export const globalActions = autoFillKey({
       options: {
         msg: {
           type: 'text',
-          name: '消息名称',
+          name: '消息名称'
         },
         data: {
           type: 'codeEdit',
           name: '消息内容',
           props: {
             height: '100px',
-            width: '189px',
-          },
-        },
-      },
+            width: '189px'
+          }
+        }
+      }
     },
     propsValue: {
       msg: '',
-      data: '{}',
-    },
-  },
+      data: '{}'
+    }
+  }
 });
 
 export const chartInteractionConfig = {
   events: {
     ...componentHookEvents,
     // ...componentDataHookEvents,
-    ...chartEvents,
+    ...chartEvents
   },
   actions: {
     ...commonUIActions,
-    ...commonDataActions,
-  },
+    ...commonDataActions
+  }
 };
 
 export const pageConfig = {
@@ -809,12 +809,12 @@ export const pageConfig = {
       hasParamOptions: true,
       paramOptions: [
         { label: '消息', value: '${param.msg}' },
-        { label: '数据', value: '${param.data}' },
+        { label: '数据', value: '${param.data}' }
       ],
-      key: 'listenMsg',
-    },
+      key: 'listenMsg'
+    }
   },
   actions: {
     // ...commonUIActions,
-  },
+  }
 };

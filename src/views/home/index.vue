@@ -1,20 +1,20 @@
 <template>
   <div class="home">
     <el-container class="home__container" style="">
-      <el-aside class="home-side-left"
-        ><el-menu default-active="cnofigForm" @select="menuSelect">
+      <el-aside class="home-side-left"></el-aside>
+        <el-menu default-active="cnofigForm" @select="menuSelect">
           <template v-for="item in menuList" :key="item.key">
-            <el-menu-item v-if="!item.children.length" :index="item.key">{{
-              item.label
-            }}</el-menu-item>
+            <el-menu-item v-if="!item.children.length" :index="item.key">
+              {{ item.label }}
+            </el-menu-item>
             <el-sub-menu v-if="item.children.length" :index="item.key">
               <template #title>
                 <span>{{ item.label }}</span>
               </template>
             </el-sub-menu>
           </template>
-        </el-menu></el-aside
-      >
+        </el-menu>
+      </el-aside>
       <el-main><router-view /></el-main>
     </el-container>
   </div>
@@ -26,26 +26,26 @@ export default {
     return {
       menuList: [
         {
-          key: "/home/configForm",
-          label: "配置面板",
-          children: [],
+          key: '/home/configForm',
+          label: '配置面板',
+          children: []
         },
         {
-          key: "/home/visualPage",
-          label: "可视化页面",
-          children: [],
+          key: '/home/visualPage',
+          label: '可视化页面',
+          children: []
         },
         {
-          key: "/home/storyboard",
-          label: "故事板",
-          children: [],
-        },
-      ],
+          key: '/home/storyboard',
+          label: '故事板',
+          children: []
+        }
+      ]
     };
   },
   methods: {
     menuSelect(path) {
-      this.$router.push(path) 
+      this.$router.push(path);
     }
   }
 };

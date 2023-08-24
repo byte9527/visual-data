@@ -15,30 +15,19 @@ export default {
   props: {
     designData: {
       type: Object,
-      default: () => { return {}}
+      default: () => {
+        return {};
+      }
     }
   },
   data() {
-    return {
-    
-    }
+    return {};
   },
-  watch: {
-  
-  },
-  computed: {
-
-  },
-  mounted() {
-
-  },
-  methods: {
-  
-  }
-
-}
+  watch: {},
+  computed: {},
+  mounted() {},
+  methods: {}
+};
 </script>
 
-<style lang='scss'>
-  
-</style>
+<style lang="scss"></style>

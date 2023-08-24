@@ -21,13 +21,13 @@
 <script setup>
 import { ref } from 'vue';
 defineOptions({
-  inheritAttrs: false,
+  inheritAttrs: false
 });
 
 const props = defineProps({
   value: {
     type: [String],
-    default: ""
+    default: ''
   },
   unitOptions: {
     type: Array,
@@ -35,10 +35,10 @@ const props = defineProps({
       return [
         { label: 'px', value: 'px' },
         { label: '%', value: '%' },
-        { label: 'rem', value: 'rem' },
+        { label: 'rem', value: 'rem' }
       ];
-    },
-  },
+    }
+  }
 });
 
 const emit = defineEmits(['change']);

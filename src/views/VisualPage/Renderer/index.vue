@@ -1,6 +1,5 @@
 <template>
-  <div class="visual-renderer">]
-  </div>
+  <div class="visual-renderer">]</div>
 </template>
 
 <script>
@@ -10,30 +9,19 @@ export default {
   props: {
     designData: {
       type: Object,
-      default: () => { return {}}
+      default: () => {
+        return {};
+      }
     }
   },
   data() {
-    return {
-    
-    }
+    return {};
   },
-  watch: {
-  
-  },
-  computed: {
-
-  },
-  mounted() {
-
-  },
-  methods: {
-  
-  }
-
-}
+  watch: {},
+  computed: {},
+  mounted() {},
+  methods: {}
+};
 </script>
 
-<style lang='scss'>
-  
-</style>
+<style lang="scss"></style>

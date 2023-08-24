@@ -5,8 +5,8 @@ import pageDesigner from './modules/pageDesigner'
 
 const store = createStore({
   modules: {
-    pageDesigner,
-  },
+    pageDesigner
+  }
   // plugins: [dataStack]
 })
 

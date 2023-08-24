@@ -7,7 +7,7 @@
  */
 import Step from './Step'
 
- class AddElements extends Step {
+class AddElements extends Step {
   // constructor(options) {
   //   super(options)
   //   this.type = 'addElements'

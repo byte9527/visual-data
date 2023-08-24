@@ -10,18 +10,18 @@
 </template>
 
 <script lang="ts" setup>
-import { computed, useAttrs  } from "vue";
+import { computed, useAttrs } from 'vue';
 
 const props = defineProps({
   value: {
-    type: [String, Number, Array, Boolean, Object],
+    type: [String, Number, Array, Boolean, Object]
   },
   options: {
     type: Object,
     default() {
       return {};  
-    },
-  },
+    }
+  }
 });
 
 const attrs = useAttrs()

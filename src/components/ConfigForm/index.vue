@@ -10,21 +10,21 @@
 </template>
 
 <script lang="ts">
-import { defineComponent, toRaw } from "vue";
-import mitt from "mitt";
-import type { PropType } from "vue";
-import { set, get, isEqual, merge } from "lodash";
-import ControlWrapper from "./core/ControlWrapper.vue";
+import { defineComponent, toRaw } from 'vue';
+import mitt from 'mitt';
+import type { PropType } from 'vue';
+import { set, get, isEqual, merge } from 'lodash';
+import ControlWrapper from './core/ControlWrapper.vue';
 
-import { SearchManager, searchSingleton } from "./core/SearchManager";
-import { configHandle } from "./core/configHandle";
-import defaultOption from "./utils/option";
-import { deepSet } from "./utils/proxyHelp";
+import { SearchManager, searchSingleton } from './core/SearchManager';
+import { configHandle } from './core/configHandle';
+import defaultOption from './utils/option';
+import { deepSet } from './utils/proxyHelp';
 
 export default defineComponent({
-  name: "ConfigForm",
+  name: 'ConfigForm',
   components: {
-    ControlWrapper,
+    ControlWrapper
   },
   mixins: [],
   props: {
@@ -32,58 +32,58 @@ export default defineComponent({
       type: Object as PropType<cForm.ControlNode>,
       default() {
         return {};
-      },
+      }
     },
     hooks: {
       type: Object,
       default() {
         return {};
-      },
+      }
     },
     context: {
       type: [Object],
       default() {
         return {};
-      },
+      }
     },
     value: {
       type: Object,
       default() {
         return {};
-      },
+      }
     },
     keyPath: {
       type: String,
-      default: "",
+      default: ''
     },
     searchManager: {
       type: SearchManager,
       default() {
         return searchSingleton;
-      },
+      }
     },
     updateDeps: {
       type: Array,
       default() {
         return [];
-      },
+      }
     },
     formKey: {
       type: String,
-      default: "",
+      default: ''
     },
     util: {
       type: Object,
       default() {
         return {};
-      },
+      }
     },
     formSetting: {
       type: Object as PropType<cForm.FormSetting>,
       default() {
         return {};
-      },
-    },
+      }
+    }
   },
   data() {
     const result = (this as any).handleConfig();
@@ -93,7 +93,7 @@ export default defineComponent({
       renderData: this.configData,
       formBus,
       // stateValue: this.value,
-      stateValue: this.value,
+      stateValue: this.value
     };
   },
   computed: {
@@ -101,7 +101,7 @@ export default defineComponent({
       return Array.from(
         new Set([...this.updateDeps, ...this.computedUpdateDeps])
       );
-    },
+    }
   },
   watch: {
     activeId() {
@@ -111,24 +111,24 @@ export default defineComponent({
       handler(newVal) {
         // (this as any).stateValue = JSON.parse(JSON.stringify(newVal));
       },
-      deep: true,
-    },
+      deep: true
+    }
   },
   provide() {
     return {
       formSetting: merge(defaultOption, this.formSetting),
       formBus: this.formBus,
       context: {},
-      formValue: this.stateValue,
+      formValue: this.stateValue
     };
   },
   mounted() {
-    this.formBus.on("fieldChange", (payload) => {
+    this.formBus.on('fieldChange', (payload) => {
       deepSet(this.stateValue, payload.keyPath, payload.value);
       this.stateValue;
     });
   },
-  destroyed() {},
+  unmounted() {},
   methods: {
     /**
      * @description: 获取来自控件发送的消息，并透传给外部
@@ -136,7 +136,7 @@ export default defineComponent({
      * @return {*}
      */
     getControlMsg(payload: object) {
-      this.$emit("messageDispatch", payload);
+      this.$emit('messageDispatch', payload);
     },
     getValueByPath(value: any, valuePath: string | true, key: string) {
       if ((valuePath as string).length) {
@@ -153,7 +153,7 @@ export default defineComponent({
       } else if ((valuePath as boolean) === false) {
         return parentPath;
       } else {
-        return `${parentPath ? parentPath + "." + key : key}`;
+        return `${parentPath ? parentPath + '.' + key : key}`;
       }
     },
     triggerHook(...args: any[]) {
@@ -165,7 +165,7 @@ export default defineComponent({
           getFormValue: this.getFormValue,
           getContext: this.getContext,
           setFieldValue: this.setFieldValue,
-          setMultipleFieldValue: this.setMultipleFieldValue,
+          setMultipleFieldValue: this.setMultipleFieldValue
         };
         const cbParams = [...params, api];
         cb(...cbParams);
@@ -189,18 +189,18 @@ export default defineComponent({
         toRaw(this.configData),
         {
           form: data,
-          ...(this as any).context,
+          ...(this as any).context
         },
         this.util,
         {
           asyncOperateCallback: (keyPath: string, data: object) => {
             set(this.renderData, keyPath, data);
-          },
+          }
         }
       );
       return newData;
-    },
-  },
+    }
+  }
 });
 </script>
 

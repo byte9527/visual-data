@@ -1,10 +1,10 @@
 module.exports = {
   extends: [
     'standard', // 继承标准规则
-    'plugin:vue/vue3-recommended', // 如果是Vue 3的项目
-    'plugin:vue/essential', // 如果是Vue 2的项目
+    'plugin:vue/vue3-essential', // 如果是Vue 3的项目
     'plugin:@typescript-eslint/recommended',
   ],
+  parser: 'vue-eslint-parser',
   parserOptions: {
     parser: '@typescript-eslint/parser',
   },
@@ -52,7 +52,7 @@ module.exports = {
     'no-empty': 'off', // 允许空的代码块
     'no-unsafe-finally': 'off', // 允许在finally中使用控制流语句
     'no-throw-literal': 'off', // 允许抛出字面量错误
-    'no-sequences': 'off', // 允许使用逗号操作符
+    // 'no-sequences': 'off', // 允许使用逗号操作符
     'no-unreachable': 'off', // 允许在return、throw、continue和break语句后出现不可达代码
     'no-unsafe-negation': 'off', // 允许对关系运算符的左操作数使用否定操作符
     'no-unsafe-optional-chaining': 'off', // 允许使用不安全的可选链
@@ -72,6 +72,7 @@ module.exports = {
     'no-template-curly-in-string': 'off', // 允许字符串里面带有模板字符串
     'space-before-function-paren': 'off', //  function括号前面的空格
     'comma-dangle': 'off', // 允许多余的逗号
-    semi: 'off'
+    semi: 'off',
+    'eol-last': 'off',
   },
 };

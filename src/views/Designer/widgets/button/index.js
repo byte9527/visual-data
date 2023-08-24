@@ -5,6 +5,6 @@ export default {
   define: 'el-button',
   version: '',
   icon: '',
-  config: config,
-  category: 'base/base',
+  config,
+  category: 'base/base'
 };

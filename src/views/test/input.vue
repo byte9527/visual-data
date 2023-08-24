@@ -6,18 +6,18 @@
 export default {
   props: {
     value: {
-      type: [String, Number, Array, Boolean, Object],
+      type: [String, Number, Array, Boolean, Object]
     },
     options: {
       type: Object,
       default() {
         return {};
-      },
-    },
+      }
+    }
   },
   data() {
     return {
-      currentValue: "safd"
+      currentValue: 'safd'
     }
   },
   watch: {

@@ -11,21 +11,21 @@ export default {
     return {
       menuList: [
         {
-          key: "/cnofigForm",
-          label: "配置面板",
-          children: [],
-        },
-        {
-          key: "/visualPage",
-          label: "可视化页面",
+          key: '/cnofigForm',
+          label: '配置面板',
           children: []
         },
         {
-          key: "/storyboard",
-          label: "故事板",
-          children: [],
+          key: '/visualPage',
+          label: '可视化页面',
+          children: []
         },
-      ],
+        {
+          key: '/storyboard',
+          label: '故事板',
+          children: []
+        }
+      ]
     };
   },
   methods: {

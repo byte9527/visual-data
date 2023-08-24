@@ -38,8 +38,8 @@ export default {
   props: {
     // 节点概要
     nodeSummary: {
-      type: Object,
-    },
+      type: Object
+    }
   },
   data() {
     return {};
@@ -87,7 +87,7 @@ export default {
     editOperate() {
     
     }
-  },
+  }
 };
 </script>
 

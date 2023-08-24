@@ -29,46 +29,46 @@
 </template>
 
 <script lang="ts" setup>
-import { ref } from "vue";
-import { useCommonUtil } from "../utils/controlSetup";
-import ControlWrapper from "../core/ControlWrapper.vue";
+import { ref } from 'vue';
+import { useCommonUtil } from '../utils/controlSetup';
+import ControlWrapper from '../core/ControlWrapper.vue';
 
 const props = defineProps({
   modelValue: {
     type: Object,
     default() {
       return {};
-    },
+    }
   },
   children: {
     type: Object,
     default() {
       return {};
-    },
+    }
   },
   hideHeader: {
     type: Boolean,
-    default: false,
+    default: false
   },
   layout: {
     type: String,
-    default: "",
+    default: ''
   },
   name: {
     type: String,
-    default: "",
+    default: ''
   },
   valuePath: {
     type: String,
-    default: "",
+    default: ''
   },
   enableOpen: {
     type: Boolean,
-    default: false,
-  },
+    default: false
+  }
 });
 
-const reactValue = ref(props.hideHeader ? "1" : "");
+const reactValue = ref(props.hideHeader ? '1' : '');
 
 const { getKeyPath } = useCommonUtil(props);
 </script>

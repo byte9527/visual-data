@@ -46,12 +46,12 @@
 </template>
 
 <script>
-import { defineAsyncComponent } from "vue";
+import { defineAsyncComponent } from 'vue';
 export default {
   components: {
     ControlWrapper: defineAsyncComponent(() =>
-      import("../core/ControlWrapper.vue")
-    ),
+      import('../core/ControlWrapper.vue')
+    )
   },
   mixins: [],
   props: {
@@ -59,21 +59,21 @@ export default {
       type: Array,
       default() {
         return [];
-      },
+      }
     },
     valuePath: {
       type: String,
-      default: "",
+      default: ''
     },
     name: {
       type: String,
-      default: "",
+      default: ''
     },
     template: {
       type: Function,
       default() {
         return () => {};
-      },
+      }
     },
     showTitle: {
       type: Boolean,
@@ -82,13 +82,13 @@ export default {
   },
   data() {
     return {
-      activeNames: "containerName",
-      activeTabName: "",
-      activeTabIndex: "0",
+      activeNames: 'containerName',
+      activeTabName: '',
+      activeTabIndex: '0',
       list: [],
       realWidth: false,
-      clientWidth: "",
-      defaultValue: () => {},
+      clientWidth: '',
+      defaultValue: () => {}
     };
   },
   computed: {
@@ -114,14 +114,14 @@ export default {
     },
     containerExpand() {
       let result = false;
-      if (this.activeNames !== "" && this.template) result = true;
+      if (this.activeNames !== '' && this.template) result = true;
       return result;
-    },
+    }
   },
   watch: {
     clientWidth: function (val, oldVal) {
       if (oldVal !== this.realWidth) this.realWidth = val;
-    },
+    }
   },
   mounted() {
     if (this.$refs.panelTabs?.clientWidth !== 0) {
@@ -204,7 +204,7 @@ export default {
         const activeTabIndex = Number(this.activeTabIndex);
         if (index <= activeTabIndex) {
           this.activeTabIndex =
-            activeTabIndex - 1 < 0 ? "0" : String(activeTabIndex - 1);
+            activeTabIndex - 1 < 0 ? '0' : String(activeTabIndex - 1);
         }
         // 移除list对应项
         this.list.splice(index, 1);
@@ -246,10 +246,10 @@ export default {
      * @return {*}
      */
     setActiveKey(key) {
-      this.activeNames = "containerName";
-      this.activeTabIndex = key || "0";
-    },
-  },
+      this.activeNames = 'containerName';
+      this.activeTabIndex = key || '0';
+    }
+  }
 };
 </script>
 <style lang="scss" scoped>

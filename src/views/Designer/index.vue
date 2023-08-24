@@ -35,13 +35,13 @@ export default {
     return {
       leftSiderWidth: '240px',
       rightSiderWidth: '320px',
-      activeName: 'components',
+      activeName: 'components'
     };
   },
   watch: {},
   computed: {},
   mounted() {},
-  methods: {},
+  methods: {}
 };
 </script>
 

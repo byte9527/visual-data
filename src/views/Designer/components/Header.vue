@@ -30,8 +30,8 @@ export default {
     preview() {
       // 预览操作的逻辑
       console.log('执行预览操作');
-    },
-  },
+    }
+  }
 };
 </script>
 

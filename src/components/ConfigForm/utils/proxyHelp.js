@@ -7,7 +7,7 @@
  * @FilePath: \visual-data\src\components\ConfigForm\utils\proxyHelp.js
  */
 export function deepSet(target, keyPath, value) {
-  const keys = keyPath.replace(/\[/g, ".").replace(/\]/g, "").split(".");
+  const keys = keyPath.replace(/\[/g, '.').replace(/\]/g, '').split('.');
   let temp = target;
   const keyLength = keys.length;
   keys.forEach((k, index) => {
@@ -25,7 +25,7 @@ export function deepSet(target, keyPath, value) {
 }
 
 export function deepGet(target, keyPath) {
-  const keys = keyPath.replace(/\[/g, ".").replace(/\]/g, "").split(".");
+  const keys = keyPath.replace(/\[/g, '.').replace(/\]/g, '').split('.');
   let temp = target;
   const keyLength = keys.length;
   keys.forEach((k, index) => {

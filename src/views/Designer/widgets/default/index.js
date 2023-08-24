@@ -15,5 +15,5 @@ export default {
   // 是否展示在组件面板中
   showInPanel: true,
   // 类型分类
-  category: 'base/base',
+  category: 'base/base'
 };

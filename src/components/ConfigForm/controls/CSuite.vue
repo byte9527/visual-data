@@ -14,36 +14,36 @@
 </template>
 
 <script lang="ts" setup>
-import { computed, toRaw } from "vue";
-import ControlWrapper from "../core/ControlWrapper.vue";
-import { useCommonUtil } from "../utils/controlSetup";
+import { computed, toRaw } from 'vue';
+import ControlWrapper from '../core/ControlWrapper.vue';
+import { useCommonUtil } from '../utils/controlSetup';
 
 const props = defineProps({
   value: {
     type: Object,
     default() {
       return {};
-    },
+    }
   },
   children: {
     type: Object,
     default() {
       return {};
-    },
+    }
   },
   valuePath: {
     type: [String, Boolean],
-    default: "",
+    default: ''
   },
   layout: {
     type: Object,
     default() {
       return {
-        type: "row",
-        colSpan: [[12, 12]],
+        type: 'row',
+        colSpan: [[12, 12]]
       };
-    },
-  },
+    }
+  }
 });
 
 const convertedChildren = computed(() => {
@@ -79,8 +79,8 @@ const layoutInfo = computed(() => {
           child: {
             key: keys[count],
             hideName: true,
-            ...children[keys[count]],
-          },
+            ...children[keys[count]]
+          }
         });
       }
       count++;

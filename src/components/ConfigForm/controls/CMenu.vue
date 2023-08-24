@@ -32,45 +32,45 @@
 </template>
 
 <script lang="ts" setup>
-import { cloneDeep } from "lodash-es";
-import { computed, reactive, toRaw } from "vue";
-import ControlWrapper from "../core/ControlWrapper.vue";
-import { useCommonUtil } from "../utils/controlSetup";
+import { cloneDeep } from 'lodash-es';
+import { computed, reactive, toRaw } from 'vue';
+import ControlWrapper from '../core/ControlWrapper.vue';
+import { useCommonUtil } from '../utils/controlSetup';
 
 const props = defineProps({
   value: {
     type: Object,
     default() {
       return {};
-    },
+    }
   },
   children: {
     type: Object,
     default() {
       return {};
-    },
+    }
   },
   valuePath: {
     type: String,
-    default: "",
+    default: ''
   },
   layout: {
     type: String,
-    default: "vertical",
-  },
+    default: 'vertical'
+  }
 });
 
 const state = reactive({
-  activeKey: Object.keys(toRaw(props.children))[0],
+  activeKey: Object.keys(toRaw(props.children))[0]
 });
 
 const adjustChildren = computed(() => {
   const cloneConfig = cloneDeep(props.children);
   Object.values(cloneConfig).forEach((value) => {
     if (!value.type) {
-      value.type = "group";
+      value.type = 'group';
     }
-    if (value.type === "group") {
+    if (value.type === 'group') {
       value.props = Object.assign({}, value.props || {});
     }
   });
@@ -84,8 +84,8 @@ const activeComponent = computed(() => {
 
 const menuClasses = computed(() => {
   return [
-    "c-menu",
-    props.layout === "vertical" ? "c-menu--vertical" : "c-menu--horizontal",
+    'c-menu',
+    props.layout === 'vertical' ? 'c-menu--vertical' : 'c-menu--horizontal'
   ];
 });
 

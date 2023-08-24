@@ -48,7 +48,6 @@ class UpdateElements extends Step {
 
   redo() {
     this.updateElements(this.payload)
-
   }
 }
 export default UpdateElements

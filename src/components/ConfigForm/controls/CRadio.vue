@@ -10,36 +10,36 @@
 </template>
 
 <script lang="ts" setup>
-import { computed, useAttrs, ref  } from "vue";
+import { computed, useAttrs, ref } from 'vue';
 defineOptions({
   inheritAttrs: false
 })
 const props = defineProps({
   value: {
-    type: [String, Number, Array, Boolean, Object],
+    type: [String, Number, Array, Boolean, Object]
   },
   options: {
     type: Object,
     default() {
       return {};  
-    },
-  },
+    }
+  }
 });
 
 const attrs = useAttrs()
 
 const selectProps = computed(() => {
   const { options, ...rest } = attrs;
-  return {...rest, modelValue: props.value};
+  return { ...rest, modelValue: props.value };
 });
 
-const emit = defineEmits(["change"]);
+const emit = defineEmits(['change']);
 
 const currentValue = ref(props.value);
 
 const change = (val) => {
-  if (val !== currentValue) {
-    emit("change", val);
+  if (val !== currentValue.value) {
+    emit('change', val);
   }
 };
 

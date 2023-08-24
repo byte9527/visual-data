@@ -11,7 +11,7 @@ const directionConfig = {
     },
     resizeHeight(c) {
       return -c.moveY;
-    },
+    }
   },
   tm: {
     moveY(c) {
@@ -19,7 +19,7 @@ const directionConfig = {
     },
     resizeHeight(c) {
       return -c.moveY;
-    },
+    }
   },
   tr: {
     moveY(c) {
@@ -30,7 +30,7 @@ const directionConfig = {
     },
     resizeHeight(c) {
       return -c.moveY;
-    },
+    }
   },
   ml: {
     moveX(c) {
@@ -38,12 +38,12 @@ const directionConfig = {
     },
     resizeWidth(c) {
       return -c.moveX;
-    },
+    }
   },
   mr: {
     resizeWidth(c) {
       return c.moveX;
-    },
+    }
   },
   bl: {
     moveX(c) {
@@ -54,12 +54,12 @@ const directionConfig = {
     },
     resizeHeight(c) {
       return c.moveY;
-    },
+    }
   },
   bm: {
     resizeHeight(c) {
       return c.moveY;
-    },
+    }
   },
   br: {
     resizeWidth(c) {
@@ -67,8 +67,8 @@ const directionConfig = {
     },
     resizeHeight(c) {
       return c.moveY;
-    },
-  },
+    }
+  }
 };
 
 
@@ -78,7 +78,7 @@ export const operateTypeEnum = {
   mark: 'mark',
   drag: 'drag', // 移动
   resize: 'resize', // 调整尺寸
-  clickCanvas: 'clickCanvas', // 点击画布
+  clickCanvas: 'clickCanvas' // 点击画布
 };
 
 /**
@@ -103,13 +103,13 @@ export class WidgetLayout {
       ySpace,
       cellHeight,
       paddingX = 8,
-      paddingY = 8,
+      paddingY = 8
     } = containerLayout.detail;
     return {
       left: (cellWidth + xSpace) * x + paddingX,
       top: (cellHeight + ySpace) * y + paddingY,
       width: (cellWidth + xSpace) * w - xSpace,
-      height: (cellHeight + ySpace) * h - ySpace,
+      height: (cellHeight + ySpace) * h - ySpace
     };
   }
 
@@ -142,7 +142,7 @@ export class WidgetLayout {
       containerLayout,
       validateMoveData = {},
       operateDetail = {},
-      widgetLayout = {},
+      widgetLayout = {}
     } = param;
     const boundRect = this.getBoundingContainerRect(param);
     const cellWidth = GridContainerLayout.getCellWidth(containerLayout);
@@ -158,10 +158,10 @@ export class WidgetLayout {
     const containerColCount = containerLayout.detail.colNum;
     if (type === operateTypeEnum.drag) {
       moveCol = parseInt(
-        (Math.abs(moveX) + (cellWidth + xSpace) / 2) / (cellWidth + xSpace),
+        (Math.abs(moveX) + (cellWidth + xSpace) / 2) / (cellWidth + xSpace)
       );
       moveRow = parseInt(
-        (Math.abs(moveY) + (cellHeight + ySpace) / 2) / (cellHeight + ySpace),
+        (Math.abs(moveY) + (cellHeight + ySpace) / 2) / (cellHeight + ySpace)
       );
       // 确定移动位置方向
       moveX < 0 && (moveCol = -moveCol);
@@ -181,7 +181,7 @@ export class WidgetLayout {
       // 需要先进行widht/height的计算（因为有minWidth，minHeight或者其他边界的限制）
       if (config.resizeWidth) {
         resizeCol = parseInt(
-          (Math.abs(moveX) + (cellWidth + xSpace) / 2) / (cellWidth + xSpace),
+          (Math.abs(moveX) + (cellWidth + xSpace) / 2) / (cellWidth + xSpace)
         );
         if (
           (horizentalMark === 'r' && moveX < 0) ||
@@ -196,7 +196,7 @@ export class WidgetLayout {
       }
       if (config.resizeHeight) {
         resizeRow = parseInt(
-          (Math.abs(moveY) + (cellHeight + ySpace) / 2) / (cellHeight + ySpace),
+          (Math.abs(moveY) + (cellHeight + ySpace) / 2) / (cellHeight + ySpace)
         );
         if (
           (verticalMark === 'b' && moveY < 0) ||
@@ -230,7 +230,7 @@ export class WidgetLayout {
 
       if (config.moveY) {
         moveRow = parseInt(
-          (Math.abs(moveY) + (cellHeight + ySpace) / 2) / (cellHeight + ySpace),
+          (Math.abs(moveY) + (cellHeight + ySpace) / 2) / (cellHeight + ySpace)
         );
         moveY < 0 && (moveRow = -moveRow);
         if (resizeRow + h === minHeight) {
@@ -256,7 +256,7 @@ export class WidgetLayout {
       x: x + moveCol,
       y: y + moveRow,
       w: w + resizeCol,
-      h: h + resizeRow,
+      h: h + resizeRow
     };
   }
 
@@ -268,16 +268,16 @@ export class WidgetLayout {
       targetId,
       containerId,
       originContainerId,
-      rootContainerId = 'canvas',
+      rootContainerId = 'canvas'
     } = param;
 
     const rootContainer = document.querySelector(
-      `[data-container-id=${rootContainerId}]`,
+      `[data-container-id=${rootContainerId}]`
     );
 
     const containerMove = { x: 0, y: 0 };
     const el = document.querySelector(
-      `[data-container-id=${originContainerId}]`,
+      `[data-container-id=${originContainerId}]`
     );
     const rootContainerRect = rootContainer.getBoundingClientRect();
     const elRect = el.getBoundingClientRect();
@@ -286,7 +286,7 @@ export class WidgetLayout {
 
     const rect = this.getBoundingContainerRect({
       widgetLayout,
-      containerLayout,
+      containerLayout
     });
     const data = changeData;
     const { moveX = 0, moveY = 0, resizeWidth = 0, resizeHeight = 0 } = data;
@@ -296,7 +296,7 @@ export class WidgetLayout {
       left: rect.left + moveX + containerMove.x,
       top: rect.top + moveY + containerMove.y,
       width: rect.width + resizeWidth,
-      height: rect.height + resizeHeight,
+      height: rect.height + resizeHeight
     };
   }
 
@@ -348,7 +348,7 @@ export class WidgetLayout {
       w: widgetLayout.w,
       h: widgetLayout.h,
       x: 0,
-      y: 0,
+      y: 0
     };
     if (childrenLayout.length === 0) {
       return newItemLayout;
@@ -358,7 +358,7 @@ export class WidgetLayout {
       x: 0,
       y: 0,
       w: containerLayout.detail.colNum,
-      h: GridContainerLayout.getChildBottomSize(childrenLayout),
+      h: GridContainerLayout.getChildBottomSize(childrenLayout)
     };
 
     newItemLayout.x = boxRect.w - widgetLayout.w;
@@ -431,7 +431,7 @@ export class GridContainerLayout {
       cellHeight: this.cellHeight || this.cellWidth,
       xSpace,
       ySpace,
-      xMargin,
+      xMargin
     };
   }
 
@@ -508,14 +508,14 @@ export class GridContainerLayout {
           layout,
           collision,
           l,
-          isUserAction,
+          isUserAction
         );
       } else {
         layout = this.moveElementAwayFromCollision(
           layout,
           l,
           collision,
-          isUserAction,
+          isUserAction
         );
       }
     }
@@ -533,7 +533,7 @@ export class GridContainerLayout {
     layout,
     collidesWith,
     itemToMove,
-    isUserAction,
+    isUserAction
   ) {
     const preventCollision = false; // we're already colliding
     // If there is enough space above the collision to put this element, move it there.
@@ -547,7 +547,7 @@ export class GridContainerLayout {
         y: itemToMove.y,
         w: itemToMove.w,
         h: itemToMove.h,
-        i: '-1',
+        i: '-1'
       };
       fakeItem.y = Math.max(collidesWith.y - itemToMove.h, 0);
 
@@ -557,7 +557,7 @@ export class GridContainerLayout {
           itemToMove,
           undefined,
           fakeItem.y,
-          preventCollision,
+          preventCollision
         );
       }
     } // Previously this was optimized to move below the collision directly, but this can cause problems
@@ -568,7 +568,7 @@ export class GridContainerLayout {
       itemToMove,
       undefined,
       itemToMove.y + 1,
-      preventCollision,
+      preventCollision
     );
   }
 

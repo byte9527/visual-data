@@ -8,6 +8,6 @@ export function useCommonUtil(props) {
   };
 
   return {
-    getKeyPath,
+    getKeyPath
   };
 }

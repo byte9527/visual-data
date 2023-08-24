@@ -24,10 +24,10 @@ export default {
     },
     title() {
       return this.selectType === 'page' ? '页面设置' : '组件设置';
-    },
+    }
   },
   mounted() {},
-  methods: {},
+  methods: {}
 };
 </script>
 

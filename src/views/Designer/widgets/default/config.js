@@ -8,8 +8,8 @@ export default {
     layout: {
       grid: {
         w: 4,
-        h: 4,
-      },
+        h: 4
+      }
     }
   }
 }

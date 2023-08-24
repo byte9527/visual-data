@@ -3,31 +3,31 @@ const layoutDictionary = {
     name: '栅格布局',
     key: 'grid',
     description: '',
-    config: {},
+    config: {}
   },
   flex: {
     name: '栅格布局',
     key: 'flex',
     description: '',
-    config: {},
+    config: {}
   },
   fluid: {
     name: '流式布局',
     key: 'fluid',
     description: '',
-    config: {},
+    config: {}
   },
   position: {
     name: '定位布局',
     key: 'position',
     description: '',
-    config: {},
-  },
+    config: {}
+  }
 };
 
 export const layoutOptions = Object.values(layoutDictionary).map((item) => {
   return {
     label: item.name,
-    value: item.key,
+    value: item.key
   };
 });
