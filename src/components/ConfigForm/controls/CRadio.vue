@@ -11,9 +11,9 @@
 
 <script lang="ts" setup>
 import { computed, useAttrs, ref } from 'vue';
-defineOptions({
-  inheritAttrs: false
-})
+// defineOptions({
+//   inheritAttrs: false
+// })
 const props = defineProps({
   value: {
     type: [String, Number, Array, Boolean, Object]
@@ -46,4 +46,5 @@ const change = (val) => {
 </script>
 
 <style lang='scss' scoped>
+
 </style>

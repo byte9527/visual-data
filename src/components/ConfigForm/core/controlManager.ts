@@ -67,6 +67,11 @@ const systemControls = [
     key: 'CSelect',
     type: controyTypes.basic,
     titleInLabel: true,
+     defaultProps() {
+      return {
+        size: 'small'
+      }
+    }
   },
   {
     test: ['radio'],
@@ -74,6 +79,11 @@ const systemControls = [
     key: 'CRadio',
     type: controyTypes.basic,
     titleInLabel: true,
+     defaultProps() {
+      return {
+        size: 'small'
+      }
+    }
   },
   {
     test: ['input'],
@@ -81,6 +91,11 @@ const systemControls = [
     key: 'CInput',
     type: controyTypes.basic,
     titleInLabel: true,
+    defaultProps() {
+      return {
+        size: 'small'
+      }
+    }
   },
   {
     test: ['number'],
@@ -88,6 +103,11 @@ const systemControls = [
     key: 'ElInputNumber',
     type: controyTypes.basic,
     titleInLabel: true,
+    defaultProps() {
+      return {
+        size: 'small'
+      }
+    }
   },
   {
     test: ['slider'],
@@ -95,6 +115,11 @@ const systemControls = [
     key: 'CSlider',
     type: controyTypes.basic,
     titleInLabel: true,
+    defaultProps() {
+      return {
+        size: 'small'
+      }
+    }
   },
   {
     test: ['size'],
@@ -102,6 +127,11 @@ const systemControls = [
     key: 'CSize',
     type: controyTypes.basic,
     titleInLabel: true,
+    defaultProps() {
+      return {
+        size: 'small'
+      }
+    }
   },
   {
     test: ['fontSize'],
@@ -124,6 +154,11 @@ const systemControls = [
     key: 'ElSwitch',
     type: controyTypes.basic,
     titleInLabel: true,
+    defaultProps() {
+      return {
+        size: 'small'
+      }
+    }
   },
   {
     test: ['color'],
@@ -131,6 +166,11 @@ const systemControls = [
     key: 'ElColorPicker',
     type: controyTypes.basic,
     titleInLabel: true,
+    defaultProps() {
+      return {
+        size: 'small'
+      }
+    }
   },
   {
     test: ['rate'],
@@ -138,6 +178,11 @@ const systemControls = [
     key: 'ElRate',
     type: controyTypes.basic,
     titleInLabel: true,
+    defaultProps() {
+      return {
+        size: 'small'
+      }
+    }
   },
 ];
 

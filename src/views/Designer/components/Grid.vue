@@ -12,10 +12,10 @@ export default {
         return {
           paddingX: 16,
           paddingY: 16,
-          colNum: 24,
+          colNum: 12,
           cellHeight: 32,
           xSpace: 8,
-          ySpace: 8
+          ySpace: 0
         };
       }
     },

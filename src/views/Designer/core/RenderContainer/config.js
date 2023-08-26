@@ -1,29 +1,220 @@
-export default {
-  props: {
+export const getContainerConfig = function ({ parentLayoutType = '' }) {
+  return {
+    style: {
+      type: 'group',
+      name: '样式',
+      children: {
+        background: {
+          type: 'color',
+          name: '背景色',
+        },
+        size: {
+          type: 'suite',
+          name: '尺寸',
+          valuePath: false,
+          props: {
+            layout: {
+              type: 'row',
+              setting: [[12, 12]],
+            },
+          },
+          children: {
+            width: {
+              name: '边框宽度',
+              type: 'size',
+            },
+            height: {
+              name: '边框颜色',
+              type: 'size',
+            },
+          },
+        },
+      },
+    },
     layout: {
-      name: "布局",
-      type: "group",
+      type: 'group',
+      name: '布局',
       children: {
         type: {
-          name: "布局方式",
-          type: "select",
+          name: '布局方式',
+          type: 'select',
           props: {
             options: [
-              { label: "固定", value: "absolute" },
-              { label: "栅格", value: "grid" },
-              { label: "弹性", value: "flex" },
-              { label: "流体", value: "fluid" },
+              { label: '网格', value: 'grid' },
+              { label: '弹性', value: 'flex' },
+              { label: '定位', value: 'position' },
+              { label: '流式', value: 'fluid' },
             ],
           },
         },
-        deirection: {
-          name: "方向",
-          type: "select",
+        gridSetting: {
+          type: 'group',
+          name: '网格设置',
+          show: '${$form.layout.type === "grid"}',
+          children: {
+            colNum: {
+              type: 'number',
+              name: '列数',
+            },
+            cellHeight: {
+              type: 'number',
+              name: '行高',
+            },
+            paddingY: {
+              type: 'number',
+              name: '垂直内边距',
+            },
+            paddingX: {
+              type: 'number',
+              name: '水平内边距',
+            },
+            xSpace: {
+              type: 'number',
+              name: '水平间隔',
+            },
+            ySpace: {
+              type: 'number',
+              name: '垂直间隔',
+            },
+          },
+        },
+        flexSetting: {
+          name: '弹性布局设置',
+          type: 'group',
+          show: '${$form.layout.type === "flex"}',
+          props: {
+            //  hideHeader: true,
+            //  enableOpen: false
+          },
+          children: {
+            flexDirection: {
+              type: 'radio',
+              name: '方向',
+              props: {
+                options: [
+                  {
+                    label: '横向',
+                    value: 'row',
+                  },
+                  {
+                    label: '纵向',
+                    value: 'column',
+                  },
+                ],
+              },
+            },
+          },
+        },
+      },
+    },
+  };
+};
+
+export default {
+  props: {
+    style: {
+      type: 'group',
+      name: '样式',
+      children: {
+        background: {
+          type: 'color',
+          name: '背景色',
+        },
+        size: {
+          type: 'suite',
+          name: '页面尺寸',
+          valuePath: false,
+          props: {
+            layout: {
+              type: 'row',
+              setting: [[12, 12]],
+            },
+          },
+          children: {
+            width: {
+              name: '边框宽度',
+              type: 'size',
+            },
+            height: {
+              name: '边框颜色',
+              type: 'size',
+            },
+          },
+        },
+      },
+    },
+    layout: {
+      type: 'group',
+      name: '布局',
+      children: {
+        type: {
+          name: '布局方式',
+          type: 'select',
           props: {
             options: [
-              { label: "横向", value: "row" }，
-              { label: "横向", value: "column" }
+              { label: '网格', value: 'grid' },
+              { label: '弹性', value: 'flex' },
+              { label: '定位', value: 'position' },
+              { label: '流式', value: 'fluid' },
             ],
+          },
+        },
+        gridSetting: {
+          type: 'group',
+          name: '网格设置',
+          show: '${$form.layout.type === "grid"}',
+          children: {
+            colNum: {
+              type: 'number',
+              name: '列数',
+            },
+            cellHeight: {
+              type: 'number',
+              name: '行高',
+            },
+            paddingY: {
+              type: 'number',
+              name: '垂直内边距',
+            },
+            paddingX: {
+              type: 'number',
+              name: '水平内边距',
+            },
+            xSpace: {
+              type: 'number',
+              name: '水平间隔',
+            },
+            ySpace: {
+              type: 'number',
+              name: '垂直间隔',
+            },
+          },
+        },
+        flexSetting: {
+          name: '弹性布局设置',
+          type: 'group',
+          show: '${$form.layout.type === "flex"}',
+          props: {
+            //  hideHeader: true,
+            //  enableOpen: false
+          },
+          children: {
+            flexDirection: {
+              type: 'radio',
+              name: '方向',
+              props: {
+                options: [
+                  {
+                    label: '横向',
+                    value: 'row',
+                  },
+                  {
+                    label: '纵向',
+                    value: 'column',
+                  },
+                ],
+              },
+            },
           },
         },
       },

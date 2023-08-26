@@ -1,7 +1,7 @@
 <template>
   <div class="home">
     <el-container class="home__container" style="">
-      <el-aside class="home-side-left"></el-aside>
+      <el-aside class="home-side-left">
         <el-menu default-active="cnofigForm" @select="menuSelect">
           <template v-for="item in menuList" :key="item.key">
             <el-menu-item v-if="!item.children.length" :index="item.key">

@@ -1,23 +1,15 @@
 <template>
-    <el-input v-bind="options" v-model="currentValue" @blur="change"></el-input>
+    <el-input  v-model="currentValue" @blur="change"></el-input>
 </template>
 
 <script lang="ts" setup>
 import { ref } from 'vue';
-defineOptions({
-  inheritAttrs: false
-})
+
 
 const props = defineProps({
   value: {
     type: [String, Number, Array, Boolean, Object]
   },
-  options: {
-    type: Object,
-    default() {
-      return {};
-    }
-  }
 });
 
 const emit = defineEmits(['change']);

@@ -3,13 +3,15 @@
     <el-input-number
       :model-value="currentValue"
       @change="change"
+      controls-position="right"
+      v-bind="numberProps"
     ></el-input-number>
 
     <el-dropdown @command="handleCommand">
       <span class="c-size__unit">{{ unit }}</span>
       <template #dropdown>
         <el-dropdown-menu>
-          <el-dropdown-item v-for="item in unitOptions" :command="item.value">
+          <el-dropdown-item v-for="item in unitOptions" :key="item.value" :command="item.value">
             {{ item.label }}
           </el-dropdown-item>
         </el-dropdown-menu>
@@ -19,10 +21,10 @@
 </template>
 
 <script setup>
-import { ref } from 'vue';
+import { ref, useAttrs, computed } from 'vue';
 defineOptions({
   inheritAttrs: false
-});
+})
 
 const props = defineProps({
   value: {
@@ -39,6 +41,13 @@ const props = defineProps({
       ];
     }
   }
+});
+
+const attrs = useAttrs()
+
+const numberProps = computed(() => {
+  const { options, ...rest } = attrs;
+  return { ...rest, modelValue: props.value };
 });
 
 const emit = defineEmits(['change']);
@@ -59,6 +68,8 @@ const handleCommand = (val) => {
     }
   }
 };
+
+// const 
 </script>
 
 <style lang="scss">
@@ -66,10 +77,14 @@ const handleCommand = (val) => {
   position: relative;
   &__unit {
     position: absolute;
-    right: 36px;
-    top: 9px;
+    right: 26px;
+    top: 5px;
     color: lightgrey;
     outline: none !important;
+  }
+
+  .el-input-number {
+    width: 100%;
   }
 }
 </style>
