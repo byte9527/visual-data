@@ -1,12 +1,12 @@
 <template>
   <div class="page-canvas">
-    <RenderContainer></RenderContainer>
+    <RenderContainer :layout="pageSetting.layout"></RenderContainer>
   </div>
 </template>
 
 <script>
 import RenderContainer from './RenderContainer.vue';
-
+import { mapState } from 'vuex';
 
 export default {
   components: { RenderContainer },
@@ -15,9 +15,11 @@ export default {
     return {};
   },
   watch: {},
-  computed: {},
+  computed: {
+    ...mapState('pageDesigner', ['pageSetting']),
+  },
   mounted() {},
-  methods: {}
+  methods: {},
 };
 </script>
 

@@ -1,11 +1,16 @@
 <template>
   <div class="page-panel">
-    <ConfigForm :config-data="propertyConfig" :value="value" />
+    <ConfigForm
+      :config-data="propertyConfig"
+      :value="pageSetting"
+      @change="updatePageSetting"
+    />
   </div>
 </template>
 
 <script>
 import ConfigForm from '@/components/ConfigForm';
+import { mapState, mapMutations } from 'vuex';
 
 export default {
   mixins: [],
@@ -23,6 +28,9 @@ export default {
         style: {
           type: 'group',
           name: '样式',
+          props: {
+            expanded: true,
+          },
           children: {
             background: {
               type: 'color',
@@ -54,6 +62,9 @@ export default {
         layout: {
           type: 'group',
           name: '布局',
+          props: {
+            expanded: true,
+          },
           children: {
             type: {
               name: '布局方式',
@@ -71,7 +82,15 @@ export default {
               type: 'group',
               name: '网格设置',
               show: '${$form.layout.type === "grid"}',
+              props: {
+                // expanded: true,
+                hideHeader: true,
+              },
               children: {
+                showInEdit: {
+                  type: 'switch',
+                  name: '展示编辑网格',
+                },
                 colNum: {
                   type: 'number',
                   name: '列数',
@@ -103,8 +122,8 @@ export default {
               type: 'group',
               show: '${$form.layout.type === "flex"}',
               props: {
-                //  hideHeader: true,
-                //  enableOpen: false
+                // expanded: true,
+                hideHeader: true,
               },
               children: {
                 flexDirection: {
@@ -123,18 +142,65 @@ export default {
                     ],
                   },
                 },
+                justifyContent: {
+                  type: 'select',
+                  name: '${ $form.layout.flexSetting.flexDirection === "row" ? "横向对齐" : "纵向对齐" }',
+                  props: {
+                    options: [
+                      { label: '起点对齐', value: 'flex-start' },
+                      { label: '终点对齐', value: 'flex-end' },
+                      { label: '居中', value: 'center' },
+                      { label: '元素间距相同', value: 'space-between' },
+                      { label: '相邻元素间距相同', value: 'space-around' },
+                    ],
+                  },
+                },
+                alignItems: {
+                  type: 'select',
+                  name: '${ $form.layout.flexSetting.flexDirection === "row" ? "纵向对齐" : "横向对齐" }',
+                  props: {
+                    options: [
+                      { label: '起点对齐', value: 'flex-start' },
+                      { label: '终点对齐', value: 'flex-end' },
+                      { label: '居中', value: 'center' },
+                    ],
+                  },
+                },
+                rowGap: {
+                  type: 'number',
+                  name: '横向间隔',
+                },
+                columnGap: {
+                  type: 'number',
+                  name: '纵向间隔',
+                },
+              },
+            },
+            positionSetting: {
+              type: 'group',
+              props: {
+                hideHeader: true,
+              },
+              children: {
+                showRule: {
+                  type: 'switch',
+                  name: '显示标尺',
+                },
               },
             },
           },
         },
       },
-      value: {},
     };
   },
   watch: {},
-  computed: {},
+  computed: {
+    ...mapState('pageDesigner', ['pageSetting']),
+  },
   mounted() {},
-  methods: {},
+  methods: {
+    ...mapMutations('pageDesigner', ['updatePageSetting']),
+  },
 };
 </script>
 

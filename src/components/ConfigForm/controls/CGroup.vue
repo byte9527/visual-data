@@ -65,10 +65,14 @@ const props = defineProps({
   enableOpen: {
     type: Boolean,
     default: false
+  },
+  expanded: {
+    type: Boolean,
+    default: false
   }
 });
 
-const reactValue = ref(props.hideHeader ? '1' : '');
+const reactValue = ref(props.hideHeader || props.expanded ? '1' : '');
 
 const { getKeyPath } = useCommonUtil(props);
 </script>
@@ -79,6 +83,7 @@ const { getKeyPath } = useCommonUtil(props);
 
   > .el-collapse {
     border-top: none;
+    border-bottom: none;
   }
 
   .el-collapse-item__wrap {
@@ -103,6 +108,7 @@ const { getKeyPath } = useCommonUtil(props);
   .el-collapse-item__header {
     padding-left: 8px;
     background-color: unset;
+    font-weight: bold;
   }
 
   .el-collapse-item__wrap {

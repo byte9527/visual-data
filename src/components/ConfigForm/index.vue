@@ -13,7 +13,9 @@
 import { defineComponent, toRaw } from 'vue';
 import mitt from 'mitt';
 import type { PropType } from 'vue';
-import { set, get, isEqual, merge } from 'lodash';
+import cloneDeep from 'lodash/cloneDeep';
+import set from 'lodash/set';
+import merge from 'lodash/merge';
 import ControlWrapper from './core/ControlWrapper.vue';
 
 import { SearchManager, searchSingleton } from './core/SearchManager';
@@ -23,8 +25,9 @@ import { deepSet } from './utils/proxyHelp';
 
 export default defineComponent({
   name: 'ConfigForm',
+  inheritAttrs: false,
   components: {
-    ControlWrapper
+    ControlWrapper,
   },
   mixins: [],
   props: {
@@ -32,76 +35,77 @@ export default defineComponent({
       type: Object as PropType<cForm.ControlNode>,
       default() {
         return {};
-      }
+      },
     },
     hooks: {
       type: Object,
       default() {
         return {};
-      }
+      },
     },
     context: {
       type: [Object],
       default() {
         return {};
-      }
+      },
     },
     value: {
       type: Object,
       default() {
         return {};
-      }
+      },
     },
     keyPath: {
       type: String,
-      default: ''
+      default: '',
     },
     searchManager: {
       type: SearchManager,
       default() {
         return searchSingleton;
-      }
+      },
     },
     updateDeps: {
       type: Array,
       default() {
         return [];
-      }
+      },
     },
     formKey: {
       type: String,
-      default: ''
+      default: '',
     },
     util: {
       type: Object,
       default() {
         return {};
-      }
+      },
     },
     formSetting: {
       type: Object as PropType<cForm.FormSetting>,
       default() {
         return {};
-      }
-    }
+      },
+    },
   },
   data() {
     const result = (this as any).handleConfig();
     const formBus = new mitt();
+    const rawVal = toRaw(this.value);
     return {
       computedUpdateDeps: result.deps,
       renderData: this.configData,
       formBus,
       // stateValue: this.value,
-      stateValue: this.value
+      stateValue: cloneDeep(rawVal),
     };
   },
   computed: {
     mergeUpdateDeps(): Array<string> {
       return Array.from(
-        new Set([...this.updateDeps, ...this.computedUpdateDeps])
+        new Set([...this.updateDeps, ...this.computedUpdateDeps]),
       );
-    }
+    },
   },
   watch: {
     activeId() {
@@ -111,20 +115,21 @@ export default defineComponent({
       handler(newVal) {
         // (this as any).stateValue = JSON.parse(JSON.stringify(newVal));
       },
-      deep: true
-    }
+      deep: true,
+    },
   },
   provide() {
     return {
       formSetting: merge(defaultOption, this.formSetting),
       formBus: this.formBus,
       context: {},
-      formValue: this.stateValue
+      formValue: this.stateValue,
     };
   },
   mounted() {
     this.formBus.on('fieldChange', (payload) => {
       deepSet(this.stateValue, payload.keyPath, payload.value);
+      this.$emit('change', this.stateValue)
       this.stateValue;
     });
   },
@@ -165,7 +170,7 @@ export default defineComponent({
           getFormValue: this.getFormValue,
           getContext: this.getContext,
           setFieldValue: this.setFieldValue,
-          setMultipleFieldValue: this.setMultipleFieldValue
+          setMultipleFieldValue: this.setMultipleFieldValue,
         };
         const cbParams = [...params, api];
         cb(...cbParams);
@@ -176,7 +181,6 @@ export default defineComponent({
     },
     setMultipleFieldValue(params: cForm.AnyKeyObject) {},
     getFieldValue(path: string) {
-      return get(this.stateValue, path);
     },
     setFieldValue(value, valuePath) {},
     getFormValue() {
@@ -189,25 +193,24 @@ export default defineComponent({
         toRaw(this.configData),
         {
           form: data,
-          ...(this as any).context
+          ...(this as any).context,
         },
         this.util,
         {
           asyncOperateCallback: (keyPath: string, data: object) => {
-            set(this.renderData, keyPath, data);
-          }
-        }
+          },
+        },
       );
       return newData;
-    }
-  }
+    },
+  },
 });
 </script>
 
 <style lang="scss" scoped>
 .config-form {
   color: black;
-  width: 320px;
+  // width: 320px;
   padding-right: 8px;
   user-select: none;
   box-sizing: border-box;

@@ -1,23 +1,37 @@
 export default {
+  namespaced: true,
   state: {
     pageSetting: {
+      name: '',
+      style: {},
       layout: {
-        type: '',
-        gridLayout: {}
-      }
+        type: 'grid',
+        gridSetting: {
+          showInEdit: true,
+          paddingX: 16,
+          paddingY: 16,
+          colNum: 12,
+          cellHeight: 32,
+          xSpace: 8,
+          ySpace: 0,
+        },
+        flexSetting: {
+          flexDirection: 'row',
+        },
+      },
     },
     elList: [],
     elMap: {},
-    selectIds: []
+    selectIds: [],
   },
   getters: {
     elSnapshot() {
       return {
         xxId: {
-          parentId: ''
-        }
+          parentId: '',
+        },
       };
-    }
+    },
   },
   mutations: {
     setSelectIds(state, data) {
@@ -25,27 +39,9 @@ export default {
     },
     deleteWidget(state, data) {},
     updateWidget(state, data) {},
-    addWdiget(state, data) {}
-  }
-};
-
-const widgetPropertyDemo = {
-  layout: {
-    grid: {
-      x: 0,
-      y: 0,
-      w: 4,
-      h: 4
-    }
+    addWdiget(state, data) {},
+    updatePageSetting(state, data) {
+      state.pageSetting = data;
+    },
   },
-  style: {
-    border: {},
-    background: {},
-    size: {
-      width: '',
-      height: ''
-    }
-  },
-  property: {},
-  data: {}
 };

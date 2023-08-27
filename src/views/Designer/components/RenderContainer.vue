@@ -1,21 +1,30 @@
 <template>
   <div class="render-container" style="">
-    <Grid v-if="type === 'grid'" class="render-container__grid-bg" />
-    <WidgetRender v-for="widget in widgetList"/>
+    <Grid
+      v-if="layout.type === 'grid'"
+      v-show="layout.gridSetting.showInEdit"
+      class="render-container__grid-bg"
+      :layout="layout.gridSetting"
+    />
+    <WidgetRender v-for="widget in widgetList" />
   </div>
 </template>
 
 <script>
 import Grid from './Grid.vue';
-import WidgetRender from './WidgetRender.vue'
+import WidgetRender from './WidgetRender.vue';
 export default {
   components: { Grid },
   props: {
-    type: {
-      type: String,
-      default: 'grid'
+    layout: {
+      type: Object,
+      default() {
+        return {
+          type: 'grid',
+          gridSetting: {},
+        };
+      },
     },
-    layout: {}
   },
   data() {
     return {};
@@ -23,12 +32,12 @@ export default {
   watch: {},
   computed: {
     widgetList() {
-      const a = {}
-      return []
-    }
+      const a = {};
+      return [];
+    },
   },
   mounted() {},
-  methods: {}
+  methods: {},
 };
 </script>
 
@@ -40,7 +49,7 @@ export default {
   &__grid-bg {
     position: absolute;
     top: 0;
-    left: 0
+    left: 0;
   }
 }
 </style>

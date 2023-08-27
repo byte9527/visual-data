@@ -2,9 +2,9 @@
   <div class="c-size">
     <el-input-number
       :model-value="currentValue"
-      @change="change"
       controls-position="right"
       v-bind="numberProps"
+      @change="change"
     ></el-input-number>
 
     <el-dropdown @command="handleCommand">
@@ -34,7 +34,7 @@ const props = defineProps({
   unitOptions: {
     type: Array,
     default() {
-      return [
+      return [ 
         { label: 'px', value: 'px' },
         { label: '%', value: '%' },
         { label: 'rem', value: 'rem' }
@@ -44,18 +44,19 @@ const props = defineProps({
 });
 
 const attrs = useAttrs()
-
 const numberProps = computed(() => {
-  const { options, ...rest } = attrs;
-  return { ...rest, modelValue: props.value };
+  const { modelValue, ...rest } = attrs;
+  return { ...rest};
 });
 
 const emit = defineEmits(['change']);
 
 const matches = props.value.match(/(\-)?\d+(\.\d{1,2})?/g);
-const currentValue = matches ? ref(Number(matches[0] || '0')) : undefined;
+const currentValue = matches ? ref(Number(matches[0] || '0')) : ref("");
+
 const change = (val) => {
-  if (val !== currentValue) {
+  if (val !== currentValue.value) {
+    currentValue.value = val
     emit('change', `${val}${unit.value}`);
   }
 };

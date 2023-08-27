@@ -1,5 +1,5 @@
 <template>
-  <el-radio-group v-bind="selectProps" :model-value="value" @change="change">
+  <el-radio-group v-bind="selectProps" :model-value="currentValue" @change="change">
     <el-radio
       v-for="item in options"
       :key="item.value"
@@ -40,6 +40,7 @@ const currentValue = ref(props.value);
 const change = (val) => {
   if (val !== currentValue.value) {
     emit('change', val);
+    currentValue.value = val
   }
 };
 

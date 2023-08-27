@@ -8,8 +8,8 @@
         v-bind="componentProps"
         :is="componentDefine"
         :value="state.value"
-        :model-value="state.value"
-        :value-path="keyPath"
+        :modelValue="state.value"
+        :valuePath="keyPath"
         @change="valueChange"
       ></component>
     </div>
@@ -17,7 +17,7 @@
 </template>
 
 <script lang="ts" setup>
-import { reactive, computed, inject, toRaw, onMounted, watch } from 'vue';
+import { reactive, computed, inject, toRaw,unref, onMounted, watch } from 'vue';
 import {
   getComponent,
   getComponentConfig,
@@ -25,6 +25,11 @@ import {
 } from './controlManager';
 import { configHandle } from './configHandle';
 import { deepGet } from '../utils/proxyHelp';
+import cloneDeep from "lodash/cloneDeep"
+
+defineOptions({
+  inheritAttrs: false
+})
 
 const props = defineProps({
   keyPath: {
@@ -75,8 +80,10 @@ const handleConfig = (): config => {
 
 const options = handleConfig();
 
+const val = deepGet(formValue, props.keyPath)
+const rawVal = toRaw(val)
 const state = reactive({
-  value: deepGet(formValue, props.keyPath),
+  value: cloneDeep(rawVal),
   renderData: options.config,
   showName: showTitle(props.configData.type) && !props.configData.hideName
 });
