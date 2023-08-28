@@ -12,12 +12,6 @@ const props = defineProps({
   value: {
     type: [String, Number, Array, Boolean, Object]
   },
-  options: {
-    type: Object,
-    default() {
-      return {};
-    }
-  }
 });
 
 const emit = defineEmits(['change']);

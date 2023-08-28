@@ -3,7 +3,7 @@
     <ConfigForm
       :config-data="propertyConfig"
       :value="pageSetting"
-      @change="updatePageSetting"
+      @change="setPageSetting"
     />
   </div>
 </template>
@@ -24,6 +24,9 @@ export default {
         name: {
           type: 'input',
           name: '名称',
+          props: {
+            disabled: true
+          }
         },
         style: {
           type: 'group',
@@ -199,7 +202,7 @@ export default {
   },
   mounted() {},
   methods: {
-    ...mapMutations('pageDesigner', ['updatePageSetting']),
+    ...mapMutations('pageDesigner', ['setPageSetting']),
   },
 };
 </script>

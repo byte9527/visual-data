@@ -1,7 +1,7 @@
 <template>
   <el-container class="page-designer">
     <el-header>
-      <Header />
+      <DesignerHeader />
     </el-header>
     <el-container>
       <el-aside :width="leftSiderWidth" class="left-sider">
@@ -22,26 +22,41 @@
 
 <script>
 import WM from './core/utils/widgetManager.js';
-import Header from './components/Header.vue';
+import DesignerHeader from './components/DesignerHeader.vue';
 import ComponentList from './components/ComponentList.vue';
 import PageCanvas from './components/PageCanvas.vue';
 import PropertyPanel from './components/PropertyPanel/index.vue';
+import { db } from '@/utils/db';
+import { mapState, mapMutations } from 'vuex';
 
 export default {
   mixins: [],
-  components: { Header, ComponentList, PageCanvas, PropertyPanel },
+  components: { DesignerHeader, ComponentList, PageCanvas, PropertyPanel },
   props: {},
   data() {
     return {
       leftSiderWidth: '240px',
       rightSiderWidth: '320px',
-      activeName: 'components'
+      activeName: 'components',
     };
   },
   watch: {},
-  computed: {},
-  mounted() {},
-  methods: {}
+  computed: {
+    ...mapState('pageDesigner', ['pageId']),
+  },
+  mounted() {
+    this.setPageId(Number(this.$route.query.id));
+    this.initPage();
+  },
+  methods: {
+    ...mapMutations('pageDesigner', ['setPageSetting', 'setPageId']),
+
+    async initPage() {
+      const page = await db.page.get(this.pageId);
+      const pageSetting = JSON.parse(page.pageSetting);
+      this.setPageSetting({ ...pageSetting, name: page.name });
+    },
+  },
 };
 </script>
 

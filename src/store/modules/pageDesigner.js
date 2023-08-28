@@ -1,24 +1,12 @@
+import { defaultPageSetting } from '../../views/Designer/core/utils/constant';
+
 export default {
   namespaced: true,
   state: {
+    pageId: null,
     pageSetting: {
       name: '',
-      style: {},
-      layout: {
-        type: 'grid',
-        gridSetting: {
-          showInEdit: true,
-          paddingX: 16,
-          paddingY: 16,
-          colNum: 12,
-          cellHeight: 32,
-          xSpace: 8,
-          ySpace: 0,
-        },
-        flexSetting: {
-          flexDirection: 'row',
-        },
-      },
+      ...defaultPageSetting(),
     },
     elList: [],
     elMap: {},
@@ -40,8 +28,11 @@ export default {
     deleteWidget(state, data) {},
     updateWidget(state, data) {},
     addWdiget(state, data) {},
-    updatePageSetting(state, data) {
+    setPageSetting(state, data) {
       state.pageSetting = data;
+    },
+    setPageId(state, id) {
+      state.pageId = id;
     },
   },
 };

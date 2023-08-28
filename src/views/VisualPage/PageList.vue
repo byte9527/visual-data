@@ -11,8 +11,8 @@
           {{ item.name }}
           <div class="icon">
             <el-icon @click="editPage(item)"><Edit /></el-icon>
-            <el-icon @click="designePage"><Setting /></el-icon>
-            <el-icon><Delete /></el-icon>
+            <el-icon @click="designePage(item)"><Setting /></el-icon>
+            <el-icon><Delete @click="deletePage(item)" /></el-icon>
           </div>
         </el-menu-item>
       </el-menu>
@@ -45,6 +45,7 @@
 <script>
 import { toRaw } from 'vue';
 import { db } from '@/utils/db';
+import { defaultPageSetting } from '../Designer/core/utils/constant';
 
 export default {
   mixins: [],
@@ -55,7 +56,7 @@ export default {
       pageList: [],
       showPageModal: false,
       pageModalType: '',
-      form: { name: '', remark: '' }
+      form: { name: '', remark: '' },
     };
   },
   watch: {},
@@ -73,8 +74,15 @@ export default {
       this.pageModalType = 'edit';
       this.form = param;
     },
-    designePage() {
-      this.$router.push('/pageDesigner');
+    designePage(data) {
+      this.$router.push({
+        path: '/pageDesigner',
+        query: { id: data.id },
+      });
+    },
+    async deletePage(data) {
+      await db.page.delete(data.id);
+      this.getList();
     },
     dialogClose() {
       this.showPageModal = false;
@@ -82,7 +90,10 @@ export default {
     },
     async confirmPageInfo() {
       if (this.pageModalType === 'add') {
-        await db.page.add(toRaw(this.form));
+        await db.page.add({
+          ...this.form,
+          pageSetting: JSON.stringify(defaultPageSetting()),
+        });
       } else {
         const { id, ...rest } = this.form;
         await db.page.update(this.form.id, rest);
@@ -95,8 +106,8 @@ export default {
       const list = await db.page.toArray();
       this.pageList = list;
     },
-    select(key) {}
-  }
+    select(key) {},
+  },
 };
 </script>
 

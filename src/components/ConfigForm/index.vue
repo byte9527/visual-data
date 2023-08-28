@@ -109,11 +109,11 @@ export default defineComponent({
   },
   watch: {
     activeId() {
-      (this as any).stateValue = this.value;
+      (this as any).stateValue = cloneDeep(this.value);
     },
     value: {
       handler(newVal) {
-        // (this as any).stateValue = JSON.parse(JSON.stringify(newVal));
+        (this as any).stateValue = cloneDeep(newVal);
       },
       deep: true,
     },
@@ -123,13 +123,14 @@ export default defineComponent({
       formSetting: merge(defaultOption, this.formSetting),
       formBus: this.formBus,
       context: {},
+      rootFoom: this,
       formValue: this.stateValue,
     };
   },
   mounted() {
     this.formBus.on('fieldChange', (payload) => {
       deepSet(this.stateValue, payload.keyPath, payload.value);
-      this.$emit('change', this.stateValue)
+      this.$emit('change', this.stateValue);
       this.stateValue;
     });
   },
@@ -180,8 +181,7 @@ export default defineComponent({
       return this.context;
     },
     setMultipleFieldValue(params: cForm.AnyKeyObject) {},
-    getFieldValue(path: string) {
-    },
+    getFieldValue(path: string) {},
     setFieldValue(value, valuePath) {},
     getFormValue() {
       return this.stateValue;
@@ -197,8 +197,7 @@ export default defineComponent({
         },
         this.util,
         {
-          asyncOperateCallback: (keyPath: string, data: object) => {
-          },
+          asyncOperateCallback: (keyPath: string, data: object) => {},
         },
       );
       return newData;

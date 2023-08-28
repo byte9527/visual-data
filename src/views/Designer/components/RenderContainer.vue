@@ -1,5 +1,5 @@
 <template>
-  <div class="render-container" style="">
+  <div class="render-container" :style="containerStyle">
     <Grid
       v-if="layout.type === 'grid'"
       v-show="layout.gridSetting.showInEdit"
@@ -25,6 +25,9 @@ export default {
         };
       },
     },
+    style: {
+      type: Object
+    }
   },
   data() {
     return {};
@@ -35,6 +38,9 @@ export default {
       const a = {};
       return [];
     },
+    containerStyle() {
+      return this.style
+    }
   },
   mounted() {},
   methods: {},

@@ -1,6 +1,6 @@
 <template>
   <div class="page-canvas">
-    <RenderContainer :layout="pageSetting.layout"></RenderContainer>
+    <RenderContainer :layout="pageSetting.layout" :style="pageSetting.style"></RenderContainer>
   </div>
 </template>
 

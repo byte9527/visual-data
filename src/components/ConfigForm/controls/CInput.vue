@@ -1,9 +1,12 @@
 <template>
-    <el-input  v-model="currentValue" @blur="change"></el-input>
+    <el-input v-bind="inputOptions"  v-model="currentValue" @blur="change"></el-input>
 </template>
 
 <script lang="ts" setup>
-import { ref } from 'vue';
+import { ref, useAttrs, computed } from 'vue';
+defineOptions({
+  inheritAttrs: false
+})
 
 
 const props = defineProps({
@@ -22,6 +25,14 @@ const change = (e) => {
     emit('change', val);
   }
 };
+
+const attrs = useAttrs()
+
+const inputOptions = computed(() => {
+  const { modelValue, ...rest } = attrs;
+  return { ...rest };
+});
+
 </script>
 
 <style lang="scss" scoped></style>

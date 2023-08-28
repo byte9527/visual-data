@@ -65,8 +65,7 @@ const unit = ref('px');
 const handleCommand = (val) => {
   if (val !== unit.value) {
     unit.value = val;
-    if (val === 'rem') {
-    }
+    emit('change', `${currentValue.value}${unit.value}`);
   }
 };
 
