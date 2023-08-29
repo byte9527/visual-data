@@ -74,10 +74,9 @@ export default {
               type: 'select',
               props: {
                 options: [
-                  { label: '网格', value: 'grid' },
-                  { label: '弹性', value: 'flex' },
-                  { label: '定位', value: 'position' },
                   { label: '流式', value: 'fluid' },
+                  { label: '网格', value: 'grid' },
+                  { label: '定位', value: 'position' },
                 ],
               },
             },

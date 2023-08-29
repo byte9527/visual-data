@@ -15,6 +15,9 @@ export function defaultPageSetting() {
       flexSetting: {
         flexDirection: 'row',
       },
+      positionSetting: {
+        showRule: false,
+      }
     },
   };
 }

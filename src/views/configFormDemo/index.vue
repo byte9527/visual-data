@@ -50,12 +50,14 @@ export default defineComponent({
 .config-form-demo {
   display: flex;
   flex-wrap: wrap;
+
   .form-box {
     // padding: 8px;
     background-color: #f6f6f6;
     margin-bottom: 32px;
     margin-right: 32px;
     height: fit-content;
+    width: 320px;
   }
 
   ::v-deep {

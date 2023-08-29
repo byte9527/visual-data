@@ -123,7 +123,7 @@ export default defineComponent({
       formSetting: merge(defaultOption, this.formSetting),
       formBus: this.formBus,
       context: {},
-      rootFoom: this,
+      rootForm: this,
       formValue: this.stateValue,
     };
   },

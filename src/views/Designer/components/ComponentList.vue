@@ -74,7 +74,7 @@ export default {
           key: 'container',
           children: [
             { name: '布局', key: 'layout', children: [] },
-            { name: '功能', key: 'layout', children: [] }
+            { name: '功能', key: 'function', children: [] }
           ]
         }
       ]

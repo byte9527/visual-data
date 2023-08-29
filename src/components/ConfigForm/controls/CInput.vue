@@ -3,7 +3,7 @@
 </template>
 
 <script lang="ts" setup>
-import { ref, useAttrs, computed } from 'vue';
+import { ref, useAttrs, computed, watchEffect } from 'vue';
 defineOptions({
   inheritAttrs: false
 })
@@ -26,8 +26,11 @@ const change = (e) => {
   }
 };
 
-const attrs = useAttrs()
+watchEffect(() => {
+  currentValue.value = props.value
+})
 
+const attrs = useAttrs()
 const inputOptions = computed(() => {
   const { modelValue, ...rest } = attrs;
   return { ...rest };

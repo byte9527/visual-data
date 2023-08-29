@@ -1,7 +1,7 @@
 /*
  * @Author: zhangm
  * @Date: 2023-07-06 20:39:24
- * @LastEditTime: 2023-08-03 18:53:40
+ * @LastEditTime: 2023-08-29 14:26:38
  * @LastEditors: zhangm
  * @Description:
  * @FilePath: \visual-data\src\components\ConfigForm\utils\proxyHelp.js
@@ -32,7 +32,7 @@ export function deepGet(target, keyPath) {
     keys,
     target,
     keyPath
-    if (temp[k] == undefined && index === keyLength - 2) {
+    if (temp[k] === undefined && index === keyLength - 2) {
       temp[k] = {};
     } 
     
