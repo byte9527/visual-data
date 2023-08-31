@@ -27,6 +27,10 @@ class WidgetManager {
   registerWidget (type, config) {
     this.map[config.type] = config
   }
+
+  createInstance(type) {
+    
+  }
 }
 
 const widgetManger = new WidgetManager()

@@ -25,6 +25,19 @@ export default function (ctx) {
         },
       },
     },
-    props: {},
+    props: {
+      
+    },
+    lifeCircle: {
+      init() {
+      
+      },
+      add() {
+      
+      },
+      remove() {
+      
+      }
+    }
   };
 }

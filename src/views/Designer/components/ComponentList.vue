@@ -13,7 +13,13 @@
             :title="item.name"
             :name="item.key"
           >
-            <div v-for="el in item.children" :key="el.key" class="widget-item">
+            <div
+              v-for="el in item.children"
+              :key="el.type"
+              class="widget-item"
+              draggable="true"
+              @dragstart="e => onDragStart(e, el)"
+            >
               {{ el.name }}
             </div>
           </el-collapse-item>
@@ -39,8 +45,8 @@ export default {
           active: 'base',
           children: [
             { name: '基础', key: 'base', children: [] },
-            { name: '媒体', key: 'media', children: [] }
-          ]
+            { name: '媒体', key: 'media', children: [] },
+          ],
         },
         {
           name: '图表',
@@ -50,34 +56,34 @@ export default {
             { name: '柱状图', key: 'bar', children: [] },
             { name: '线状图', key: 'line', children: [] },
             { name: '饼环图', key: 'pie', children: [] },
-            { name: '其他', key: 'others', children: [] }
-          ]
+            { name: '其他', key: 'others', children: [] },
+          ],
         },
         {
           name: '表单',
           key: 'form',
           children: [
             { name: '选择', key: 'select', children: [] },
-            { name: '文本输入', key: 'text', children: [] }
-          ]
+            { name: '文本输入', key: 'text', children: [] },
+          ],
         },
         {
           name: '展示',
           key: 'data',
           children: [
             { name: '表格', key: 'table', children: [] },
-            { name: '文本', key: 'text', children: [] }
-          ]
+            { name: '文本', key: 'text', children: [] },
+          ],
         },
         {
           name: '容器',
           key: 'container',
           children: [
             { name: '布局', key: 'layout', children: [] },
-            { name: '功能', key: 'function', children: [] }
-          ]
-        }
-      ]
+            { name: '功能', key: 'function', children: [] },
+          ],
+        },
+      ],
     };
   },
   watch: {},
@@ -113,15 +119,20 @@ export default {
         }
       }
       return map;
-    }
-  }
+    },
+    onDragStart(e, data) {
+      e.dataTransfer.dropEffect = 'copy';
+      e.dataTransfer.effectAllowed = 'all';
+      e.dataTransfer.setData('widget/drag', JSON.stringify(data));
+    },
+  },
 };
 </script>
 
 <style lang="scss">
 .component-list {
   height: 100%;
-  user-select: none; 
+  user-select: none;
 
   .el-tabs {
     .el-tabs__nav {
