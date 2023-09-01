@@ -1,16 +1,20 @@
 <template>
-    <el-slider v-bind="options" v-model="currentValue" @change="change"></el-slider>
+  <el-slider
+    v-bind="options"
+    v-model="currentValue"
+    @change="change"
+  ></el-slider>
 </template>
 
 <script lang="ts" setup>
-import { ref } from 'vue';
+import { ref, useAttrs, computed } from 'vue';
 defineOptions({
-  inheritAttrs: false
-})
+  inheritAttrs: false,
+});
 
 const props = defineProps({
   value: {
-    type: [String, Number, Array, Boolean, Object]
+    type: [String, Number, Array, Boolean, Object],
   },
 });
 
@@ -23,6 +27,12 @@ const change = (val) => {
     emit('change', val);
   }
 };
+
+const attrs = useAttrs();
+const options = computed(() => {
+  const { modelValue, ...rest } = attrs;
+  return { ...rest };
+});
 </script>
 
 <style lang="scss" scoped></style>

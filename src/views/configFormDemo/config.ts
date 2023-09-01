@@ -312,7 +312,10 @@ export const config3 = {
   dataConfig: {
     show: {
       type: 'switch',
-      name: '是否显示'
+      name: '是否显示',
+      style: {
+        marginTop: '8px'
+      }
     },
     showContent: {
       type: 'radio',

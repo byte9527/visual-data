@@ -67,7 +67,7 @@ const systemControls = [
     key: 'CSelect',
     type: controyTypes.basic,
     titleInLabel: true,
-     defaultProps() {
+    defaultProps() {
       return {
         size: 'small'
       }
@@ -79,7 +79,7 @@ const systemControls = [
     key: 'CRadio',
     type: controyTypes.basic,
     titleInLabel: true,
-     defaultProps() {
+    defaultProps() {
       return {
         size: 'small'
       }

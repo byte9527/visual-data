@@ -1,8 +1,12 @@
 type commandHander = (x: unknown) => void
 
+type commandOptions = {
+  noteStep: boolean, // 记录是否加入数据记忆中
+}
 interface commandModel {
   name: string,
   handler: commandHander,
+  options?: commandOptions
 }
 
 class Command {
@@ -39,6 +43,49 @@ class Command {
     }
   }
 }
+
 const commander = new Command();
+(function registerDefaultCommand() {
+  commander.registerCommand({
+    name: 'deleteWidgets',
+    handler: (ids: Array<string>) => {
+
+    },
+    options: {
+      noteStep: true
+    }
+  })
+
+  commander.registerCommand({
+    name: 'addWidgets',
+    handler: () => {
+
+    },
+    options: {
+      noteStep: true
+    }
+  })
+
+  commander.registerCommand({
+    name: 'updateWidget',
+    handler: (ids: Array<string>) => {
+
+    },
+    options: {
+      noteStep: true
+    }
+  })
+
+  commander.registerCommand({
+    name: 'updatePage',
+    handler: (ids: Array<string>) => {
+
+    },
+    options: {
+      noteStep: true
+    }
+  })
+})()
+
 
 export default commander;

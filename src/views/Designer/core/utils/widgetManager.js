@@ -1,10 +1,11 @@
+import { nanoid } from 'nanoid'
 class WidgetManager {
-  constructor () {
+  constructor() {
     this.map = {}
     this.init()
   }
 
-  init () {
+  init() {
     const modules = import.meta.glob('../../widgets/\*/index.js', { eager: true })
     for (const k in modules) {
       const m = modules[k]
@@ -12,24 +13,34 @@ class WidgetManager {
     }
   }
 
-  getWidgetMetadata (type) {
+  getWidgetMetadata(type) {
     return this.map[type]
   }
-  
-  getWidgetConfig (type) {
+
+  getWidgetConfig(type) {
     return this.map[type].config
   }
 
-  getWidgetDefine (type) {
-    return this.map[type].config
+  getWidgetDefine(type) {
+    return this.map[type].define
   }
 
-  registerWidget (type, config) {
+  registerWidget(type, config) {
     this.map[config.type] = config
   }
 
-  createInstance(type) {
-    
+  /**
+   * @description: 生成组件模型
+   * @param {*} type
+   * @return {*}
+   */
+  createWidgetModel(type, ctx) {
+    const configFunc = this.getWidgetConfig(type)
+    const defaultValue = configFunc().defaultValue
+    return {
+      id: nanoid(),
+      ...defaultValue
+    }
   }
 }
 

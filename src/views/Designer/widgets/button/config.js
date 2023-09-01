@@ -1,43 +1,42 @@
 export default function (ctx) {
-
   const sizeOptions = ctx.util.getConstants('sizeOptions');
-  
-  return {
-    styleConfig: {
 
-    },
-    style: {
-    
-    },
-    propsConfig: {
-      size: {
-        type: 'radio',
-        name: '尺寸',
-        props: {
-          options: sizeOptions,
+  return {
+    config: {
+      styleConfig: {},
+      propsConfig: {
+        size: {
+          type: 'radio',
+          name: '尺寸',
+          props: {
+            options: sizeOptions,
+          },
+        },
+        type: {
+          type: 'radio',
+          name: '尺寸',
+          props: {
+            options: sizeOptions,
+          },
         },
       },
-      type: {
-        type: 'radio',
-        name: '尺寸',
-        props: {
-          options: sizeOptions,
-        },
-      },
     },
-    props: {
-      
+    defaultValue: {
+      style: {},
+
+      props: {},
+    },
+    configInEditor: {
+      layout: {
+        grid: {
+          w: 4,
+          height: 4
+        }
+      }
     },
     lifeCircle: {
-      init() {
-      
-      },
-      add() {
-      
-      },
-      remove() {
-      
-      }
-    }
+      add() {},
+      remove() {},
+    },
   };
 }

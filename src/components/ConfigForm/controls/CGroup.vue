@@ -1,6 +1,6 @@
 <template>
   <div class="c-group" :class="{ 'c-group--noHeader': hideHeader }">
-    <el-collapse v-model="reactValue">
+    <el-collapse v-model="activeValue">
       <el-collapse-item :title="name" name="1">
         <!-- <template slot="title" v-if="!hideHeader">
           <div>
@@ -38,41 +38,41 @@ const props = defineProps({
     type: Object,
     default() {
       return {};
-    }
+    },
   },
   children: {
     type: Object,
     default() {
       return {};
-    }
+    },
   },
   hideHeader: {
     type: Boolean,
-    default: false
+    default: false,
   },
   layout: {
     type: String,
-    default: ''
+    default: '',
   },
   name: {
     type: String,
-    default: ''
+    default: '',
   },
   valuePath: {
     type: String,
-    default: ''
+    default: '',
   },
   enableOpen: {
     type: Boolean,
-    default: false
+    default: false,
   },
   expanded: {
     type: Boolean,
-    default: false
-  }
+    default: false,
+  },
 });
 
-const reactValue = ref(props.hideHeader || props.expanded ? '1' : '');
+const activeValue = ref(props.hideHeader || props.expanded ? '1' : '');
 
 const { getKeyPath } = useCommonUtil(props);
 </script>
@@ -121,6 +121,14 @@ const { getKeyPath } = useCommonUtil(props);
 
     .control-wrapper:last-child {
       margin-bottom: 0;
+    }
+  }
+}
+
+.c-group--noHeader {
+  > .el-collapse {
+    .el-collapse-item__wrap {
+      padding-top: 0.5rem;
     }
   }
 }

@@ -1,5 +1,5 @@
 <template>
-  <div class="control-wrapper" v-if="renderData.show !== false">
+  <div class="control-wrapper" v-if="renderData.show !== false" :style="configData.style">
     <span class="control-title" v-if="showName">
       {{ renderData.name }}
     </span>
@@ -64,7 +64,7 @@ const formValue = computed(() => {
 const componentProps = computed(() => {
   const defaultProps =
     componentConfig.defaultProps && componentConfig.defaultProps();
-  const { show, type, props: componentProps, ...rest } = props.configData;
+  const { show, type, props: componentProps, style, ...rest } = props.configData;
   return { ...rest, ...defaultProps, ...componentProps };
 });
 
@@ -142,6 +142,9 @@ $titleWidth: 80px;
     flex-grow: 1;
     display: flex;
     justify-content: flex-start;
+    > div {
+      width: 100%;
+    }
   }
 }
 </style>

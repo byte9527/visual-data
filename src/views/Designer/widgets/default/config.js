@@ -1,16 +1,13 @@
 export default {
   
-  props: {
-
-
+  config: {
+  
   },
-  editInCanvas: {
-    layout: {
-      grid: {
-        w: 4,
-        h: 4
-      }
-    }
+  defaultValue:{
+  
+  },
+  lifeCircle: {
+  
   }
 }
 

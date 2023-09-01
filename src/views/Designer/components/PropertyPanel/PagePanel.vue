@@ -94,16 +94,37 @@ export default {
                   name: '展示编辑网格',
                 },
                 colNum: {
-                  type: 'number',
+                  type: 'select',
                   name: '列数',
+                  props: {
+                    options: [
+                      { label: '2', value: 2 },
+                      { label: '3', value: 3 },
+                      { label: '4', value: 4 },
+                      { label: '5', value: 5 },
+                      { label: '8', value: 8 },
+                      { label: '12', value: 12 },
+                      { label: '24', value: 24 },
+                    ]
+                  }
                 },
                 cellHeight: {
                   type: 'number',
                   name: '行高',
                 },
                 paddingY: {
-                  type: 'number',
+                  type: 'select',
                   name: '垂直内边距',
+                  props: {
+                    options: [
+                      { label: '4', value: 4 },
+                      { label: '8', value: 8 },
+                      { label: '12', value: 12 },
+                      { label: '16', value: 16 },
+                      { label: '24', value: 24 },
+                      { label: '32', value: 32 },
+                    ]
+                  }
                 },
                 paddingX: {
                   type: 'number',
@@ -180,6 +201,7 @@ export default {
             },
             positionSetting: {
               type: 'group',
+              show: '${$form.layout.type === "position"}',
               props: {
                 hideHeader: true,
               },
