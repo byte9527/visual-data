@@ -1,32 +1,52 @@
-import { nanoid } from 'nanoid'
+import { nanoid } from 'nanoid';
+import configConstant from '../../utils/configConstant';
+
+/**
+ * @description: 处理组件数据
+ * @return {*}
+ */
 class WidgetManager {
   constructor() {
-    this.map = {}
-    this.init()
+    this.map = {};
+    this.init();
+  }
+
+  get widgetContext() {
+    return {
+      util: {
+        getConstant(key) {
+          return configConstant[key];
+        },
+      },
+    };
   }
 
   init() {
-    const modules = import.meta.glob('../../widgets/\*/index.js', { eager: true })
+    /* eslint-disable */
+    const modules = import.meta.glob('../../widgets/*/index.js', {
+      eager: true,
+    });
+    /* eslint-enable */
     for (const k in modules) {
-      const m = modules[k]
-      this.registerWidget(m.type, m.default)
+      const m = modules[k];
+      this.registerWidget(m.type, m.default);
     }
   }
 
   getWidgetMetadata(type) {
-    return this.map[type]
+    return this.map[type];
   }
 
   getWidgetConfig(type) {
-    return this.map[type].config
+    return this.map[type].config;
   }
 
   getWidgetDefine(type) {
-    return this.map[type].define
+    return this.map[type].define;
   }
 
   registerWidget(type, config) {
-    this.map[config.type] = config
+    this.map[config.type] = config;
   }
 
   /**
@@ -34,17 +54,19 @@ class WidgetManager {
    * @param {*} type
    * @return {*}
    */
-  createWidgetModel(type, ctx) {
-    const configFunc = this.getWidgetConfig(type)
-    const defaultValue = configFunc().defaultValue
+  createWidgetModel(type) {
+    const configFunc = this.getWidgetConfig(type);
+    const defaultValue = configFunc(this.widgetContext).defaultValue;
     return {
       id: nanoid(),
-      ...defaultValue
-    }
+      ...defaultValue,
+    };
+  }
+
+  getContainerLayout(id) {
   }
 }
 
-const widgetManger = new WidgetManager()
+const widgetManger = new WidgetManager();
 
-export default widgetManger
-
+export default widgetManger;

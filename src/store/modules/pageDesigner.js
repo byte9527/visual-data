@@ -1,4 +1,4 @@
-import { defaultPageSetting } from '../../views/Designer/core/utils/constant';
+import { defaultPageSetting } from '../../views/Designer/utils/constant';
 
 export default {
   namespaced: true,

@@ -58,8 +58,8 @@ const commander = new Command();
 
   commander.registerCommand({
     name: 'addWidgets',
-    handler: () => {
-
+    handler: (parentId, widgets) => {
+      
     },
     options: {
       noteStep: true

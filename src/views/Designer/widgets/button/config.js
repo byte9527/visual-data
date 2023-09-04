@@ -1,5 +1,5 @@
 export default function (ctx) {
-  const sizeOptions = ctx.util.getConstants('sizeOptions');
+  const sizeOptions = ctx.util.getConstant('sizeOptions');
 
   return {
     config: {
@@ -24,13 +24,23 @@ export default function (ctx) {
     defaultValue: {
       style: {},
 
-      props: {},
+      props: {
+        type: 'primary'
+      },
     },
-    configInEditor: {
+    editOptions: {
       layout: {
         grid: {
-          w: 4,
-          height: 4
+          initSize: {
+            w: 4,
+            h: 4
+          },
+        },
+        position: {
+          initSize: {
+            width: 480,
+            height: 400
+          },
         }
       }
     },

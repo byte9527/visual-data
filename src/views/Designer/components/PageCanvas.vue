@@ -23,14 +23,20 @@
       <RenderContainer
         :layout="pageSetting.layout"
         :style="pageSetting.style"
+        data-container-id="root"
+        data-widget-id="root"
       ></RenderContainer>
     </div>
   </div>
 </template>
 
 <script>
-import RenderContainer from './RenderContainer.vue';
 import { mapState } from 'vuex';
+
+import RenderContainer from './RenderContainer.vue';
+import WM from '../core/utils/widgetManager.js';
+import CanvasEventHandler from '../core/utils/CanvasEventHandler';
+import { Layout } from '../core/utils/layout/layout.ts';
 
 export default {
   components: { RenderContainer },
@@ -42,15 +48,26 @@ export default {
   computed: {
     ...mapState('pageDesigner', ['pageSetting']),
   },
-  mounted() {},
+  mounted() {
+    this.eventHandler = new CanvasEventHandler({
+      rootContainerId: 'root',
+      widgetKey: 'data-widget-id',
+      containerKey: 'data-container-id',
+    });
+  },
   methods: {
     onMousedown(e) {},
     onMouseMove(e) {},
     onMouseEnter(e) {},
     onMouseLeave(e) {},
     onDropHandle(e) {
-      const data = JSON.parse(e.dataTransfer.getData('widget/drag'))
-      debugger
+      const data = JSON.parse(e.dataTransfer.getData('widget/drag'));
+      const { type = 'default' } = data;
+      let model = WM.createWidgetModel(type);
+      const targetContainerId = this.eventHandler.getTargetContainerId(e);
+
+      const initStyle = Layout.getInitStyle(type, {}, {});
+      // model =
     },
     onDblclick(e) {},
     deleteHandler(e) {},

@@ -45,7 +45,7 @@
 <script>
 import { toRaw } from 'vue';
 import { db } from '@/utils/db';
-import { defaultPageSetting } from '../Designer/core/utils/constant';
+import { defaultPageSetting } from '../Designer/utils/constant';
 
 export default {
   mixins: [],
